@@ -37,9 +37,20 @@ dependencies:
   # Architecture
   flutter_riverpod: ^1.0.3
   hooks_riverpod: ^1.0.3
+
+  # code generate
   freezed: ^1.1.1
-  google_fonts: ^2.2.0
   json_serializable: ^6.1.4
+  json_annotation: ^4.4.0
+
+  # Font
+  google_fonts: ^2.2.0
+
+  # Api
+  http: ^0.13.4
+
+  # Local storage
+  shared_preferences: ^2.0.12
 
 dev_dependencies:
   flutter_test:

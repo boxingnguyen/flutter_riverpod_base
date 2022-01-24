@@ -1,39 +1,39 @@
-// {
-//     // Use IntelliSense to learn about possible attributes.
-//     // Hover to view descriptions of existing attributes.
-//     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-//     "version": "0.2.0",
-//     "configurations": [
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
         
-//         {
-//             "name": "debug-Development",
-//             "type": "dart",
-//             "request": "launch",
-//             "program": "lib/main/main_development.dart",
-//             "args": [
-//                 "--flavor",
-//                 "Development"
-//             ]
-//         },
-//         {
-//             "name": "debug-Production",
-//             "type": "dart",
-//             "request": "launch",
-//             "program": "lib/main/main_production.dart",
-//             "args": [
-//                 "--flavor",
-//                 "Production"
-//             ]
-//         },
-//         {
-//             "name": "debug-Staging",
-//             "type": "dart",
-//             "request": "launch",
-//             "program": "lib/main/main_staging.dart",
-//             "args": [
-//                 "--flavor",
-//                 "Staging"
-//             ]
-//         }
-//     ]
-// }
+        {
+            "name": "debug-Development",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main/main_development.dart",
+            "args": [
+                "--flavor",
+                "Development"
+            ]
+        },
+        {
+            "name": "debug-Production",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main/main_production.dart",
+            "args": [
+                "--flavor",
+                "Production"
+            ]
+        },
+        {
+            "name": "debug-Staging",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main/main_staging.dart",
+            "args": [
+                "--flavor",
+                "Staging"
+            ]
+        }
+    ]
+}

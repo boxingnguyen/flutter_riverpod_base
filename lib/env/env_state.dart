@@ -17,23 +17,21 @@ abstract class EnvState with _$EnvState {
 // ignore: avoid_classes_with_only_static_members
 class EnvValue {
   static const EnvState development = EnvState(
-    baseUrlApi: 'https://kanri-owner-dev1.chintaidx.com/graphql',
-    baseUrlS3:
-        'https://chintaidx-files-public-dev1.s3-ap-northeast-1.amazonaws.com',
-    termsOfServiceUrl: 'https://kanri-owner-dev1.chintaidx.com/terms',
-    paymentToken: 'https://pt01.mul-pay.jp/ext/api/credit/getToken',
+    baseUrlApi: 'https://jsonplaceholder.typicode.com',
+    baseUrlS3: '',
+    termsOfServiceUrl: '',
+    paymentToken: '',
   );
   static const EnvState staging = EnvState(
-    baseUrlApi: 'https://owner-stg.admin.chintaidx.com/graphql',
-    baseUrlS3:
-        'https://chintaidx-files-public-staging.s3-ap-northeast-1.amazonaws.com',
-    termsOfServiceUrl: 'https://owner-stg.admin.chintaidx.com/terms',
-    paymentToken: 'https://pt01.mul-pay.jp/ext/api/credit/getToken',
+    baseUrlApi: 'https://www.googleapis.com',
+    baseUrlS3: '',
+    termsOfServiceUrl: '',
+    paymentToken: '',
   );
   static const EnvState production = EnvState(
-    baseUrlApi: 'https://admin.chintaidx.com/graphql',
-    baseUrlS3: 'https://chintaidx-files-public.s3-ap-northeast-1.amazonaws.com',
-    termsOfServiceUrl: 'https://admin.chintaidx.com/terms',
-    paymentToken: 'https://p01.mul-pay.jp/ext/api/credit/getToken',
+    baseUrlApi: '',
+    baseUrlS3: '',
+    termsOfServiceUrl: '',
+    paymentToken: '',
   );
 }

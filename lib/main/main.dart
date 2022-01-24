@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider_base/env/env_state.dart';
 import 'package:provider_base/screens/home/home_screen.dart';
 
+late final StateProvider envProvider;
+
 void setupAndRunApp({required EnvState env}) {
-  final envProvider = StateProvider((ref) => env);
+  envProvider = StateProvider((ref) => env);
 
   runApp(const ProviderScope(
     child: MyApp(),

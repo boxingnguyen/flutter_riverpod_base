@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:provider_base/screens/home/home_state.dart';
+import 'package:provider_base/screens/post/post_screen.dart';
+import 'package:provider_base/utils/utils.dart';
 
 import 'home_state_notifier.dart';
 
-final homeProvider = StateNotifierProvider<HomeStateNotifier, HomeState>(
-    (_) => HomeStateNotifier());
-
-class HomeScreen extends HookConsumerWidget {
+class HomeScreen extends HookConsumerWidget with Utils {
   const HomeScreen({Key? key, required this.title}) : super(key: key);
 
   final String title;
@@ -26,7 +24,7 @@ class HomeScreen extends HookConsumerWidget {
         ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Consumer(
             builder: (_, ref, child) {
@@ -51,6 +49,9 @@ class HomeScreen extends HookConsumerWidget {
           Text(
             'NOT rebuild: $secondNow',
           ),
+          ElevatedButton(
+              onPressed: () => push(context, const PostScreen()),
+              child: const Text('Post List'))
         ],
       ),
       floatingActionButton: FloatingActionButton(
