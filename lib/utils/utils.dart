@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 mixin Utils {
   Future<dynamic> push(
@@ -16,6 +17,14 @@ mixin Utils {
     );
   }
 
+  Future<dynamic> pushReplacement(BuildContext context, Widget routerName) async {
+     Navigator.of(context).pushReplacement(
+        MaterialPageRoute<dynamic>(builder: (context) => routerName));
+  }
+  Future<dynamic> pushAndRemoveUntil(BuildContext context, Widget routerName) async{
+    await Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> routerName), (route) => false);
+  }
+
   void pushName(
     BuildContext context,
     String routeName, {
@@ -25,6 +34,14 @@ mixin Utils {
       routeName,
       arguments: arguments,
     );
+  }
+
+  void snackBar(BuildContext context, String title, Color titlecolor) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+      title,
+      style: TextStyle(color: titlecolor),
+    )));
   }
 
   double screenHeight(BuildContext context) {
@@ -117,7 +134,7 @@ mixin Utils {
       child: Container(
         width: 56,
         height: 22,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             // image: DecorationImage(
             //   fit: BoxFit.cover,
             //   image: CachedNetworkImageProvider(
@@ -155,6 +172,29 @@ mixin Utils {
           color: Colors.grey,
         ),
         child: const Icon(Icons.close, size: 20),
+      ),
+    );
+  }
+
+  Widget customBtn(
+      {Color backgoundColor = Colors.white,
+      required String label,
+      Color labelColor = Colors.blue,
+      required Color iconColor,
+      required IconData iconData,
+      required Function() onTap}) {
+    return ElevatedButton.icon(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(backgoundColor),
+      ),
+      onPressed: onTap,
+      icon: FaIcon(
+        iconData,
+        color: iconColor,
+      ),
+      label: Text(
+        label,
+        style: TextStyle(color: labelColor),
       ),
     );
   }

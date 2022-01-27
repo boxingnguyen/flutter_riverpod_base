@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/screens/login/login_screen.dart';
+import 'package:provider_base/screens/login/login_state_notifier.dart';
 import 'package:provider_base/screens/post/post_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
@@ -15,7 +17,8 @@ class HomeScreen extends HookConsumerWidget with Utils {
   Widget build(BuildContext context, WidgetRef ref) {
     // final state = ref.watch(homeProvider);
     // if declare state here entire HomeScreen will be rebuild when state change
-
+    final userState = ref.watch(loginProvider);
+    double _imgRadius = 32;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -23,13 +26,13 @@ class HomeScreen extends HookConsumerWidget with Utils {
           style: GoogleFonts.notoSans(fontWeight: FontWeight.bold),
         ),
       ),
+      drawer: drawerCustom(context, ref),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Consumer(
             builder: (_, ref, child) {
               final state = ref.watch(homeProvider);
-
               return Column(
                 children: [
                   Center(child: Text('${state.counter}')),
@@ -45,6 +48,15 @@ class HomeScreen extends HookConsumerWidget with Utils {
                 ],
               );
             },
+          ),
+          CircleAvatar(
+            backgroundColor: Colors.black,
+            radius: _imgRadius,
+            backgroundImage: NetworkImage(userState.userDetail?.photoUrl ?? ''),
+          ),
+          Text(userState.userDetail?.displayName ?? '', style: const TextStyle(fontSize: 18,),),
+          const SizedBox(
+            height: 10,
           ),
           Text(
             'NOT rebuild: $secondNow',
@@ -63,5 +75,27 @@ class HomeScreen extends HookConsumerWidget with Utils {
 
   String get secondNow {
     return DateTime.now().second.toString();
+  }
+  Widget drawerCustom( BuildContext context, WidgetRef ref){
+    final userState = ref.watch(loginProvider);
+    return Drawer(
+      child: ListView(
+        children: [
+          UserAccountsDrawerHeader(accountName: Text(userState.userDetail?.displayName ?? 'Name'), accountEmail: Text(userState.userDetail?.email ?? 'Email'),
+          currentAccountPicture: CircleAvatar(
+            backgroundImage: NetworkImage(userState.userDetail?.photoUrl ?? ''),
+          ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.power_settings_new),
+            title: const Text('Logout'),
+            onTap: (){
+              ref.read(loginProvider.notifier).logOut();
+              pushAndRemoveUntil(context, const LoginScreen());
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
