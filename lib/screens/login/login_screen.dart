@@ -28,7 +28,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
                 iconColor: const Color(0xFF2986cc),
                 iconData: FontAwesomeIcons.facebook,
                 onTap: () {
-                  _signInWithFacebook();
+                  _signInWithFacebook(context, ref);
                 }),
           ],
         ),
@@ -36,16 +36,25 @@ class LoginScreen extends HookConsumerWidget with Utils {
     );
   }
 
-  _signInWithGoogle(BuildContext context, WidgetRef ref) async{
+  _signInWithGoogle(BuildContext context, WidgetRef ref) async {
     final userState = ref.watch(loginProvider);
     await ref.read(loginProvider.notifier).signInWithGoogle();
-    if(userState.loginStatus == true) {
+    if (userState.userDetail?.displayName == null) {
+      snackBar(context, 'Login Failed', Colors.red);
+    } else {
       snackBar(context, 'Login Succesfully', Colors.green);
       await pushReplacement(context, const HomeScreen(title: 'Base'));
-    } else {
-      snackBar(context, 'Login Failed', Colors.red);
     }
   }
 
-  Future<void> _signInWithFacebook() async {}
+  Future<void> _signInWithFacebook(BuildContext context, WidgetRef ref) async {
+    final userState = ref.watch(loginProvider);
+    await ref.read(loginProvider.notifier).signInWithFacebook();
+    if (userState.userDetail?.displayName == null) {
+      snackBar(context, 'Login Failed', Colors.red);
+    } else {
+      snackBar(context, 'Login Succesfully', Colors.green);
+      await pushReplacement(context, const HomeScreen(title: 'Base'));
+    }
+  }
 }

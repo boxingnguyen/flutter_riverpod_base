@@ -17,8 +17,8 @@ class HomeScreen extends HookConsumerWidget with Utils {
   Widget build(BuildContext context, WidgetRef ref) {
     // final state = ref.watch(homeProvider);
     // if declare state here entire HomeScreen will be rebuild when state change
-    final userState = ref.watch(loginProvider);
-    double _imgRadius = 32;
+    double _avtRadius = 32;
+    final loginState = ref.watch(loginProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -51,10 +51,16 @@ class HomeScreen extends HookConsumerWidget with Utils {
           ),
           CircleAvatar(
             backgroundColor: Colors.black,
-            radius: _imgRadius,
-            backgroundImage: NetworkImage(userState.userDetail?.photoUrl ?? ''),
+            radius: _avtRadius,
+            backgroundImage:
+                NetworkImage(loginState.userDetail?.photoUrl ?? ''),
           ),
-          Text(userState.userDetail?.displayName ?? '', style: const TextStyle(fontSize: 18,),),
+          Text(
+            loginState.userDetail?.displayName ?? '',
+            style: const TextStyle(
+              fontSize: 18,
+            ),
+          ),
           const SizedBox(
             height: 10,
           ),
@@ -76,20 +82,27 @@ class HomeScreen extends HookConsumerWidget with Utils {
   String get secondNow {
     return DateTime.now().second.toString();
   }
-  Widget drawerCustom( BuildContext context, WidgetRef ref){
+
+  Widget drawerCustom(BuildContext context, WidgetRef ref) {
     final userState = ref.watch(loginProvider);
     return Drawer(
       child: ListView(
         children: [
-          UserAccountsDrawerHeader(accountName: Text(userState.userDetail?.displayName ?? 'Name'), accountEmail: Text(userState.userDetail?.email ?? 'Email'),
-          currentAccountPicture: CircleAvatar(
-            backgroundImage: NetworkImage(userState.userDetail?.photoUrl ?? ''),
-          ),
+          UserAccountsDrawerHeader(
+            accountName: Text(
+              userState.userDetail?.displayName ?? 'Name',
+              style: const TextStyle(fontSize: 24),
+            ),
+            accountEmail: Text(userState.userDetail?.email ?? ''),
+            currentAccountPicture: CircleAvatar(
+              backgroundImage:
+                  NetworkImage(userState.userDetail?.photoUrl ?? ''),
+            ),
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),
             title: const Text('Logout'),
-            onTap: (){
+            onTap: () {
               ref.read(loginProvider.notifier).logOut();
               pushAndRemoveUntil(context, const LoginScreen());
             },

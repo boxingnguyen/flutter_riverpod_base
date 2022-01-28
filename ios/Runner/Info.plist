@@ -27,6 +27,31 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.444556518136-541391jro7ctudim4j720bkkoettsa2a</string>
+			</array>
+		</dict>
+	</array>
+		<array>
+  		<dict>
+  			<key>CFBundleURLSchemes</key>
+  		<array>
+    	<string>fbAPP-ID</string>
+		</array>
+  		</dict>
+	</array>
+		<key>FacebookAppID</key>
+		<string>490933362370948</string>
+	<key>FacebookClientToken</key>
+	<string>490933362370948</string>
+	<key>FacebookDisplayName</key>
+	<string>provider_base</string>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>

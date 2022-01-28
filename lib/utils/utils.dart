@@ -17,12 +17,23 @@ mixin Utils {
     );
   }
 
-  Future<dynamic> pushReplacement(BuildContext context, Widget routerName) async {
-     Navigator.of(context).pushReplacement(
+  Future<dynamic> pushReplacement(BuildContext context, Widget routerName) {
+    return Navigator.of(context).pushReplacement(
         MaterialPageRoute<dynamic>(builder: (context) => routerName));
   }
-  Future<dynamic> pushAndRemoveUntil(BuildContext context, Widget routerName) async{
-    await Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> routerName), (route) => false);
+
+  Future<dynamic> pushAndRemoveUntil(BuildContext context, Widget routerName) {
+    return Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => routerName), (route) => false);
+  }
+
+  Future<void> snackBar(
+      BuildContext context, String title, Color titlecolor) async {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+      title,
+      style: TextStyle(color: titlecolor),
+    )));
   }
 
   void pushName(
@@ -34,14 +45,6 @@ mixin Utils {
       routeName,
       arguments: arguments,
     );
-  }
-
-  void snackBar(BuildContext context, String title, Color titlecolor) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(
-      title,
-      style: TextStyle(color: titlecolor),
-    )));
   }
 
   double screenHeight(BuildContext context) {
@@ -146,6 +149,29 @@ mixin Utils {
     );
   }
 
+  Widget customBtn(
+      {Color backgoundColor = Colors.white,
+      required String label,
+      Color labelColor = Colors.blue,
+      required Color iconColor,
+      required IconData iconData,
+      required Function() onTap}) {
+    return ElevatedButton.icon(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(backgoundColor),
+      ),
+      onPressed: onTap,
+      icon: FaIcon(
+        iconData,
+        color: iconColor,
+      ),
+      label: Text(
+        label,
+        style: TextStyle(color: labelColor),
+      ),
+    );
+  }
+
   static Widget _backBtn(
       BuildContext context, VoidCallback? pressBack, dynamic popValue) {
     return InkWell(
@@ -172,29 +198,6 @@ mixin Utils {
           color: Colors.grey,
         ),
         child: const Icon(Icons.close, size: 20),
-      ),
-    );
-  }
-
-  Widget customBtn(
-      {Color backgoundColor = Colors.white,
-      required String label,
-      Color labelColor = Colors.blue,
-      required Color iconColor,
-      required IconData iconData,
-      required Function() onTap}) {
-    return ElevatedButton.icon(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(backgoundColor),
-      ),
-      onPressed: onTap,
-      icon: FaIcon(
-        iconData,
-        color: iconColor,
-      ),
-      label: Text(
-        label,
-        style: TextStyle(color: labelColor),
       ),
     );
   }

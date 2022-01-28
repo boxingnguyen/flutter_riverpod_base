@@ -6,6 +6,5 @@ part 'login_state.freezed.dart';
 abstract class LoginState with _$LoginState {
   factory LoginState({
     UserDetail? userDetail,
-    @Default(false) bool loginStatus,
   }) = _LoginState;
 }

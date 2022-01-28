@@ -1,21 +1,19 @@
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:state_notifier/state_notifier.dart';
 import '../../models/user/user_detail.dart';
 import 'login_state.dart';
 
 final loginProvider = StateNotifierProvider<LoginStateNotifier, LoginState>(
     (_) => LoginStateNotifier());
 
-class LoginStateNotifier extends StateNotifier<LoginState> with LocatorMixin {
+class LoginStateNotifier extends StateNotifier<LoginState> {
   LoginStateNotifier() : super(LoginState());
 
   final googleSignIn = GoogleSignIn();
   GoogleSignInAccount? googleSignInAccount;
   UserDetail? userDetail;
   Map? userData;
-  final bool loginDone = false;
   signInWithGoogle() async {
     googleSignInAccount = await googleSignIn.signIn();
     userDetail = UserDetail(
@@ -24,9 +22,6 @@ class LoginStateNotifier extends StateNotifier<LoginState> with LocatorMixin {
       photoUrl: googleSignInAccount?.photoUrl,
     );
     state = LoginState(userDetail: userDetail);
-    if(state.userDetail?.email != null) {
-      state = state.copyWith(loginStatus: !loginDone);
-    }
   }
 
   signInWithFacebook() async {
@@ -50,7 +45,7 @@ class LoginStateNotifier extends StateNotifier<LoginState> with LocatorMixin {
 
   logOut() async {
     googleSignInAccount = await googleSignIn.signOut();
-    //await FacebookAuth.i.logOut();
+    await FacebookAuth.i.logOut();
     userData = null;
     state = state.copyWith(userDetail: null);
   }
