@@ -18,10 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$LoginStateTearOff {
   const _$LoginStateTearOff();
 
-  _LoginState call({UserDetail? userDetail, bool loginStatus = false}) {
+  _LoginState call({UserDetail? userDetail}) {
     return _LoginState(
       userDetail: userDetail,
-      loginStatus: loginStatus,
     );
   }
 }
@@ -32,7 +31,6 @@ const $LoginState = _$LoginStateTearOff();
 /// @nodoc
 mixin _$LoginState {
   UserDetail? get userDetail => throw _privateConstructorUsedError;
-  bool get loginStatus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LoginStateCopyWith<LoginState> get copyWith =>
@@ -44,7 +42,7 @@ abstract class $LoginStateCopyWith<$Res> {
   factory $LoginStateCopyWith(
           LoginState value, $Res Function(LoginState) then) =
       _$LoginStateCopyWithImpl<$Res>;
-  $Res call({UserDetail? userDetail, bool loginStatus});
+  $Res call({UserDetail? userDetail});
 }
 
 /// @nodoc
@@ -58,17 +56,12 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
   @override
   $Res call({
     Object? userDetail = freezed,
-    Object? loginStatus = freezed,
   }) {
     return _then(_value.copyWith(
       userDetail: userDetail == freezed
           ? _value.userDetail
           : userDetail // ignore: cast_nullable_to_non_nullable
               as UserDetail?,
-      loginStatus: loginStatus == freezed
-          ? _value.loginStatus
-          : loginStatus // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -79,7 +72,7 @@ abstract class _$LoginStateCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
           _LoginState value, $Res Function(_LoginState) then) =
       __$LoginStateCopyWithImpl<$Res>;
   @override
-  $Res call({UserDetail? userDetail, bool loginStatus});
+  $Res call({UserDetail? userDetail});
 }
 
 /// @nodoc
@@ -95,17 +88,12 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userDetail = freezed,
-    Object? loginStatus = freezed,
   }) {
     return _then(_LoginState(
       userDetail: userDetail == freezed
           ? _value.userDetail
           : userDetail // ignore: cast_nullable_to_non_nullable
               as UserDetail?,
-      loginStatus: loginStatus == freezed
-          ? _value.loginStatus
-          : loginStatus // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -113,17 +101,14 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoginState implements _LoginState {
-  _$_LoginState({this.userDetail, this.loginStatus = false});
+  _$_LoginState({this.userDetail});
 
   @override
   final UserDetail? userDetail;
-  @JsonKey()
-  @override
-  final bool loginStatus;
 
   @override
   String toString() {
-    return 'LoginState(userDetail: $userDetail, loginStatus: $loginStatus)';
+    return 'LoginState(userDetail: $userDetail)';
   }
 
   @override
@@ -132,16 +117,12 @@ class _$_LoginState implements _LoginState {
         (other.runtimeType == runtimeType &&
             other is _LoginState &&
             const DeepCollectionEquality()
-                .equals(other.userDetail, userDetail) &&
-            const DeepCollectionEquality()
-                .equals(other.loginStatus, loginStatus));
+                .equals(other.userDetail, userDetail));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(userDetail),
-      const DeepCollectionEquality().hash(loginStatus));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(userDetail));
 
   @JsonKey(ignore: true)
   @override
@@ -150,13 +131,10 @@ class _$_LoginState implements _LoginState {
 }
 
 abstract class _LoginState implements LoginState {
-  factory _LoginState({UserDetail? userDetail, bool loginStatus}) =
-      _$_LoginState;
+  factory _LoginState({UserDetail? userDetail}) = _$_LoginState;
 
   @override
   UserDetail? get userDetail;
-  @override
-  bool get loginStatus;
   @override
   @JsonKey(ignore: true)
   _$LoginStateCopyWith<_LoginState> get copyWith =>

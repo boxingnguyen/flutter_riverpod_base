@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/screens/home/home_screen.dart';
 import 'package:provider_base/screens/login/login_state_notifier.dart';
 
+import '../../common/common_view/common_button.dart';
 import '../../utils/utils.dart';
 
 class LoginScreen extends HookConsumerWidget with Utils {
@@ -16,14 +17,14 @@ class LoginScreen extends HookConsumerWidget with Utils {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            customBtn(
+            CommonButton.customBtn(
                 label: 'Login with Google',
                 iconColor: const Color(0xFFf44336),
                 iconData: FontAwesomeIcons.google,
                 onTap: () {
                   _signInWithGoogle(context, ref);
                 }),
-            customBtn(
+            CommonButton.customBtn(
                 label: 'Login with Facebook',
                 iconColor: const Color(0xFF2986cc),
                 iconData: FontAwesomeIcons.facebook,
@@ -36,9 +37,9 @@ class LoginScreen extends HookConsumerWidget with Utils {
     );
   }
 
-  _signInWithGoogle(BuildContext context, WidgetRef ref) async {
-    final userState = ref.watch(loginProvider);
+  Future<void> _signInWithGoogle(BuildContext context, WidgetRef ref) async {
     await ref.read(loginProvider.notifier).signInWithGoogle();
+    final userState = ref.watch(loginProvider);
     if (userState.userDetail?.displayName == null) {
       snackBar(context, 'Login Failed', Colors.red);
     } else {
@@ -48,8 +49,8 @@ class LoginScreen extends HookConsumerWidget with Utils {
   }
 
   Future<void> _signInWithFacebook(BuildContext context, WidgetRef ref) async {
-    final userState = ref.watch(loginProvider);
     await ref.read(loginProvider.notifier).signInWithFacebook();
+    final userState = ref.watch(loginProvider);
     if (userState.userDetail?.displayName == null) {
       snackBar(context, 'Login Failed', Colors.red);
     } else {

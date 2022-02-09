@@ -10,21 +10,27 @@ final loginProvider = StateNotifierProvider<LoginStateNotifier, LoginState>(
 class LoginStateNotifier extends StateNotifier<LoginState> {
   LoginStateNotifier() : super(LoginState());
 
-  final googleSignIn = GoogleSignIn();
+  final GoogleSignIn googleSignIn = GoogleSignIn(
+    scopes: ['email'],
+  );
   GoogleSignInAccount? googleSignInAccount;
   UserDetail? userDetail;
   Map? userData;
-  signInWithGoogle() async {
+  bool loginDone = false;
+
+  Future<void> signInWithGoogle() async {
     googleSignInAccount = await googleSignIn.signIn();
     userDetail = UserDetail(
       displayName: googleSignInAccount?.displayName,
       email: googleSignInAccount?.email,
       photoUrl: googleSignInAccount?.photoUrl,
     );
-    state = LoginState(userDetail: userDetail);
+    if(userDetail != null) {
+      state = LoginState(userDetail: userDetail);
+    }
   }
 
-  signInWithFacebook() async {
+  Future<void> signInWithFacebook() async {
     final result = await FacebookAuth.i.login(
       permissions: ['public_profile', 'email'],
     );
@@ -41,9 +47,12 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       );
       state = state.copyWith(userDetail: newUser);
     }
+    if(result.hashCode != 200){
+      return null;
+    }
   }
 
-  logOut() async {
+  Future<void> logOut() async {
     googleSignInAccount = await googleSignIn.signOut();
     await FacebookAuth.i.logOut();
     userData = null;

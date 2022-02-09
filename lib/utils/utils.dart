@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider_base/common/common_view/common_button.dart';
 
 mixin Utils {
   Future<dynamic> push(
@@ -86,7 +86,7 @@ mixin Utils {
     final _actions = <Widget>[];
 
     if (hasClose) {
-      _actions.add(_closeBtn(context, popValue));
+      _actions.add(CommonButton.closeBtn(context, popValue));
     }
 
     return AppBar(
@@ -116,7 +116,7 @@ mixin Utils {
     } else if (leftTitle != null) {
       _leading = _leftTitle(context, leftTitle);
     } else {
-      _leading = leading ?? _backBtn(context, pressBack, popValue);
+      _leading = leading ?? CommonButton.backBtn(context, pressBack, popValue);
     }
 
     return Padding(
@@ -145,59 +145,6 @@ mixin Utils {
             //   ),
             // ),
             ),
-      ),
-    );
-  }
-
-  Widget customBtn(
-      {Color backgoundColor = Colors.white,
-      required String label,
-      Color labelColor = Colors.blue,
-      required Color iconColor,
-      required IconData iconData,
-      required Function() onTap}) {
-    return ElevatedButton.icon(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(backgoundColor),
-      ),
-      onPressed: onTap,
-      icon: FaIcon(
-        iconData,
-        color: iconColor,
-      ),
-      label: Text(
-        label,
-        style: TextStyle(color: labelColor),
-      ),
-    );
-  }
-
-  static Widget _backBtn(
-      BuildContext context, VoidCallback? pressBack, dynamic popValue) {
-    return InkWell(
-      onTap: pressBack ??
-          () {
-            Navigator.of(context).pop(popValue);
-          },
-      child: const Icon(
-        Icons.arrow_back_ios,
-        color: Colors.black,
-        size: 20,
-      ),
-    );
-  }
-
-  static Widget _closeBtn(BuildContext context, dynamic popValue) {
-    return InkWell(
-      onTap: () => Navigator.of(context).pop(popValue),
-      child: Container(
-        margin: const EdgeInsets.only(right: 10),
-        padding: const EdgeInsets.all(6),
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.grey,
-        ),
-        child: const Icon(Icons.close, size: 20),
       ),
     );
   }
