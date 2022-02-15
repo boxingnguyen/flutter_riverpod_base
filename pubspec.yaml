@@ -52,6 +52,9 @@ dependencies:
   font_awesome_flutter: ^9.2.0
   google_fonts: ^2.2.0
 
+  #img_svg
+  flutter_svg: ^1.0.3
+
   #google signin
   google_sign_in: ^5.1.0
 
@@ -83,9 +86,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
+    - assets/svg/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
