@@ -53,7 +53,7 @@ class HomeScreen extends HookConsumerWidget with Utils {
             backgroundColor: Colors.black,
             radius: _avtRadius,
             backgroundImage:
-                NetworkImage(loginState.userDetail?.photoUrl ?? ''),
+                NetworkImage(loginState.userDetail?.photoUrl ?? 'https://picsum.photos/250?image=9'),
           ),
           Text(
             loginState.userDetail?.displayName ?? '',
@@ -96,7 +96,7 @@ class HomeScreen extends HookConsumerWidget with Utils {
             accountEmail: Text(userState.userDetail?.email ?? ''),
             currentAccountPicture: CircleAvatar(
               backgroundImage:
-                  NetworkImage(userState.userDetail?.photoUrl ?? ''),
+                  NetworkImage(userState.userDetail?.photoUrl ?? 'https://picsum.photos/250?image=9'),
             ),
           ),
           ListTile(
