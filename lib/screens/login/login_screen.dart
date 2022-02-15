@@ -207,7 +207,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
                     padding: const EdgeInsets.only(left: 12),
                     child: Text(txtLogin,
                         style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w700,
                           fontSize: 18,
                         )),
                   ),

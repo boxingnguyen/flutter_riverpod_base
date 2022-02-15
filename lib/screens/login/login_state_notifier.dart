@@ -47,9 +47,6 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       );
       state = state.copyWith(userDetail: newUser);
     }
-    if(result.hashCode != 200){
-      return null;
-    }
   }
 
   Future<void> logOut() async {

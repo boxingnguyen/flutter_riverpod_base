@@ -104,6 +104,7 @@ class HomeScreen extends HookConsumerWidget with Utils {
             title: const Text('Logout'),
             onTap: () {
               ref.read(loginProvider.notifier).logOut();
+              snackBar(context, 'Logout', Colors.green);
               pushAndRemoveUntil(context, const LoginScreen());
             },
           ),
