@@ -58,6 +58,10 @@ dependencies:
   #google signin
   google_sign_in: ^5.1.0
 
+  #Firebase
+  firebase_auth: ^3.3.7
+  firebase_core: ^1.12.0
+
   #facebook signin
   flutter_facebook_auth: ^4.0.1
 

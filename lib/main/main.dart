@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,9 +7,10 @@ import 'package:provider_base/screens/login/login_screen.dart';
 
 late final StateProvider envProvider;
 
-void setupAndRunApp({required EnvState env}) {
+void setupAndRunApp({required EnvState env}) async {
   envProvider = StateProvider((ref) => env);
-
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const ProviderScope(
     child: MyApp(),
   ));

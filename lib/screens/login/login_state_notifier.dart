@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -19,18 +20,37 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
   bool loginDone = false;
 
   Future<void> signInWithGoogle() async {
-    googleSignInAccount = await googleSignIn.signIn();
-    userDetail = UserDetail(
-      displayName: googleSignInAccount?.displayName,
-      email: googleSignInAccount?.email,
-      photoUrl: googleSignInAccount?.photoUrl,
-    );
-    if(userDetail != null) {
+    try {
+      googleSignInAccount = await googleSignIn.signIn();
+      final FirebaseAuth _auth = FirebaseAuth.instance;
+      final GoogleSignInAuthentication? googleSignInAuthentication =
+          await googleSignInAccount?.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication?.accessToken,
+        idToken: googleSignInAuthentication?.idToken,
+      );
+
+      final authResult = await _auth.signInWithCredential(credential);
+
+      final User? user = authResult.user;
+      assert(!user!.isAnonymous);
+      assert(await user?.getIdToken() != null);
+
+      final User? currentUser = _auth.currentUser;
+      assert(user?.uid == currentUser?.uid);
+      userDetail = UserDetail(
+        displayName: user?.displayName,
+        email: user?.email,
+        photoUrl: user?.photoURL,
+      );
       state = LoginState(userDetail: userDetail);
+    } catch (e) {
+      print(e);
     }
   }
 
-  Future<void> signInWithFacebook() async {
+  Future<Future<UserCredential>> signInWithFacebook() async {
     final result = await FacebookAuth.i.login(
       permissions: ['public_profile', 'email'],
     );
@@ -46,7 +66,13 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
         photoUrl: requestData['picture']['data']['url'],
       );
       state = state.copyWith(userDetail: newUser);
+    } else {
+      print(result.status);
     }
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(result.accessToken!.token);
+
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 
   Future<void> logOut() async {
