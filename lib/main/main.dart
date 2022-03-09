@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider_base/env/env_state.dart';
-import 'package:provider_base/screens/home/home_screen.dart';
+import 'package:provider_base/screens/modules/modules_screen.dart';
+import 'package:provider_base/screens/routes.dart';
 
 late final StateProvider envProvider;
 
@@ -21,10 +22,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(title: 'Base'),
+      initialRoute: ModulesScreen.routeName,
+      routes: routes,
     );
   }
 }
