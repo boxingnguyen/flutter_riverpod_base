@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider_base/common/common_view/switch_theme_button.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class ModulesScreen extends StatelessWidget with Utils {
@@ -9,12 +10,12 @@ class ModulesScreen extends StatelessWidget with Utils {
   @override
   Widget build(BuildContext context) {
     final Map<String, String> listModules = {
-      'Common API': '/common_api',
+      'Common API': '/home',
       'Authorization': '/authorization',
       'Util': '/util',
       'Notification': '/notification',
       'Take Picture': '/take_picture',
-      'Google Analysis': '/google_analysis',
+      'Google\n Analysis': '/google_analysis',
       'OTP/Capcha': '/otp_capcha',
       'QR Code': '/qr_code',
       'Play Video': '/play_video'
@@ -24,8 +25,8 @@ class ModulesScreen extends StatelessWidget with Utils {
       appBar: AppBar(
         title: const Text('List Modules'),
         centerTitle: false,
-        actions: [
-          Switch.adaptive(value: true, onChanged: (value) {}),
+        actions: const [
+          SwitchThemebutton(),
         ],
       ),
       body: Center(
@@ -54,11 +55,12 @@ class ModulesScreen extends StatelessWidget with Utils {
         alignment: Alignment.center,
         child: Text(
           title,
+          textAlign: TextAlign.center,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         decoration: BoxDecoration(
           color: Colors.grey[300],
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
               color: Colors.grey[500]!,

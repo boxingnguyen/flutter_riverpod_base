@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/common/core/theme/appTheme_state_notifier.dart';
 import 'package:provider_base/env/env_state.dart';
 import 'package:provider_base/screens/modules/modules_screen.dart';
 import 'package:provider_base/screens/routes.dart';
@@ -14,18 +16,18 @@ void setupAndRunApp({required EnvState env}) {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends HookConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(appThemeProvider);
+
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: state.appTheme,
       initialRoute: ModulesScreen.routeName,
       routes: routes,
     );
