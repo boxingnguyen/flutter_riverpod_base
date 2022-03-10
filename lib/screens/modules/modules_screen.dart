@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/common_view/switch_theme_button.dart';
+import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class ModulesScreen extends StatelessWidget with Utils {
@@ -56,7 +57,8 @@ class ModulesScreen extends StatelessWidget with Utils {
         child: Text(
           title,
           textAlign: TextAlign.center,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, color: AppColors.black),
         ),
         decoration: BoxDecoration(
           color: Colors.grey[300],
@@ -68,9 +70,9 @@ class ModulesScreen extends StatelessWidget with Utils {
               blurRadius: 15,
               spreadRadius: 1,
             ),
-            const BoxShadow(
-              color: Colors.white,
-              offset: Offset(-4, -4),
+            BoxShadow(
+              color: Theme.of(context).primaryColor,
+              offset: const Offset(-4, -4),
               blurRadius: 15,
               spreadRadius: 1,
             ),
