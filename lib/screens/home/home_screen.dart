@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/screens/login/login_screen.dart';
 import 'package:provider_base/screens/post/post_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
@@ -16,6 +17,8 @@ class HomeScreen extends HookConsumerWidget with Utils {
   Widget build(BuildContext context, WidgetRef ref) {
     // final state = ref.watch(homeProvider);
     // if declare state here entire HomeScreen will be rebuild when state change
+    double _avtRadius = 32;
+    final loginState = ref.watch(loginProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -24,6 +27,7 @@ class HomeScreen extends HookConsumerWidget with Utils {
           style: GoogleFonts.notoSans(fontWeight: FontWeight.bold),
         ),
       ),
+      drawer: drawerCustom(context, ref),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -47,6 +51,21 @@ class HomeScreen extends HookConsumerWidget with Utils {
               );
             },
           ),
+          CircleAvatar(
+            backgroundColor: Colors.black,
+            radius: _avtRadius,
+            backgroundImage:
+            NetworkImage(loginState.userDetail?.photoUrl ?? 'https://picsum.photos/250?image=9'),
+          ),
+          Text(
+            loginState.userDetail?.displayName ?? '',
+            style: const TextStyle(
+              fontSize: 18,
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
           Text(
             'NOT rebuild: $secondNow',
           ),
@@ -64,5 +83,35 @@ class HomeScreen extends HookConsumerWidget with Utils {
 
   String get secondNow {
     return DateTime.now().second.toString();
+  }
+
+  Widget drawerCustom(BuildContext context, WidgetRef ref) {
+    final userState = ref.watch(loginProvider);
+    return Drawer(
+      child: ListView(
+        children: [
+          UserAccountsDrawerHeader(
+            accountName: Text(
+              userState.userDetail?.displayName ?? 'Name',
+              style: const TextStyle(fontSize: 24),
+            ),
+            accountEmail: Text(userState.userDetail?.email ?? ''),
+            currentAccountPicture: CircleAvatar(
+              backgroundImage:
+              NetworkImage(userState.userDetail?.photoUrl ?? 'https://picsum.photos/250?image=9'),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.power_settings_new),
+            title: const Text('Logout'),
+            onTap: () {
+              ref.read(loginProvider.notifier).logOut();
+              snackBar(context, 'Logout', Colors.green);
+              pushAndRemoveUntil(context, const LoginScreen());
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -32,6 +32,11 @@ mixin Utils {
         MaterialPageRoute<dynamic>(builder: (context) => routerName));
   }
 
+  Future<dynamic> pushAndRemoveUntil(BuildContext context, Widget routerName) {
+    return Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => routerName), (route) => false);
+  }
+
   double screenHeight(BuildContext context) {
     return MediaQuery.of(context).size.height;
   }
@@ -40,6 +45,14 @@ mixin Utils {
     return MediaQuery.of(context).size.width;
   }
 
+  Future<void> snackBar(
+      BuildContext context, String title, Color titleColor) async {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          title,
+          style: TextStyle(color: titleColor),
+        )));
+  }
   AppBar getAppBar({
     required BuildContext context,
     String? title,

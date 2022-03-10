@@ -5,8 +5,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/screens/home/home_screen.dart';
+import 'package:provider_base/screens/login/login_state.dart';
+import 'package:provider_base/screens/login/login_state_notifier.dart';
 import 'package:provider_base/utils/image_svg_utils.dart';
 import 'package:provider_base/utils/utils.dart';
+
+final loginProvider = StateNotifierProvider<LoginStateNotifier, LoginState>(
+        (_) => LoginStateNotifier());
 
 class LoginScreen extends HookConsumerWidget with Utils {
   const LoginScreen({Key? key}) : super(key: key);
@@ -38,10 +43,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
                     context,
                     urlSvg: ImageSvg.icGoogle,
                     txtLogin: 'Sign up with Google',
-                    onTap: () {
-                      // TODO(anyone): login by google
-                      pushReplacement(context, const HomeScreen(title: 'base'));
-                    },
+                    onTap: () => _signInWithGoogle(context, ref),
                     sizeWith: _sizeWith,
                   ),
                   loginBtn(
@@ -181,12 +183,11 @@ class LoginScreen extends HookConsumerWidget with Utils {
     required String txtLogin,
     required Function() onTap,
   }) {
-    var size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(10),
       child: SizedBox(
         height: 40,
-        width: size.width * sizeWith,
+        width: screenWidth(context) * sizeWith,
         child: InkWell(
           onTap: onTap,
           child: Ink(
@@ -221,4 +222,17 @@ class LoginScreen extends HookConsumerWidget with Utils {
       ),
     );
   }
+
+  Future<void> _signInWithGoogle(BuildContext context, WidgetRef ref) async {
+    await ref.read(loginProvider.notifier).signInWithGoogle();
+    final userState = ref.watch(loginProvider);
+    if (userState.userDetail?.displayName == null) {
+      snackBar(context, 'Login Failed', Colors.red);
+    } else {
+      snackBar(context, 'Login Successful', Colors.green);
+      await pushReplacement(context, const HomeScreen(title: 'Base'));
+    }
+  }
+
+  
 }
