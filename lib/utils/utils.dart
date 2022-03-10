@@ -27,6 +27,11 @@ mixin Utils {
     );
   }
 
+  Future<dynamic> pushReplacement(BuildContext context, Widget routerName) {
+    return Navigator.of(context).pushReplacement(
+        MaterialPageRoute<dynamic>(builder: (context) => routerName));
+  }
+
   double screenHeight(BuildContext context) {
     return MediaQuery.of(context).size.height;
   }

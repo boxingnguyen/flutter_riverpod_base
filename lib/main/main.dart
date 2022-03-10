@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider_base/env/env_state.dart';
 import 'package:provider_base/screens/home/home_screen.dart';
+import 'package:provider_base/screens/login/login_screen.dart';
 
 late final StateProvider envProvider;
 
@@ -24,7 +25,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(title: 'Base'),
+      routes: {
+        LoginScreen.routeName: (_) => const LoginScreen(),
+        HomeScreen.routeName: (_) => const HomeScreen(title: 'Base'),
+      },
+      home: const LoginScreen(),
     );
   }
 }
