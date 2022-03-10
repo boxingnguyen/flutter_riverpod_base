@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider_base/models/user_model/user.dart';
@@ -16,7 +17,7 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
   GoogleSignInAccount? googleSignInAccount;
   UserDetail? userDetail;
   Map? userData;
-  bool loginDone = false;
+  final _auth = FirebaseAuth.instance;
 
   Future<void> signInWithGoogle() async {
     try {
@@ -49,8 +50,30 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
     }
   }
 
+  Future<void> signInWithFacebook() async {
+
+    final result = await FacebookAuth.i.login(
+       permissions: ['public_profile', 'email'],
+    );
+
+    if (result.status == LoginStatus.success) {
+      final credential = FacebookAuthProvider.credential(result.accessToken!.token,);
+      final user = (await _auth.signInWithCredential(credential)).user;
+      final newUser = UserDetail(
+        displayName: user?.displayName ?? '',
+        email: user?.email ?? '' ,
+        photoUrl: user?.photoURL ?? '',
+      );
+      state = state.copyWith(userDetail: newUser);
+    } else {
+      print(result.status);
+    }
+  }
+
   Future<void> logOut() async {
     googleSignInAccount = await googleSignIn.signOut();
+    await _auth.signOut();
+    await FacebookAuth.i.logOut();
     userData = null;
     state = state.copyWith(userDetail: null);
   }

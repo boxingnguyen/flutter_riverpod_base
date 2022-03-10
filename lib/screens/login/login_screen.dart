@@ -50,10 +50,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
                     context,
                     urlSvg: ImageSvg.icFacebook,
                     txtLogin: 'Sign up with Facebook',
-                    onTap: () {
-                      // TODO(anyone): login by facebook
-                      pushReplacement(context, const HomeScreen(title: 'base'));
-                    },
+                    onTap: () => _signInWithFacebook(context, ref),
                     sizeWith: _sizeWith,
                   ),
                   Platform.isIOS
@@ -234,5 +231,15 @@ class LoginScreen extends HookConsumerWidget with Utils {
     }
   }
 
+  Future<void> _signInWithFacebook(BuildContext context, WidgetRef ref) async {
+    await ref.read(loginProvider.notifier).signInWithFacebook();
+    final userState = ref.watch(loginProvider);
+    if (userState.userDetail?.displayName == null) {
+      snackBar(context, 'Login Failed', Colors.red);
+    } else {
+      snackBar(context, 'Login Successful', Colors.green);
+      await pushReplacement(context, const HomeScreen(title: 'Base'));
+    }
+  }
   
 }
