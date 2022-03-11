@@ -31,6 +31,7 @@ dependencies:
 
   # Font
   google_fonts: ">=2.0.0 <=2.2.0"
+  font_awesome_flutter: ^9.2.0
 
   # Api
   http: ^0.13.4
@@ -48,6 +49,13 @@ dependencies:
 
   # Local storage
   shared_preferences: ^2.0.12
+
+  # Play Video
+  video_player: ^2.3.0
+
+  #Text
+  expandable_text: ^2.2.0
+  marquee: ^2.2.0
 
 dependency_overrides: null
   

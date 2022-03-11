@@ -6,7 +6,7 @@ import 'package:provider_base/models/user_model/user.dart';
 import 'package:provider_base/screens/login/login_state.dart';
 
 final loginProvider = StateNotifierProvider<LoginStateNotifier, LoginState>(
-        (_) => LoginStateNotifier());
+    (_) => LoginStateNotifier());
 
 class LoginStateNotifier extends StateNotifier<LoginState> {
   LoginStateNotifier() : super(LoginState());
@@ -24,7 +24,7 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       googleSignInAccount = await googleSignIn.signIn();
       final FirebaseAuth _auth = FirebaseAuth.instance;
       final GoogleSignInAuthentication? googleSignInAuthentication =
-      await googleSignInAccount?.authentication;
+          await googleSignInAccount?.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication?.accessToken,
@@ -51,17 +51,18 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
   }
 
   Future<void> signInWithFacebook() async {
-
     final result = await FacebookAuth.i.login(
-       permissions: ['public_profile', 'email'],
+      permissions: ['public_profile', 'email'],
     );
 
     if (result.status == LoginStatus.success) {
-      final credential = FacebookAuthProvider.credential(result.accessToken!.token,);
+      final credential = FacebookAuthProvider.credential(
+        result.accessToken!.token,
+      );
       final user = (await _auth.signInWithCredential(credential)).user;
       final newUser = UserDetail(
         displayName: user?.displayName ?? '',
-        email: user?.email ?? '' ,
+        email: user?.email ?? '',
         photoUrl: user?.photoURL ?? '',
       );
       state = state.copyWith(userDetail: newUser);
@@ -73,9 +74,8 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
   Future<void> logOut() async {
     googleSignInAccount = await googleSignIn.signOut();
     await _auth.signOut();
-    await FacebookAuth.i.logOut();
+    //await FacebookAuth.i.logOut();
     userData = null;
     state = state.copyWith(userDetail: null);
   }
 }
-

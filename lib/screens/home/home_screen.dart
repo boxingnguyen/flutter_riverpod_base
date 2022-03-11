@@ -54,8 +54,8 @@ class HomeScreen extends HookConsumerWidget with Utils {
           CircleAvatar(
             backgroundColor: Colors.black,
             radius: _avtRadius,
-            backgroundImage:
-            NetworkImage(loginState.userDetail?.photoUrl ?? 'https://picsum.photos/250?image=9'),
+            backgroundImage: NetworkImage(loginState.userDetail?.photoUrl ??
+                'https://picsum.photos/250?image=9'),
           ),
           Text(
             loginState.userDetail?.displayName ?? '',
@@ -97,21 +97,36 @@ class HomeScreen extends HookConsumerWidget with Utils {
             ),
             accountEmail: Text(userState.userDetail?.email ?? ''),
             currentAccountPicture: CircleAvatar(
-              backgroundImage:
-              NetworkImage(userState.userDetail?.photoUrl ?? 'https://picsum.photos/250?image=9'),
+              backgroundImage: NetworkImage(userState.userDetail?.photoUrl ??
+                  'https://picsum.photos/250?image=9'),
             ),
           ),
-          ListTile(
-            leading: const Icon(Icons.power_settings_new),
-            title: const Text('Logout'),
+          _listTileDrawer(
+            iconTile: const Icon(Icons.home),
+            titleTile: 'Reel',
+            onTap: () => pushName(context, '/reel_screen'),
+          ),
+          _listTileDrawer(
+            iconTile: const Icon(Icons.power_settings_new),
+            titleTile: 'Logout',
             onTap: () {
               ref.read(loginProvider.notifier).logOut();
-              snackBar(context, 'Logout', Colors.green);
               pushAndRemoveUntil(context, const LoginScreen());
             },
           ),
         ],
       ),
+    );
+  }
+
+  Widget _listTileDrawer(
+      {required Icon iconTile,
+      required String titleTile,
+      required Function() onTap}) {
+    return ListTile(
+      leading: iconTile,
+      title: Text(titleTile),
+      onTap: onTap,
     );
   }
 }
