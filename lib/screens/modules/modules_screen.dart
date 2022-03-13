@@ -11,7 +11,7 @@ class ModulesScreen extends StatelessWidget with Utils {
   @override
   Widget build(BuildContext context) {
     final Map<String, String> listModules = {
-      'Common API': '/home',
+      'Common API': '/common_api',
       'Authorization': '/authorization',
       'Util': '/util',
       'Notification': '/notification',
@@ -57,15 +57,14 @@ class ModulesScreen extends StatelessWidget with Utils {
         child: Text(
           title,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-              fontWeight: FontWeight.bold, color: AppColors.black),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         decoration: BoxDecoration(
-          color: Colors.grey[300],
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey[500]!,
+              color: Theme.of(context).shadowColor,
               offset: const Offset(4, 4),
               blurRadius: 15,
               spreadRadius: 1,
