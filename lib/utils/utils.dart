@@ -38,7 +38,6 @@ mixin Utils {
   AppBar getAppBar({
     required BuildContext context,
     String? title,
-    String? leftTitle,
     bool centerTitle = true,
     double elevation = 0,
     Color? bgColor,
@@ -57,12 +56,7 @@ mixin Utils {
     void Function()? actionProfile,
     void Function()? actionNotify,
   }) {
-    final _title = title != null
-        ? Text(
-            title,
-          )
-        : null;
-
+    final _title = title != null ? Text(title) : null;
     final _actions = <Widget>[];
 
     if (hasClose) {
@@ -74,42 +68,29 @@ mixin Utils {
       backgroundColor: bgColor,
       title: _title,
       centerTitle: centerTitle,
-      leading:
-          _leading(context, leading, logoUrl, leftTitle, pressBack, popValue),
+      leading: _leading(context, leading, logoUrl, pressBack, popValue),
       actions: actions ?? _actions,
       bottom: widget,
     );
   }
 
-  static Widget _leading(
+  static Widget? _leading(
     BuildContext context,
     Widget? leading,
     String? logoUrl,
-    String? leftTitle,
     VoidCallback? pressBack,
     dynamic popValue,
   ) {
-    Widget _leading;
+    Widget? _leading;
 
     if (logoUrl != null) {
       _leading = _logo(logoUrl);
-    } else if (leftTitle != null) {
-      _leading = _leftTitle(context, leftTitle);
     } else {
-      _leading = leading ?? _backBtn(context, pressBack, popValue);
+      _leading = leading ??
+          (pressBack != null ? _backBtn(context, pressBack, popValue) : null);
     }
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 16),
-      child: _leading,
-    );
-  }
-
-  static Widget _leftTitle(BuildContext context, String leftTitle) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16),
-      child: Text(leftTitle),
-    );
+    return _leading;
   }
 
   static Widget _logo(String url) {
@@ -118,13 +99,14 @@ mixin Utils {
         width: 56,
         height: 22,
         decoration: BoxDecoration(
-            // image: DecorationImage(
-            //   fit: BoxFit.cover,
-            //   image: CachedNetworkImageProvider(
-            //     url,
-            //   ),
-            // ),
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            // use CachedNetworkImageProvider if need cache image
+            image: NetworkImage(
+              url,
             ),
+          ),
+        ),
       ),
     );
   }

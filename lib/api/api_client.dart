@@ -5,11 +5,11 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:provider_base/api/api_exceptions.dart';
-import 'package:provider_base/local_share.dart';
+import 'package:provider_base/common/core/data/local_storage.dart';
 
 class ApiClient {
   static String baseUrl = 'https://jsonplaceholder.typicode.com';
-  static Future<String?> get accessToken async => LocalShare().getAccessToken();
+  static Future<String?> get accessToken async => LocalStorage.getAccessToken();
   static Map<String, String> get headers =>
       {'Authorization': 'Bearer $accessToken'};
 
