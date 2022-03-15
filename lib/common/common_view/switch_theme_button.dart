@@ -9,11 +9,16 @@ class SwitchThemebutton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeProvider = ref.watch(appThemeProvider);
 
-    return Switch.adaptive(
-      onChanged: (value) {
-        ref.read(appThemeProvider.notifier).toggleAppTheme();
-      },
-      value: themeProvider.onDarkMode,
+    return Row(
+      children: [
+        const Text('Change Theme'),
+        Switch.adaptive(
+          onChanged: (value) {
+            ref.read(appThemeProvider.notifier).toggleAppTheme();
+          },
+          value: themeProvider.onDarkMode,
+        ),
+      ],
     );
   }
 }

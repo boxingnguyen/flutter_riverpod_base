@@ -23,11 +23,11 @@ class ModulesScreen extends StatelessWidget with Utils {
     };
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('List Modules'),
-        centerTitle: false,
-        actions: const [SwitchThemebutton()],
-      ),
+      appBar: getAppBar(
+          context: context,
+          centerTitle: false,
+          title: 'Modules List',
+          actions: const [SwitchThemebutton()]),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
