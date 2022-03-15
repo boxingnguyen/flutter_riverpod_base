@@ -12,22 +12,17 @@ final homeProvider = StateNotifierProvider<HomeStateNotifier, HomeState>(
 
 class HomeStateNotifier extends StateNotifier<HomeState> with LocatorMixin {
   HomeStateNotifier() : super(HomeState());
-
+  AnalyticsUtil analyticsUtil = AnalyticsUtil();
   Future<void> increment() async {
     var counter = state.counter;
-
-    await read<AnalyticsUtil>().logEvent(
-      AnalyticsEventType.increment,
-    );
+    analyticsUtil.logEvent(AnalyticsEventType.increment);
     state = state.copyWith(counter: ++counter);
     dev.log('counter change: $counter');
   }
 
   Future<void> getRandom() async {
     final random = Random().nextInt(100);
-    await read<AnalyticsUtil>().logEvent(
-      AnalyticsEventType.getRandom,
-    );
+    analyticsUtil.logEvent(AnalyticsEventType.getRandom);
     state = state.copyWith(random: random);
   }
 }

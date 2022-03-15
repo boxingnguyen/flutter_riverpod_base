@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/screens/post/post_screen.dart';
+import 'package:provider_base/utils/analytics_utils.dart';
 import 'package:provider_base/utils/utils.dart';
 
 import 'home_state_notifier.dart';
@@ -15,6 +16,7 @@ class HomeScreen extends HookConsumerWidget with Utils {
   Widget build(BuildContext context, WidgetRef ref) {
     // final state = ref.watch(homeProvider);
     // if declare state here entire HomeScreen will be rebuild when state change
+    AnalyticsUtil analyticsUtil = AnalyticsUtil();
 
     return Scaffold(
       appBar: AppBar(
@@ -50,7 +52,10 @@ class HomeScreen extends HookConsumerWidget with Utils {
             'NOT rebuild: $secondNow',
           ),
           ElevatedButton(
-              onPressed: () => push(context, const PostScreen()),
+              onPressed: () {
+                analyticsUtil.setCurrentScreen('post_list_screen');
+                push(context, const PostScreen());
+              },
               child: const Text('Post List'))
         ],
       ),
