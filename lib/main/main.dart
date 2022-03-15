@@ -1,15 +1,25 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider_base/env/env_state.dart';
 import 'package:provider_base/screens/home/home_screen.dart';
+import 'package:provider_base/utils/analytics_utils.dart';
 
 late final StateProvider envProvider;
 
 void setupAndRunApp({required EnvState env}) {
   envProvider = StateProvider((ref) => env);
-
-  runApp(const ProviderScope(
-    child: MyApp(),
+  final analytics = AnalyticsUtil(FirebaseAnalytics.instance);
+  //  FirebaseAnalyticsObserver observer =
+  //     FirebaseAnalyticsObserver(analytics: analytics);
+  final analyticsUtilProvider = Provider<AnalyticsUtil>((ref) {
+    throw UnimplementedError();
+  });
+  runApp(ProviderScope(
+    overrides: [
+      analyticsUtilProvider.overrideWithValue(analytics),
+    ],
+    child: const MyApp(),
   ));
 }
 
