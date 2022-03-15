@@ -30,3 +30,14 @@ flutter pub run build_runner build --delete-conflicting-outputs
 8. OTP/ Capcha
 9. Qr code
 10. Play video
+
+# Common rules folow dart standard
+1. Naming convention:
+ - name file use snake case 
+ - name class/ variable/ function use camel case
+ 
+2. Common styles
+- Declare common color/ textstyle/ dimension... in app_style.dart
+- If the styles have just used locally in one screen one time it can be used as hard code
+- Declare as constant in ahead of class if multiple use in one screen
+- If these styles used multiple screen in one function such as login, put them in login/component/login_styles.dart

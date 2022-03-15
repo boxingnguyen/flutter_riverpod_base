@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/common_view/switch_theme_button.dart';
-import 'package:provider_base/common/core/constants.dart';
+import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class ModulesScreen extends StatelessWidget with Utils {
@@ -26,31 +26,36 @@ class ModulesScreen extends StatelessWidget with Utils {
       appBar: AppBar(
         title: const Text('List Modules'),
         centerTitle: false,
-        actions: const [
-          SwitchThemebutton(),
-        ],
+        actions: const [SwitchThemebutton()],
       ),
       body: Center(
         child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: GridView.builder(
-                clipBehavior: Clip.none,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 15,
-                ),
-                itemCount: listModules.length,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) =>
-                    _buildGridItem(context, listModules.keys.elementAt(index),
-                        listModules.values.elementAt(index)))),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: GridView.builder(
+            clipBehavior: Clip.none,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: AppStyles.gridViewSpace,
+              mainAxisSpacing: AppStyles.gridViewSpace,
+            ),
+            itemCount: listModules.length,
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, int index) => _buildGridItem(
+                context,
+                listModules.keys.elementAt(index),
+                listModules.values.elementAt(index)),
+          ),
+        ),
       ),
     );
   }
 
-  Widget _buildGridItem(BuildContext context, String title, String routeName) {
-    return InkWell(
+  Widget _buildGridItem(
+    BuildContext context,
+    String title,
+    String routeName,
+  ) {
+    return GestureDetector(
       onTap: () => pushName(context, routeName),
       child: Container(
         alignment: Alignment.center,
