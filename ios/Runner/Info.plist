@@ -45,6 +45,22 @@
 	<true/>
 	<key>CFBundleURLTypes</key>
 	<array>
+	    <dict>
+        	<key>CFBundleTypeRole</key>
+        	<string>Editor</string>
+        	<key>CFBundleURLSchemes</key>
+        	<array>
+            	<string>com.example.providerBase</string>
+        	</array>
+    	</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.444556518136-541391jro7ctudim4j720bkkoettsa2a</string>
+			</array>
+		</dict>
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
