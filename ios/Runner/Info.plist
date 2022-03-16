@@ -27,33 +27,6 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-		</dict>
-	</array>
-		<array>
-  		<dict>
-  			<key>CFBundleURLSchemes</key>
-  		    <array>
-        		<string>com.googleusercontent.apps.444556518136-541391jro7ctudim4j720bkkoettsa2a</string>
-        	</array>
-  		</dict>
-	</array>
-		<key>FacebookAppID</key>
-		<string>490933362370948</string>
-	<key>FacebookClientToken</key>
-	<string>6fed28f6ff09fa1cd0b957257efaa2f0</string>
-	<key>FacebookDisplayName</key>
-	<string>provider_base</string>
-	<key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>fbapi</string>
-      <string>fb-messenger-share-api</string>
-    </array>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
@@ -70,5 +43,25 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb490933362370948</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>490933362370948</string>
+	<key>FacebookClientToken</key>
+	<string>6fed28f6ff09fa1cd0b957257efaa2f0</string>
+	<key>FacebookDisplayName</key>
+	<string>provider base</string>
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-share-api</string>
+    </array>
 </dict>
 </plist>
