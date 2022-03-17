@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/screens/home/home_screen.dart';
 import 'package:provider_base/screens/login/login_state_notifier.dart';
 
@@ -16,26 +16,29 @@ class LoginScreen extends HookConsumerWidget with Utils {
     double _paddingText = 15;
     double _sizeWith = 0.66;
     return Scaffold(
-      backgroundColor: const Color(0xFFAFCEB3),
+      backgroundColor: ColorApp.green0,
       body: SafeArea(
-        child: Center(
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              boldText('Medium'),
-              boldText('Smart stories for \n curious people.'),
+              boldText(Constants.medium),
+              boldText(Constants.smartStoriesForCuriousPeople),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  normalText(
-                    'Get started by creating your account',
-                    textColor: const Color(0xFF000000),
-                    fonSize: _fontSize,
-                    padding: _paddingText,
+                  Center(
+                    child: normalText(
+                      Constants.getStartedByCreatingYourAccount,
+                      textColor: ColorApp.black0,
+                      fonSize: _fontSize,
+                      vertical: _paddingText,
+                    ),
                   ),
                   loginBtn(
                     context,
-                    urlSvg: 'assets/svg/google_logo.svg',
-                    txtLogin: 'Sign up with Google',
+                    urlSvg: Asset.googleLogo,
+                    txtLogin: Constants.signUpWithGoogle,
                     onTap: () {
                       _signInWithGoogle(context, ref);
                     },
@@ -43,8 +46,8 @@ class LoginScreen extends HookConsumerWidget with Utils {
                   ),
                   loginBtn(
                     context,
-                    urlSvg: 'assets/svg/fb_logo.svg',
-                    txtLogin: 'Sign up with Facebook',
+                    urlSvg: Asset.fbLogo,
+                    txtLogin: Constants.signUpWithFacebook,
                     onTap: () {
                       _signInWithFacebook(context, ref);
                     },
@@ -52,16 +55,16 @@ class LoginScreen extends HookConsumerWidget with Utils {
                   ),
                   loginBtn(
                     context,
-                    urlSvg: 'assets/svg/gmail_logo.svg',
-                    txtLogin: 'Sign up with Gmail',
+                    urlSvg: Asset.gmailLogo,
+                    txtLogin: Constants.signUpWithGmail,
                     onTap: () {},
                     sizeWith: _sizeWith,
                   ),
                   Platform.isIOS
                       ? loginBtn(
                           context,
-                          urlSvg: 'assets/svg/apple_logo.svg',
-                          txtLogin: 'Sign up with Apple',
+                          urlSvg: Asset.appleLogo,
+                          txtLogin: Constants.signUpWithApple,
                           onTap: () {},
                           sizeWith: _sizeWith,
                         )
@@ -79,25 +82,23 @@ class LoginScreen extends HookConsumerWidget with Utils {
                         child: Container(
                           width: 40,
                           height: 25,
-                          color: const Color(0xFFAFCEB3),
+                          color: ColorApp.green0,
                         ),
                       ),
                       const Center(
                           child: Text(
-                        'Or',
+                        Constants.or,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 20,
                         ),
                       )),
-
-
                     ],
                   ),
                   loginBtn(
                     context,
-                    urlSvg: 'assets/svg/qr_code.svg',
-                    txtLogin: 'QR Scanner',
+                    urlSvg: Asset.qrLogo,
+                    txtLogin: Constants.qrScanner,
                     onTap: () {},
                     sizeWith: 0.4,
                   ),
@@ -105,18 +106,18 @@ class LoginScreen extends HookConsumerWidget with Utils {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       normalText(
-                        'Already have an account? ',
-                        textColor: const Color(0xFF000000),
+                        Constants.alreadyHaveAnAccount,
+                        textColor: ColorApp.black0,
                         fonSize: _fontSize,
-                        padding: _paddingText,
+                        vertical: _paddingText,
                       ),
                       GestureDetector(
                         onTap: () {},
                         child: normalText(
-                          'Sign in.',
-                          textColor: const Color.fromARGB(255, 255, 0, 0),
+                          Constants.signIn,
+                          textColor: ColorApp.red0,
                           fonSize: _fontSize,
-                          padding: _paddingText,
+                          vertical: _paddingText,
                         ),
                       )
                     ],
@@ -126,15 +127,15 @@ class LoginScreen extends HookConsumerWidget with Utils {
               Column(
                 children: [
                   normalText(
-                    'By creating an account. I accept Medium\'s',
-                    textColor: const Color(0xFF000000),
+                    Constants.byCreatingAnAccountAcceptMedium,
+                    textColor: ColorApp.black0,
                     fonSize: 14,
-                    padding: 5,
+                    vertical: 5,
                   ),
                   GestureDetector(
                     onTap: () {},
                     child: const Text(
-                      'Terms of Service',
+                      Constants.termsOfService,
                       style: TextStyle(decoration: TextDecoration.underline),
                     ),
                   )
@@ -150,7 +151,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
   Widget boldText(String boldText) {
     return Text(
       boldText,
-      style: GoogleFonts.robotoSlab(
+      style: const TextStyle(
         fontWeight: FontWeight.w500,
         fontSize: 36,
       ),
@@ -160,9 +161,9 @@ class LoginScreen extends HookConsumerWidget with Utils {
   Widget normalText(String normalText,
       {required Color textColor,
       required double fonSize,
-      required double padding}) {
+      required double vertical}) {
     return Padding(
-      padding: EdgeInsets.only(bottom: padding, top: padding),
+      padding: EdgeInsets.symmetric(vertical: vertical),
       child: Text(
         normalText,
         style: TextStyle(
@@ -180,41 +181,28 @@ class LoginScreen extends HookConsumerWidget with Utils {
     required String txtLogin,
     required Function() onTap,
   }) {
-    var size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: SizedBox(
-        height: 40,
-        width: size.width * sizeWith,
-        child: InkWell(
-          onTap: onTap,
-          child: Ink(
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 12),
-              child: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                runAlignment: WrapAlignment.center,
-                children: [
-                  SizedBox(
-                      height: 24,
-                      width: 24,
-                      child: SvgPicture.asset(
-                        urlSvg,
-                        height: 25,
-                      )),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 12),
-                    child: Text(txtLogin,
-                        style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
-                        )),
-                  ),
-                ],
-              ),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              urlSvg,
+              height: 25,
+              width: 25,
             ),
-          ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(txtLogin,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  )),
+            ),
+          ],
         ),
       ),
     );
@@ -224,10 +212,10 @@ class LoginScreen extends HookConsumerWidget with Utils {
     await ref.read(loginProvider.notifier).signInWithGoogle();
     final userState = ref.watch(loginProvider);
     if (userState.userDetail?.displayName == null) {
-      snackBar(context, 'Login Failed', Colors.red);
+      snackBar(context, Constants.loginFailed, Colors.red);
     } else {
-      snackBar(context, 'Login Successful', Colors.green);
-      await pushReplacement(context, const HomeScreen(title: 'Base'));
+      snackBar(context, Constants.loginSuccessful, Colors.green);
+      await pushReplacement(context, const HomeScreen(title: Constants.base));
     }
   }
 
@@ -235,10 +223,10 @@ class LoginScreen extends HookConsumerWidget with Utils {
     await ref.read(loginProvider.notifier).signInWithFacebook();
     final userState = ref.watch(loginProvider);
     if (userState.userDetail?.displayName == null) {
-      snackBar(context, 'Login Failed', Colors.red);
+      snackBar(context, Constants.loginFailed, Colors.red);
     } else {
-      snackBar(context, 'Login Successful', Colors.green);
-      await pushReplacement(context, const HomeScreen(title: 'Base'));
+      snackBar(context, Constants.loginSuccessful, Colors.green);
+      await pushReplacement(context, const HomeScreen(title: Constants.base));
     }
   }
 }
