@@ -63,7 +63,7 @@ dependencies:
   firebase_core: 1.6.0
 
   #facebook signin
-  flutter_facebook_auth: ^4.0.1
+  flutter_facebook_auth: 4.1.1
 
   # Api
   http: ^0.13.4
