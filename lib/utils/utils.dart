@@ -35,6 +35,11 @@ mixin Utils {
     return MediaQuery.of(context).size.width;
   }
 
+  bool isPortrait(context) {
+    final orientation = MediaQuery.of(context).orientation;
+    return orientation == Orientation.portrait;
+  }
+
   AppBar getAppBar({
     required BuildContext context,
     String? title,

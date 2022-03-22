@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:provider_base/utils/utils.dart';
 
 class UtilScreen extends StatelessWidget {
   const UtilScreen({Key? key}) : super(key: key);
@@ -20,7 +23,7 @@ class AppLifecycleReactor extends StatefulWidget {
 }
 
 class _AppLifecycleReactorState extends State<AppLifecycleReactor>
-    with WidgetsBindingObserver {
+    with WidgetsBindingObserver, Utils {
   AppLifecycleState? _appStatus;
 
   @override
@@ -38,12 +41,14 @@ class _AppLifecycleReactorState extends State<AppLifecycleReactor>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     setState(() {
+      log(state.toString());
       _appStatus = state;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    log(isPortrait(context) ? 'Portrait' : 'Landscape');
     return Center(child: Text('Last App status: $_appStatus'));
   }
 }
