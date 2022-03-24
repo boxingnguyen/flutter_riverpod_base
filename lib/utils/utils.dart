@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider_base/common/common_view/common_button.dart';
 
 mixin Utils {
   Future<dynamic> push(
@@ -15,25 +14,6 @@ mixin Utils {
         settings: settings,
       ),
     );
-  }
-
-  Future<dynamic> pushReplacement(BuildContext context, Widget routerName) {
-    return Navigator.of(context).pushReplacement(
-        MaterialPageRoute<dynamic>(builder: (context) => routerName));
-  }
-
-  Future<dynamic> pushAndRemoveUntil(BuildContext context, Widget routerName) {
-    return Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (context) => routerName), (route) => false);
-  }
-
-  Future<void> snackBar(
-      BuildContext context, String title, Color titlecolor) async {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(
-      title,
-      style: TextStyle(color: titlecolor),
-    )));
   }
 
   void pushName(
@@ -58,7 +38,6 @@ mixin Utils {
   AppBar getAppBar({
     required BuildContext context,
     String? title,
-    String? leftTitle,
     bool centerTitle = true,
     double elevation = 0,
     Color? bgColor,
@@ -77,16 +56,11 @@ mixin Utils {
     void Function()? actionProfile,
     void Function()? actionNotify,
   }) {
-    final _title = title != null
-        ? Text(
-            title,
-          )
-        : null;
-
+    final _title = title != null ? Text(title) : null;
     final _actions = <Widget>[];
 
     if (hasClose) {
-      _actions.add(CommonButton.closeBtn(context, popValue));
+      _actions.add(_closeBtn(context, popValue));
     }
 
     return AppBar(
@@ -94,42 +68,29 @@ mixin Utils {
       backgroundColor: bgColor,
       title: _title,
       centerTitle: centerTitle,
-      leading:
-          _leading(context, leading, logoUrl, leftTitle, pressBack, popValue),
+      leading: _leading(context, leading, logoUrl, pressBack, popValue),
       actions: actions ?? _actions,
       bottom: widget,
     );
   }
 
-  static Widget _leading(
+  static Widget? _leading(
     BuildContext context,
     Widget? leading,
     String? logoUrl,
-    String? leftTitle,
     VoidCallback? pressBack,
     dynamic popValue,
   ) {
-    Widget _leading;
+    Widget? _leading;
 
     if (logoUrl != null) {
       _leading = _logo(logoUrl);
-    } else if (leftTitle != null) {
-      _leading = _leftTitle(context, leftTitle);
     } else {
-      _leading = leading ?? CommonButton.backBtn(context, pressBack, popValue);
+      _leading = leading ??
+          (pressBack != null ? _backBtn(context, pressBack, popValue) : null);
     }
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 16),
-      child: _leading,
-    );
-  }
-
-  static Widget _leftTitle(BuildContext context, String leftTitle) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16),
-      child: Text(leftTitle),
-    );
+    return _leading;
   }
 
   static Widget _logo(String url) {
@@ -137,14 +98,45 @@ mixin Utils {
       child: Container(
         width: 56,
         height: 22,
-        decoration: const BoxDecoration(
-            // image: DecorationImage(
-            //   fit: BoxFit.cover,
-            //   image: CachedNetworkImageProvider(
-            //     url,
-            //   ),
-            // ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            // use CachedNetworkImageProvider if need cache image
+            image: NetworkImage(
+              url,
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  static Widget _backBtn(
+      BuildContext context, VoidCallback? pressBack, dynamic popValue) {
+    return InkWell(
+      onTap: pressBack ??
+          () {
+            Navigator.of(context).pop(popValue);
+          },
+      child: const Icon(
+        Icons.arrow_back_ios,
+        color: Colors.black,
+        size: 20,
+      ),
+    );
+  }
+
+  static Widget _closeBtn(BuildContext context, dynamic popValue) {
+    return InkWell(
+      onTap: () => Navigator.of(context).pop(popValue),
+      child: Container(
+        margin: const EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.all(6),
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.grey,
+        ),
+        child: const Icon(Icons.close, size: 20),
       ),
     );
   }
