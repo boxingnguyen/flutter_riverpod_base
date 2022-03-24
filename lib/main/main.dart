@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/core/theme/app_theme_state_notifier.dart';
@@ -12,11 +11,14 @@ late final StateProvider envProvider;
 Future<void> setupAndRunApp({required EnvState env}) async {
   envProvider = StateProvider((ref) => env);
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
   final analytics = AnalyticsUtil();
-  final analyticsUtilProvider = Provider<AnalyticsUtil>((ref) {
-    throw UnimplementedError();
-  });
+
+  // Pass all uncaught errors from the framework to Crashlytics.
+  // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+
+  final analyticsUtilProvider = Provider((ref) => AnalyticsUtil());
+
   runApp(ProviderScope(
     overrides: [
       analyticsUtilProvider.overrideWithValue(analytics),
