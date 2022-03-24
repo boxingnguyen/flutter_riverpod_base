@@ -54,7 +54,7 @@ dependencies:
   shared_preferences: ^2.0.12
 
   # Firebase Analytics
-  firebase_analytics: ^9.1.1
+  firebase_analytics: ^8.2.0
 
 dev_dependencies:
   flutter_test:
