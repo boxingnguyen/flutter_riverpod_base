@@ -53,8 +53,9 @@ dependencies:
   # Local storage
   shared_preferences: ^2.0.12
 
-  # Firebase Analytics
+  # Firebase
   firebase_analytics: ^8.2.0
+  firebase_core: 1.6.0
 
 dev_dependencies:
   flutter_test:

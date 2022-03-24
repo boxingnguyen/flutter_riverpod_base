@@ -3,19 +3,43 @@ import 'dart:developer';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 enum AnalyticsEventType {
-  increment,
-  getRandom,
+  appLaunched,
+  notification,
+  takePicture,
+  otpCaptcha,
+  loginWithApple,
+  loginWithGoogle,
+  loginWithFacebook,
+  playVideo,
 }
 
 extension AnalyticsEventTypeExtension on AnalyticsEventType {
   String get name {
     var string = '';
     switch (this) {
-      case AnalyticsEventType.increment:
-        string = 'increment';
+      case AnalyticsEventType.appLaunched:
+        string = 'app_launched';
         break;
-      case AnalyticsEventType.getRandom:
-        string = 'get_ramdom';
+      case AnalyticsEventType.notification:
+        string = 'notification';
+        break;
+      case AnalyticsEventType.takePicture:
+        string = 'take_picture';
+        break;
+      case AnalyticsEventType.otpCaptcha:
+        string = 'otp_captcha';
+        break;
+      case AnalyticsEventType.loginWithApple:
+        string = 'login_with_apple';
+        break;
+      case AnalyticsEventType.loginWithFacebook:
+        string = 'login_with_facebook';
+        break;
+      case AnalyticsEventType.loginWithGoogle:
+        string = 'login_with_google';
+        break;
+      case AnalyticsEventType.playVideo:
+        string = 'play_video';
         break;
     }
     return string;
