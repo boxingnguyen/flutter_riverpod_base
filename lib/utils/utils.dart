@@ -16,6 +16,25 @@ mixin Utils {
     );
   }
 
+  Future<dynamic> pushReplacement(BuildContext context, Widget routerName) {
+    return Navigator.of(context).pushReplacement(
+        MaterialPageRoute<dynamic>(builder: (context) => routerName));
+  }
+
+  Future<dynamic> pushAndRemoveUntil(BuildContext context, Widget routerName) {
+    return Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => routerName), (route) => false);
+  }
+
+  Future<void> snackBar(
+      BuildContext context, String title, Color titlecolor) async {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+      title,
+      style: TextStyle(color: titlecolor),
+    )));
+  }
+
   void pushName(
     BuildContext context,
     String routeName, {
