@@ -1,4 +1,6 @@
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/core/theme/app_theme_state_notifier.dart';
@@ -8,28 +10,25 @@ import 'package:provider_base/screens/routes.dart';
 import 'package:provider_base/utils/analytics_utils.dart';
 
 late final StateProvider envProvider;
+final analyticsUtilProvider = Provider((ref) => AnalyticsUtil(MyApp.analytics));
+final firebaseAnalyticsProvider = Provider((ref) => FirebaseAnalytics());
 
 Future<void> setupAndRunApp({required EnvState env}) async {
   envProvider = StateProvider((ref) => env);
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
-
-  final analytics = AnalyticsUtil();
-  final analyticsUtilProvider = Provider((ref) => AnalyticsUtil());
+  await Firebase.initializeApp();
 
   // Pass all uncaught errors from the framework to Crashlytics.
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
-  runApp(ProviderScope(
-    overrides: [
-      analyticsUtilProvider.overrideWithValue(analytics),
-    ],
-    child: const MyApp(),
+  runApp(const ProviderScope(
+    child: MyApp(),
   ));
 }
 
 class MyApp extends HookConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
 
   // This widget is the root of your application.
   @override
@@ -42,6 +41,9 @@ class MyApp extends HookConsumerWidget {
       theme: state.appTheme,
       initialRoute: ModulesScreen.routeName,
       routes: routes,
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+      ],
     );
   }
 }

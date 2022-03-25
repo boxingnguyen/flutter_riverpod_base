@@ -47,16 +47,16 @@ extension AnalyticsEventTypeExtension on AnalyticsEventType {
 }
 
 class AnalyticsUtil {
-  AnalyticsUtil();
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  AnalyticsUtil(this.analytics);
+  final FirebaseAnalytics analytics;
 
   Future<void> logEvent(
-    AnalyticsEventType? type, {
+    AnalyticsEventType type, {
     Map<String, dynamic>? parameters,
   }) async {
     try {
       await analytics.logEvent(
-        name: type!.name,
+        name: type.name,
         parameters: parameters,
       );
     } on Exception catch (e) {
@@ -68,7 +68,7 @@ class AnalyticsUtil {
     return analytics.logLogin(loginMethod: loginMethod);
   }
 
-  Future<void> setCurrentScreen(String s, {String? screenName}) {
+  Future<void> setCurrentScreen(String? screenName) {
     return analytics.setCurrentScreen(screenName: screenName);
   }
 }

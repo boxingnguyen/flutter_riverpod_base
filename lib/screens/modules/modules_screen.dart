@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/common_view/switch_theme_button.dart';
 import 'package:provider_base/common/core/app_style.dart';
+import 'package:provider_base/main/app.dart';
 import 'package:provider_base/utils/utils.dart';
 
-class ModulesScreen extends StatelessWidget with Utils {
+class ModulesScreen extends HookConsumerWidget with Utils {
   const ModulesScreen({Key? key}) : super(key: key);
 
   static String routeName = '/list_modules';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final Map<String, String> listModules = {
       'Common API': '/common_api',
       'Authorization': '/authorization',
@@ -42,6 +44,7 @@ class ModulesScreen extends StatelessWidget with Utils {
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) => _buildGridItem(
                 context,
+                ref,
                 listModules.keys.elementAt(index),
                 listModules.values.elementAt(index)),
           ),
@@ -52,11 +55,15 @@ class ModulesScreen extends StatelessWidget with Utils {
 
   Widget _buildGridItem(
     BuildContext context,
+    WidgetRef ref,
     String title,
     String routeName,
   ) {
     return GestureDetector(
-      onTap: () => pushName(context, routeName),
+      onTap: () {
+        ref.read(analyticsUtilProvider).setCurrentScreen(routeName);
+        return pushName(context, routeName);
+      },
       child: Container(
         alignment: Alignment.center,
         child: Text(
