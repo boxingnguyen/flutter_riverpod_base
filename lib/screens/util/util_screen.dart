@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider_base/utils/utils.dart';
 
 class UtilScreen extends StatelessWidget {
   const UtilScreen({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class AppLifecycleReactor extends StatefulWidget {
 }
 
 class _AppLifecycleReactorState extends State<AppLifecycleReactor>
-    with WidgetsBindingObserver {
+    with WidgetsBindingObserver, Utils {
   AppLifecycleState? _appStatus;
 
   @override
@@ -44,6 +45,9 @@ class _AppLifecycleReactorState extends State<AppLifecycleReactor>
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Last App status: $_appStatus'));
+    return Scaffold(
+      appBar: getAppBar(context: context, title: 'Utilities Screen'),
+      body: Center(child: Text('Last App status: $_appStatus')),
+    );
   }
 }

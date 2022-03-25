@@ -43,10 +43,11 @@ class ModulesScreen extends HookConsumerWidget with Utils {
             itemCount: listModules.length,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) => _buildGridItem(
-                context,
-                ref,
-                listModules.keys.elementAt(index),
-                listModules.values.elementAt(index)),
+              context,
+              ref,
+              listModules.keys.elementAt(index),
+              listModules.values.elementAt(index),
+            ),
           ),
         ),
       ),
@@ -61,7 +62,12 @@ class ModulesScreen extends HookConsumerWidget with Utils {
   ) {
     return GestureDetector(
       onTap: () {
+        // try GG analytics
         ref.read(analyticsUtilProvider).setCurrentScreen(routeName);
+        ref.read(analyticsUtilProvider).setUserId('1');
+        ref
+            .read(analyticsUtilProvider)
+            .setUserProperty(name: 'age', value: '29');
         return pushName(context, routeName);
       },
       child: Container(

@@ -69,6 +69,18 @@ class AnalyticsUtil {
   }
 
   Future<void> setCurrentScreen(String? screenName) {
+    log(screenName ?? '');
     return analytics.setCurrentScreen(screenName: screenName);
+  }
+
+  Future<void> setUserId(String? userId) {
+    return analytics.setUserId(userId);
+  }
+
+  Future<void> setUserProperty({
+    required String name,
+    required String value,
+  }) {
+    return analytics.setUserProperty(name: name, value: value);
   }
 }
