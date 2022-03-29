@@ -1,6 +1,7 @@
 # Uncomment this line to define a global platform for your project
 platform :ios, '12.0'
-$FirebaseSDKVersion='7.11.0'
+$FirebaseSDKVersion='8.10.0'
+
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
@@ -32,8 +33,8 @@ target 'Runner' do
   use_modular_headers!
   pod 'FBSDKCoreKit', '12.3.2'
 
-  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '7.11.0'
-
+  # Precompiled Firestore iOS SDKs extracted from the Firebase iOS SDK repository release downloads for faster build times.
+  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '8.10.0'
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 

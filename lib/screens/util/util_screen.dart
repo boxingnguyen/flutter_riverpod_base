@@ -1,4 +1,8 @@
+import 'dart:developer';
+
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:provider_base/utils/utils.dart';
 
 class UtilScreen extends StatelessWidget {
   const UtilScreen({Key? key}) : super(key: key);
@@ -20,7 +24,7 @@ class AppLifecycleReactor extends StatefulWidget {
 }
 
 class _AppLifecycleReactorState extends State<AppLifecycleReactor>
-    with WidgetsBindingObserver {
+    with WidgetsBindingObserver, Utils {
   AppLifecycleState? _appStatus;
 
   @override
@@ -32,6 +36,8 @@ class _AppLifecycleReactorState extends State<AppLifecycleReactor>
   @override
   void dispose() {
     WidgetsBinding.instance?.removeObserver(this);
+    // Force crash for test
+    FirebaseCrashlytics.instance.crash();
     super.dispose();
   }
 
@@ -39,11 +45,15 @@ class _AppLifecycleReactorState extends State<AppLifecycleReactor>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     setState(() {
       _appStatus = state;
+      log(state.name);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Last App status: $_appStatus'));
+    return Scaffold(
+      appBar: getAppBar(context: context, title: 'Utilities Screen'),
+      body: Center(child: Text('Last App status: $_appStatus')),
+    );
   }
 }

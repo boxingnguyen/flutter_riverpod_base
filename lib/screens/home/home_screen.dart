@@ -72,7 +72,9 @@ class HomeScreen extends HookConsumerWidget with Utils {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => ref.read(homeProvider.notifier).increment(),
+        onPressed: () {
+          ref.read(homeProvider.notifier).increment();
+        },
         child: const Icon(Icons.add),
       ),
     );
