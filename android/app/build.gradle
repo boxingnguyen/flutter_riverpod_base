@@ -65,17 +65,20 @@ android {
     productFlavors {
         development {
             dimension "default"
-            applicationId "com.example.providerBase.dev"
+            resValue "string", "app_name", "DEV Provider Base"
+            applicationIdSuffix ".dev"
         }
 
         staging {
             dimension "default"
-            applicationId "com.example.providerBase.stg"
+            resValue "string", "app_name", "STG Provider Base"
+           applicationIdSuffix ".stg"
         }
 
         production {
             dimension "default"
-            applicationId "com.example.providerBase"
+            resValue "string", "app_name", "Provider Base"
+            applicationIdSuffix ""
         }
     }
 }
@@ -89,5 +92,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
 }
 
+// need if you configuration manually with google-services.json
 // apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'

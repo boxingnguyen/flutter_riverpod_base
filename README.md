@@ -43,8 +43,11 @@ flutter pub run build_runner build --delete-conflicting-outputs
 - If these styles used multiple screen in one function such as login, put them in login/component/login_styles.dart
 
 # Configuration firebase APP at firebase_options files in env/firebase/
+- This way is recommended by Firebase and works with almost plugin for example GG Analytics and Crashlytics.
+- But some plugin have issue and required manual installation such as google_sign_in.
+- See more: https://firebase.flutter.dev/docs/cli/#usage
 # CLI flutterfire to create app firebase
-```
+```shell script
 flutterfire config \
   --project=provider-base-dev \
   --out=lib/env/firebase/firebase_options_dev.dart \
