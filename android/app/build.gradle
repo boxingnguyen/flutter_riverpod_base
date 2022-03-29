@@ -46,7 +46,7 @@ android {
     defaultConfig {
         // if minSdk is set to 20 or lower, then you must use the multidex support library
         // see more https://firebase.flutter.dev/docs/manual-installation/android#enabling-multidex
-        applicationId "com.example.providerBase"
+        applicationId "com.example.provider_base"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
@@ -67,19 +67,19 @@ android {
         development {
             dimension "default"
             resValue "string", "app_name", "DEV Provider Base"
-            applicationIdSuffix ".dev"
+            applicationIdSuffix "com.example.provider_base.dev"
         }
 
         staging {
             dimension "default"
             resValue "string", "app_name", "STG Provider Base"
-           applicationIdSuffix ".stg"
+           applicationIdSuffix "com.example.provider_base.stg"
         }
 
         production {
             dimension "default"
             resValue "string", "app_name", "Provider Base"
-            applicationIdSuffix ""
+            applicationIdSuffix "com.example.provider_base"
         }
     }
 }
