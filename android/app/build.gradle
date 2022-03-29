@@ -67,19 +67,19 @@ android {
         development {
             dimension "default"
             resValue "string", "app_name", "DEV Provider Base"
-            applicationIdSuffix "com.example.provider_base.dev"
+            applicationIdSuffix ".dev"
         }
 
         staging {
             dimension "default"
             resValue "string", "app_name", "STG Provider Base"
-           applicationIdSuffix "com.example.provider_base.stg"
+           applicationIdSuffix ".stg"
         }
 
         production {
             dimension "default"
             resValue "string", "app_name", "Provider Base"
-            applicationIdSuffix "com.example.provider_base"
+            applicationIdSuffix ""
         }
     }
 }
