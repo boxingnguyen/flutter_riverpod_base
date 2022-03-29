@@ -50,12 +50,15 @@ class HomeScreen extends HookConsumerWidget with Utils {
             'NOT rebuild: $secondNow',
           ),
           ElevatedButton(
-              onPressed: () => push(context, const PostScreen()),
-              child: const Text('Post List'))
+            onPressed: () => push(context, const PostScreen()),
+            child: const Text('Post List'),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => ref.read(homeProvider.notifier).increment(),
+        onPressed: () {
+          ref.read(homeProvider.notifier).increment();
+        },
         child: const Icon(Icons.add),
       ),
     );

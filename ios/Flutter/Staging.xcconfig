@@ -2,5 +2,5 @@
 
 FLUTTER_FLAVOR=staging
 PRODUCT_BUNDLE_IDENTIFIER=com.example.providerBase.stg
-DISPLAY_NAME=provider base stg
+DISPLAY_NAME=STG Provider Base
 FLUTTER_TARGET=lib/main/main_staging.dart
