@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart'
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options.dart';
+/// import 'firebase_options_dev.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
@@ -38,30 +38,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAdSDjRMem0ay7t2EFcf5T7W3NnQQI17Vg',
-    appId: '1:339370215318:web:cc0b945d03c3feda1a7fb7',
-    messagingSenderId: '339370215318',
-    projectId: 'base-flutter-7b937',
-    authDomain: 'base-flutter-7b937.firebaseapp.com',
-    storageBucket: 'base-flutter-7b937.appspot.com',
-    measurementId: 'G-CXCTV2YPNW',
+    apiKey: 'AIzaSyD0qjpLzKMCC_JpzI1LWTkGxPc1uzYfIJY',
+    appId: '1:902313079720:web:b583aa1a67a6c61b53a39d',
+    messagingSenderId: '902313079720',
+    projectId: 'provider-base-dev',
+    authDomain: 'provider-base-dev.firebaseapp.com',
+    storageBucket: 'provider-base-dev.appspot.com',
+    measurementId: 'G-P75LMBVL29',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDoGHF-ZuGvgW1nmn2uoZVtnA66AfemdRc',
-    appId: '1:339370215318:android:22b4009adb1c1e411a7fb7',
-    messagingSenderId: '339370215318',
-    projectId: 'base-flutter-7b937',
-    storageBucket: 'base-flutter-7b937.appspot.com',
+    apiKey: 'AIzaSyAo6ievLc1W0YXKlW-sBBvvk8hVbSGAEvQ',
+    appId: '1:902313079720:android:88b8491dc733bf7a53a39d',
+    messagingSenderId: '902313079720',
+    projectId: 'provider-base-dev',
+    storageBucket: 'provider-base-dev.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD5gcdNf-wMzgT47FSGaY1HQjwtJICVVJ0',
-    appId: '1:339370215318:ios:205a9428da46b96e1a7fb7',
-    messagingSenderId: '339370215318',
-    projectId: 'base-flutter-7b937',
-    storageBucket: 'base-flutter-7b937.appspot.com',
-    iosClientId: '339370215318-a3a92vh2epj6geo24nd4in41dnf0hgb1.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAZSsGJLv7qBzaO-gTmMNX8TaOSMRDZ_e0',
+    appId: '1:902313079720:ios:5587ac34bb50d7ad53a39d',
+    messagingSenderId: '902313079720',
+    projectId: 'provider-base-dev',
+    storageBucket: 'provider-base-dev.appspot.com',
+    iosClientId: '902313079720-e463tsvu81n82fs0ood7lj9tgpt6o6em.apps.googleusercontent.com',
     iosBundleId: 'com.example.providerBase.dev',
   );
 }
