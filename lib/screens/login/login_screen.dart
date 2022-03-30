@@ -10,6 +10,8 @@ import '../../utils/utils.dart';
 
 class LoginScreen extends HookConsumerWidget with Utils {
   const LoginScreen({Key? key}) : super(key: key);
+  static const routeName = '/login_screen';
+  
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     double _fontSize = 15;

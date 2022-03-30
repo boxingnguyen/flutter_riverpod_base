@@ -9,8 +9,8 @@ import 'package:provider_base/utils/utils.dart';
 
 class HomeScreen extends HookConsumerWidget with Utils {
   const HomeScreen({Key? key, required this.title}) : super(key: key);
-
   final String title;
+  static const routeName = '/home_screen';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

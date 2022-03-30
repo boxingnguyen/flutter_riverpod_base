@@ -3,6 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/common_view/switch_theme_button.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/main/app.dart';
+import 'package:provider_base/screens/home/home_screen.dart';
+import 'package:provider_base/screens/login/login_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class ModulesScreen extends HookConsumerWidget with Utils {
@@ -13,8 +15,8 @@ class ModulesScreen extends HookConsumerWidget with Utils {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Map<String, String> listModules = {
-      'Common API': '/common_api',
-      'Authorization': '/authorization',
+      'Common View': HomeScreen.routeName,
+      'Authorization': LoginScreen.routeName,
       'Util': '/util',
       'Notification': '/notification',
       'Take Picture': '/take_picture',
