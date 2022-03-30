@@ -41,3 +41,45 @@ flutter pub run build_runner build --delete-conflicting-outputs
 - If the styles have just used locally in one screen one time it can be used as hard code
 - Declare as constant in ahead of class if multiple use in one screen
 - If these styles used multiple screen in one function such as login, put them in login/component/login_styles.dart
+
+# Configuration firebase APP at firebase_options files in env/firebase/
+- This way is recommended by Firebase and works with almost plugin for example GG Analytics and Crashlytics.
+- But some plugin have issue and required manual installation such as google_sign_in.
+- See more: https://firebase.flutter.dev/docs/cli/#usage
+# CLI flutterfire to create app firebase
+```shell script
+flutterfire config \
+  --project=provider-base-dev \
+  --out=lib/env/firebase/firebase_options_dev.dart \
+  --ios-bundle-id=com.example.providerBase.dev \
+  --android-app-id=com.example.providerBase.dev
+
+  flutterfire config \
+  --project=provider-base-stg \
+  --out=lib/env/firebase/firebase_options_stg.dart \
+  --ios-bundle-id=com.example.providerBase.stg \
+  --android-app-id=com.example.providerBase.stg
+
+
+  flutterfire config \
+  --project=provider-base-prod \
+  --out=lib/env/firebase/firebase_options.dart \
+  --ios-bundle-id=com.example.providerBase \
+  --android-app-id=com.example.providerBase
+```
+# How to run
+### Debug
+
+```shell script
+flutter run --debug --flavor development -t lib/main/main_development.dart
+flutter run --debug --flavor staging -t lib/main/main_staging.dart
+flutter run --debug --flavor production -t lib/main/main_production.dart
+```
+
+### Release
+
+```shell script
+flutter run --release --flavor development -t lib/main/main_development.dart
+flutter run --release --flavor staging -t lib/main/main_staging.dart
+flutter run --release --flavor production -t lib/main/main_production.dart
+```
