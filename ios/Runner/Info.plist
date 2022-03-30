@@ -50,20 +50,22 @@
 	<true/>
 	<key>CFBundleURLTypes</key>
 	<array>
-	    <dict>
-        	<key>CFBundleTypeRole</key>
-        	<string>Editor</string>
-        	<key>CFBundleURLSchemes</key>
-        	<array>
-            	<string>com.example.providerBase</string>
-        	</array>
-    	</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.444556518136-541391jro7ctudim4j720bkkoettsa2a</string>
+				<string>com.example.providerBase</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.902313079720-e463tsvu81n82fs0ood7lj9tgpt6o6em</string>
+				<string>com.googleusercontent.apps.906320537444-f054drkv4hahn3tep4ks1jbbeg7uac3o</string>
+				<string>com.googleusercontent.apps.341639729821-tojledn557ql4d4nqcf3io4sji881raq</string>
 			</array>
 		</dict>
 		<dict>
@@ -80,9 +82,9 @@
 	<key>FacebookDisplayName</key>
 	<string>Provider Base</string>
 	<key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>fbapi</string>
-      <string>fb-messenger-share-api</string>
-    </array>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 </dict>
 </plist>
