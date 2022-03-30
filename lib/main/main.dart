@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/core/theme/app_theme_state_notifier.dart';
 import 'package:provider_base/env/env_state.dart';
@@ -25,6 +26,16 @@ class MyApp extends HookConsumerWidget {
     final state = ref.watch(appThemeProvider);
     // TODO(anhnq): setup locale and font for whole app
     return MaterialApp(
+      darkTheme: ThemeData(
+        cupertinoOverrideTheme: const CupertinoThemeData(
+          textTheme: CupertinoTextThemeData(), // This is required
+        ),
+      ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate, // This is required
+      ],
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: state.appTheme,

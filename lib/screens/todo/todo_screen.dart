@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/common_view/error_indicator.dart';
 import 'package:provider_base/common/common_view/loading_indicator.dart';
+import 'package:provider_base/screens/dashboard/dashboard_state_notifier.dart';
 import 'package:provider_base/screens/todo/todo_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
 
@@ -13,7 +14,7 @@ class TodoScreen extends StatelessWidget with Utils {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(context: context, title: 'List Todo'),
-      body: TodoBody(),
+      body: const TodoBody(),
     );
   }
 }
@@ -25,6 +26,7 @@ class TodoBody extends HookConsumerWidget with Utils {
   Widget build(BuildContext context, WidgetRef ref) {
     final todoState = ref.watch(todoNotifierProvider);
     final todoStateNotifier = ref.read(todoNotifierProvider.notifier);
+    final dashboardStateNotifier = ref.read(dashboardNotifierProvider.notifier);
 
     final listTodo = todoState.listTodo;
 
@@ -41,9 +43,14 @@ class TodoBody extends HookConsumerWidget with Utils {
     }
 
     useEffect(() {
+      dashboardStateNotifier.addRefreshListener(
+          TabItem.home, todoStateNotifier.refreshList);
       scrollController.addListener(scrollListener);
-      return () => scrollController.removeListener(scrollListener);
-    }, [scrollController]);
+      return () {
+        scrollController.removeListener(scrollListener);
+        //dashboardStateNotifier.removeRefreshListener(TabItem.home);
+      };
+    }, [scrollController, dashboardStateNotifier]);
 
     return Stack(
       children: [

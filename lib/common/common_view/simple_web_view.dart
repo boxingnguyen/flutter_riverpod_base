@@ -8,9 +8,11 @@ class SimpleWebView extends StatefulWidget {
   const SimpleWebView({
     Key? key,
     required this.url,
+    this.controllerCompleter,
   }) : super(key: key);
 
-  final String? url;
+  final String url;
+  final Completer<WebViewController>? controllerCompleter;
 
   @override
   _SimpleWebViewState createState() => _SimpleWebViewState();
@@ -18,22 +20,35 @@ class SimpleWebView extends StatefulWidget {
 
 class _SimpleWebViewState extends State<SimpleWebView> {
   bool isFinished = false;
-  late Completer<WebViewController> _controllerCompleter;
+  late Completer<WebViewController>? _controllerCompleter;
+  late bool _validURL = true;
 
   @override
   void initState() {
     super.initState();
-    _controllerCompleter = Completer<WebViewController>();
+    _controllerCompleter =
+        widget.controllerCompleter ?? Completer<WebViewController>();
   }
 
   @override
   Widget build(BuildContext context) {
+    _validURL = Uri.parse(widget.url).isAbsolute;
+    if (_controllerCompleter == null) {
+      return const SizedBox();
+    }
+
+    if (!_validURL) {
+      return const Center(
+        child: Text('Url is not valid'),
+      );
+    }
+
     return WillPopScope(
       onWillPop: () async {
         // handle web page back
         // If you wrap SimpleWebView by WillPopScope, it never be called.
-        if (_controllerCompleter.isCompleted) {
-          final controller = await _controllerCompleter.future;
+        if (_controllerCompleter!.isCompleted) {
+          final controller = await _controllerCompleter!.future;
           if (await controller.canGoBack()) {
             await controller.goBack();
             return false;
@@ -53,7 +68,7 @@ class _SimpleWebViewState extends State<SimpleWebView> {
               });
             },
             onWebViewCreated: (_controller) {
-              _controllerCompleter.complete(_controller);
+              _controllerCompleter!.complete(_controller);
             },
           ),
           isFinished ? const SizedBox() : const LoadingIndicator(),

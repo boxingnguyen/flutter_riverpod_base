@@ -11,19 +11,17 @@ final todoNotifierProvider =
 
 class TodoStateNotifier extends StateNotifier<TodoState> {
   TodoStateNotifier() : super(TodoState()) {
-    fetchDefaultData();
+    refreshList();
   }
-
 
   static const initialItem = 15;
 
   Future<void> fetchDefaultData() async {
-    fetchData(limit: initialItem);
+    await fetchData(limit: initialItem);
   }
 
   Future<List<Todo>> fetchData({int? limit}) async {
     state = state.copyWith(showLoadingIndicator: true);
-    Future.delayed(const Duration(seconds: 1));
     final index = state.index;
     var request = '?_start=$index';
     if (limit != null) {
@@ -44,7 +42,6 @@ class TodoStateNotifier extends StateNotifier<TodoState> {
       state =
           state.copyWith(showErrorIndicator: true, showLoadingIndicator: false);
     }
-
     return listTodo;
   }
 
