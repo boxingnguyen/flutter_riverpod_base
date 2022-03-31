@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/common_view/button_login.dart';
@@ -11,6 +12,12 @@ import 'package:provider_base/utils/utils.dart';
 class LoginScreen extends HookConsumerWidget with Utils {
   const LoginScreen({Key? key}) : super(key: key);
   static const routeName = '/login_screen';
+  /* TODO(:tupa1) Refactor code
+    - change branch to rs/feat/social_media_authourize
+    - name variable correctly 
+    - use underscore if function is private
+    - format code
+  */
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -92,7 +99,6 @@ class LoginScreen extends HookConsumerWidget with Utils {
                   style: TextStyle(decoration: TextDecoration.underline),
                 ),
               ),
-              const SizedBox(height: 16),
             ],
           ),
         ),
