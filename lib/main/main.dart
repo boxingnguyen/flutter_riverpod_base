@@ -27,7 +27,6 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(appThemeProvider);
-    // TODO(anhnq): setup locale and font for whole app
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
       title: 'Flutter Demo',
@@ -36,6 +35,9 @@ class MyApp extends HookConsumerWidget {
       initialRoute: ModulesScreen.routeName,
       routes: routes,
       home: const LoginScreen(),
+      supportedLocales: const [
+        Locale('en'),
+      ],
     );
   }
 }

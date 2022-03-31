@@ -47,7 +47,8 @@ class AppStyles {
   // text style
   static const TextStyle textRegular = TextStyle(
     fontWeight: FontWeight.w400,
-    fontSize: fontSizeS,
+    fontSize: 14,
+    color: Colors.black,
   );
 
   static final TextStyle textMedium = textRegular.copyWith(

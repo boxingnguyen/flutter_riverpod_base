@@ -1,210 +1,100 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/common/common_view/button_login.dart';
+import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/screens/home/home_screen.dart';
 import 'package:provider_base/screens/login/login_state_notifier.dart';
-
-import '../../utils/utils.dart';
+import 'package:provider_base/utils/utils.dart';
 
 class LoginScreen extends HookConsumerWidget with Utils {
   const LoginScreen({Key? key}) : super(key: key);
   static const routeName = '/login_screen';
-  
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    double _fontSize = 15;
-    double _paddingText = 15;
-    double _sizeWith = 0.66;
     return Scaffold(
       backgroundColor: ColorApp.green0,
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              boldText(Constants.medium),
-              boldText(Constants.smartStoriesForCuriousPeople),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: normalText(
-                      Constants.getStartedByCreatingYourAccount,
-                      textColor: ColorApp.black0,
-                      fonSize: _fontSize,
-                      vertical: _paddingText,
-                    ),
-                  ),
-                  loginBtn(
-                    context,
-                    urlSvg: Asset.googleLogo,
-                    txtLogin: Constants.signUpWithGoogle,
-                    onTap: () {
-                      _signInWithGoogle(context, ref);
-                    },
-                    sizeWith: _sizeWith,
-                  ),
-                  loginBtn(
-                    context,
-                    urlSvg: Asset.fbLogo,
-                    txtLogin: Constants.signUpWithFacebook,
-                    onTap: () {
-                      _signInWithFacebook(context, ref);
-                    },
-                    sizeWith: _sizeWith,
-                  ),
-                  loginBtn(
-                    context,
-                    urlSvg: Asset.gmailLogo,
-                    txtLogin: Constants.signUpWithGmail,
-                    onTap: () {},
-                    sizeWith: _sizeWith,
-                  ),
-                  Platform.isIOS
-                      ? loginBtn(
-                          context,
-                          urlSvg: Asset.appleLogo,
-                          txtLogin: Constants.signUpWithApple,
-                          onTap: () {},
-                          sizeWith: _sizeWith,
-                        )
-                      : const SizedBox(),
-                  Stack(
-                    children: [
-                      const Divider(
-                        color: Colors.black,
-                        thickness: 3,
-                        height: 25,
-                        indent: 120,
-                        endIndent: 120,
-                      ),
-                      Center(
-                        child: Container(
-                          width: 40,
-                          height: 25,
-                          color: ColorApp.green0,
-                        ),
-                      ),
-                      const Center(
-                          child: Text(
-                        Constants.or,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20,
-                        ),
-                      )),
-                    ],
-                  ),
-                  loginBtn(
-                    context,
-                    urlSvg: Asset.qrLogo,
-                    txtLogin: Constants.qrScanner,
-                    onTap: () {},
-                    sizeWith: 0.4,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      normalText(
-                        Constants.alreadyHaveAnAccount,
-                        textColor: ColorApp.black0,
-                        fonSize: _fontSize,
-                        vertical: _paddingText,
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: normalText(
-                          Constants.signIn,
-                          textColor: ColorApp.red0,
-                          fonSize: _fontSize,
-                          vertical: _paddingText,
-                        ),
-                      )
-                    ],
-                  ),
-                ],
+              const SizedBox(height: 35),
+              Text(
+                Constants.medium,
+                style: AppStyles.textBold.copyWith(
+                  fontSize: 36,
+                ),
               ),
-              Column(
+              const SizedBox(height: 10),
+              Text(
+                Constants.flutterBSD,
+                style: AppStyles.textBold.copyWith(fontSize: 18),
+              ),
+              const SizedBox(height: 10),
+              ButtonLogin(
+                urlSvg: Asset.googleLogo,
+                message: Constants.signUpWithGoogle,
+                onTap: () {
+                  _signInWithGoogle(context, ref);
+                },
+              ),
+              ButtonLogin(
+                urlSvg: Asset.fbLogo,
+                message: Constants.signUpWithFacebook,
+                onTap: () {
+                  _signInWithFacebook(context, ref);
+                },
+              ),
+              ButtonLogin(
+                urlSvg: Asset.gmailLogo,
+                message: Constants.signUpWithGmail,
+                onTap: () {},
+              ),
+              Platform.isIOS
+                  ? ButtonLogin(
+                      urlSvg: Asset.appleLogo,
+                      message: Constants.signUpWithApple,
+                      onTap: () {},
+                    )
+                  : const SizedBox(),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  normalText(
-                    Constants.byCreatingAnAccountAcceptMedium,
-                    textColor: ColorApp.black0,
-                    fonSize: 14,
-                    vertical: 5,
+                  Text(
+                    Constants.alreadyHaveAnAccount,
+                    style: AppStyles.textMedium,
                   ),
                   GestureDetector(
                     onTap: () {},
-                    child: const Text(
-                      Constants.termsOfService,
-                      style: TextStyle(decoration: TextDecoration.underline),
+                    child: Text(
+                      Constants.signIn,
+                      style: AppStyles.textMedium.copyWith(
+                        color: ColorApp.red0,
+                      ),
                     ),
                   )
                 ],
               ),
+              const Spacer(),
+              Text(
+                Constants.byCreatingAnAccountAcceptMedium,
+                style: AppStyles.textMedium,
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: const Text(
+                  Constants.termsOfService,
+                  style: TextStyle(decoration: TextDecoration.underline),
+                ),
+              ),
+              const SizedBox(height: 16),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget boldText(String boldText) {
-    return Text(
-      boldText,
-      style: const TextStyle(
-        fontWeight: FontWeight.w500,
-        fontSize: 36,
-      ),
-    );
-  }
-
-  Widget normalText(String normalText,
-      {required Color textColor,
-      required double fonSize,
-      required double vertical}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: vertical),
-      child: Text(
-        normalText,
-        style: TextStyle(
-          color: textColor,
-          fontSize: fonSize,
-        ),
-      ),
-    );
-  }
-
-  Widget loginBtn(
-    BuildContext context, {
-    required double sizeWith,
-    required String urlSvg,
-    required String txtLogin,
-    required Function() onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        color: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              urlSvg,
-              height: 25,
-              width: 25,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(txtLogin,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                  )),
-            ),
-          ],
         ),
       ),
     );
