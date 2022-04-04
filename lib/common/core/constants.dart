@@ -47,6 +47,8 @@ class Constants {
   static const flutterBSD = 'Flutter BSD';
   static const smartStoriesForCuriousPeople =
       'Smart stories for \n curious people.';
+  static const error = 'Error';
+  static const retry = 'Retry';
 }
 
 class Asset {

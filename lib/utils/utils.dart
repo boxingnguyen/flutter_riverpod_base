@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider_base/common/core/app_style.dart';
 
 mixin Utils {
   Future<dynamic> push(
@@ -27,11 +28,14 @@ mixin Utils {
   }
 
   Future<void> snackBar(
-      BuildContext context, String title, Color titlecolor) async {
+    BuildContext context,
+    String title,
+    Color titlecolor,
+  ) async {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
       title,
-      style: TextStyle(color: titlecolor),
+      style: AppStyles.textMedium.copyWith(color: titlecolor),
     )));
   }
 

@@ -109,22 +109,24 @@ class LoginScreen extends HookConsumerWidget with Utils {
   Future<void> _signInWithGoogle(BuildContext context, WidgetRef ref) async {
     await ref.read(loginProvider.notifier).signInWithGoogle();
     final userState = ref.watch(loginProvider);
+
     if (userState.userDetail?.displayName == null) {
       snackBar(context, Constants.loginFailed, Colors.red);
-    } else {
-      snackBar(context, Constants.loginSuccessful, Colors.green);
-      await pushReplacement(context, const HomeScreen(title: Constants.base));
+      return;
     }
+    snackBar(context, Constants.loginSuccessful, Colors.green);
+    await pushReplacement(context, const HomeScreen(title: Constants.base));
   }
 
   Future<void> _signInWithFacebook(BuildContext context, WidgetRef ref) async {
     await ref.read(loginProvider.notifier).signInWithFacebook();
     final userState = ref.watch(loginProvider);
+
     if (userState.userDetail?.displayName == null) {
       snackBar(context, Constants.loginFailed, Colors.red);
-    } else {
-      snackBar(context, Constants.loginSuccessful, Colors.green);
-      await pushReplacement(context, const HomeScreen(title: Constants.base));
+      return;
     }
+    snackBar(context, Constants.loginSuccessful, Colors.green);
+    await pushReplacement(context, const HomeScreen(title: Constants.base));
   }
 }

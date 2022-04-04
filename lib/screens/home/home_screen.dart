@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/screens/home/home_state_notifier.dart';
 import 'package:provider_base/screens/login/login_screen.dart';
@@ -16,13 +17,12 @@ class HomeScreen extends HookConsumerWidget with Utils {
   Widget build(BuildContext context, WidgetRef ref) {
     // final state = ref.watch(homeProvider);
     // if declare state here entire HomeScreen will be rebuild when state change
-    double _avtRadius = 32;
     final loginState = ref.watch(loginProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           Constants.counterExample,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: AppStyles.textBold,
         ),
       ),
       drawer: drawerCustom(context, ref),
@@ -35,14 +35,21 @@ class HomeScreen extends HookConsumerWidget with Utils {
               return Column(
                 children: [
                   Center(child: Text('${state.counter}')),
-                  Text(Constants.getNumberNum + '${state.random}'),
+                  Text(
+                    Constants.getNumberNum + '${state.random}',
+                    style: AppStyles.textRegular,
+                  ),
                   TextButton(
                     onPressed: () =>
                         ref.read(homeProvider.notifier).getRandom(),
-                    child: const Text(Constants.getRandom),
+                    child: const Text(
+                      Constants.getRandom,
+                      style: AppStyles.textRegular,
+                    ),
                   ),
                   Text(
                     Constants.rebuildWhenStateChange + secondNow,
+                    style: AppStyles.textRegular,
                   ),
                 ],
               );
@@ -50,25 +57,27 @@ class HomeScreen extends HookConsumerWidget with Utils {
           ),
           CircleAvatar(
             backgroundColor: Colors.black,
-            radius: _avtRadius,
+            radius: 32,
             backgroundImage: NetworkImage(
                 loginState.userDetail?.photoUrl ?? Asset.imageDefault),
           ),
           Text(
             loginState.userDetail?.displayName ?? '',
-            style: const TextStyle(
-              fontSize: 18,
-            ),
+            style: AppStyles.textRegular.copyWith(fontSize: 18),
           ),
           const SizedBox(
             height: 10,
           ),
           Text(
             Constants.notRebuild + secondNow,
+            style: AppStyles.textRegular,
           ),
           ElevatedButton(
               onPressed: () => push(context, const PostScreen()),
-              child: const Text(Constants.postList))
+              child: const Text(
+                Constants.postList,
+                style: AppStyles.textRegular,
+              ))
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -92,9 +101,12 @@ class HomeScreen extends HookConsumerWidget with Utils {
           UserAccountsDrawerHeader(
             accountName: Text(
               userState.userDetail?.displayName ?? Constants.name,
-              style: const TextStyle(fontSize: 24),
+              style: AppStyles.textRegular.copyWith(fontSize: 24),
             ),
-            accountEmail: Text(userState.userDetail?.email ?? ''),
+            accountEmail: Text(
+              userState.userDetail?.email ?? '',
+              style: AppStyles.textRegular,
+            ),
             currentAccountPicture: CircleAvatar(
               backgroundImage: NetworkImage(
                   userState.userDetail?.photoUrl ?? Asset.imageDefault),
@@ -102,7 +114,10 @@ class HomeScreen extends HookConsumerWidget with Utils {
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),
-            title: const Text(Constants.logOut),
+            title: const Text(
+              Constants.logOut,
+              style: AppStyles.textRegular,
+            ),
             onTap: () {
               ref.read(loginProvider.notifier).logOut();
               snackBar(context, Constants.logOut, Colors.green);

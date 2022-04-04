@@ -20,7 +20,9 @@ class ButtonLogin extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            color: AppColors.white, borderRadius: BorderRadius.circular(30)),
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(30),
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         margin: const EdgeInsets.symmetric(horizontal: 26, vertical: 8),
         child: Row(
@@ -28,11 +30,13 @@ class ButtonLogin extends StatelessWidget {
             _icon(),
             Expanded(
               child: Center(
-                child: Text(message,
-                    style: AppStyles.textMedium.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14,
-                    )),
+                child: Text(
+                  message,
+                  style: AppStyles.textMedium.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                  ),
+                ),
               ),
             ),
             _icon(transparent: true),

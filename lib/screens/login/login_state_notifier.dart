@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 import '../../models/user/user_detail.dart';
 import 'login_state.dart';
 
@@ -34,7 +37,7 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       final authResult = await _auth.signInWithCredential(credential);
 
       final User? user = authResult.user;
-      assert(!user!.isAnonymous);
+      assert(!(user?.isAnonymous ?? true));
       assert(await user?.getIdToken() != null);
 
       final User? currentUser = _auth.currentUser;
@@ -46,11 +49,11 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       );
       state = LoginState(userDetail: userDetail);
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 
-  Future<Future<UserCredential>> signInWithFacebook() async {
+  Future<void> signInWithFacebook() async {
     final result = await FacebookAuth.i.login(
       permissions: ['public_profile', 'email'],
     );
@@ -62,17 +65,20 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       userData = requestData;
       final newUser = UserDetail(
         displayName: requestData['name'],
-        email: requestData["email"],
+        email: requestData['email'],
         photoUrl: requestData['picture']['data']['url'],
       );
       state = state.copyWith(userDetail: newUser);
     } else {
-      print(result.status);
+      log(result.status.name);
+    }
+
+    if (result.accessToken == null) {
+      return;
     }
     final OAuthCredential facebookAuthCredential =
         FacebookAuthProvider.credential(result.accessToken!.token);
-
-    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+    await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 
   Future<void> logOut() async {

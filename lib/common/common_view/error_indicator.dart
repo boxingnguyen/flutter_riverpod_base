@@ -18,7 +18,7 @@ class CommonErrorIndicator extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            message ?? 'error',
+            message ?? Constants.error,
             style: AppStyles.textRegular,
           ),
           ElevatedButton(
@@ -28,7 +28,7 @@ class CommonErrorIndicator extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(30))),
             ),
             child: Text(
-              'Retry',
+              Constants.retry,
               style: AppStyles.textBold.copyWith(
                 color: AppColors.white,
               ),
