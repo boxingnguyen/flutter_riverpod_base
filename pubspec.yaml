@@ -41,41 +41,36 @@ dependencies:
   firebase_core: 1.6.0
   firebase_crashlytics: 2.1.1
   firebase_messaging: 10.0.4
-  flutter_launcher_icons: ^0.9.2
 
   flutter:
     sdk: flutter
 
-  # Architecture
-  flutter_riverpod: ^1.0.3
+  flutter_facebook_auth: 4.1.1
+  flutter_hooks: ^0.18.0
+  flutter_launcher_icons: ^0.9.2
+  flutter_secure_storage: ^5.0.2
 
-  # code generate
-  freezed: ^1.1.1
-
-  # Font
-  google_fonts: ">=2.0.0 <=2.2.0"
+  flutter_svg: ^1.0.3
   font_awesome_flutter: ^9.2.0
 
-  #img_svg
-  flutter_svg: ^1.0.3
+  # Code generate
+  freezed: ^1.1.1
 
-  #google signin
+  google_fonts: ">=2.0.0 <=2.2.0"
   google_sign_in: ^5.1.0
 
-  #facebook signin
-  flutter_facebook_auth: 4.1.1
+  # state management
   hooks_riverpod: ^1.0.3
-
-  # Api
+  
   http: ^0.13.4
+
+  # Code generate
   json_annotation: ^4.4.0
   json_serializable: ^6.1.4
 
-  # Local storage
   shared_preferences: ^2.0.12
 
 dev_dependencies:
-  # code generate
   build_runner: ^2.1.7
 
   # Lint
@@ -112,6 +107,5 @@ flutter:
         - asset: assets/fonts/Roboto-Medium.ttf
         - asset: assets/fonts/Roboto-Bold.ttf
         - asset: assets/fonts/Roboto-Thin.ttf
-  #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

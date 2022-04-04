@@ -10,6 +10,7 @@ class ApiEndpoints {
   static const photos = '/photos';
   static const todos = '/todos';
   static const users = '/users';
+  static const refreshToken = '/refresh_token';
 
   // dynamic endpoints
   String? updatePost;
