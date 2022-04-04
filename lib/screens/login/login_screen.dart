@@ -17,6 +17,9 @@ class LoginScreen extends HookConsumerWidget with Utils {
     - name variable correctly 
     - use underscore if function is private
     - format code
+    - fix bug sigin flutter with facebook
+    - merge sigin in apple
+    - add sign up screen
   */
 
   @override
