@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class UtilScreen extends StatelessWidget {
@@ -43,12 +44,20 @@ class _AppLifecycleReactorState extends State<AppLifecycleReactor>
     setState(() {
       log(state.toString());
       _appStatus = state;
+      log(state.name);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     log(isPortrait(context) ? 'Portrait' : 'Landscape');
-    return Center(child: Text('Last App status: $_appStatus'));
+    return Scaffold(
+      appBar: getAppBar(context: context, title: 'Utilities Screen'),
+      body: Center(
+          child: Text(
+        'Last App status: $_appStatus',
+        style: AppStyles.textRegular,
+      )),
+    );
   }
 }

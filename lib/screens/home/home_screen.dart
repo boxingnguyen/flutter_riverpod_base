@@ -1,61 +1,89 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/common/core/app_style.dart';
+import 'package:provider_base/common/core/constants.dart';
+import 'package:provider_base/screens/home/home_state_notifier.dart';
+import 'package:provider_base/screens/login/login_screen.dart';
+import 'package:provider_base/screens/login/login_state_notifier.dart';
 import 'package:provider_base/screens/post/post_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
-import 'home_state_notifier.dart';
-
 class HomeScreen extends HookConsumerWidget with Utils {
   const HomeScreen({Key? key, required this.title}) : super(key: key);
-
   final String title;
+  static const routeName = '/home_screen';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final state = ref.watch(homeProvider);
     // if declare state here entire HomeScreen will be rebuild when state change
-
+    final loginState = ref.watch(loginProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Counter example',
-          style: GoogleFonts.notoSans(fontWeight: FontWeight.bold),
+          Constants.counterExample,
+          style: AppStyles.textBold,
         ),
       ),
+      drawer: drawerCustom(context, ref),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Consumer(
             builder: (_, ref, child) {
               final state = ref.watch(homeProvider);
-
               return Column(
                 children: [
                   Center(child: Text('${state.counter}')),
-                  Text('Get random num: ${state.random}'),
+                  Text(
+                    Constants.getNumberNum + '${state.random}',
+                    style: AppStyles.textRegular,
+                  ),
                   TextButton(
                     onPressed: () =>
                         ref.read(homeProvider.notifier).getRandom(),
-                    child: const Text('Get Random'),
+                    child: const Text(
+                      Constants.getRandom,
+                      style: AppStyles.textRegular,
+                    ),
                   ),
                   Text(
-                    'Rebuild when state change: $secondNow',
+                    Constants.rebuildWhenStateChange + secondNow,
+                    style: AppStyles.textRegular,
                   ),
                 ],
               );
             },
           ),
+          CircleAvatar(
+            backgroundColor: Colors.black,
+            radius: 32,
+            backgroundImage: NetworkImage(
+                loginState.userDetail?.photoUrl ?? Asset.imageDefault),
+          ),
           Text(
-            'NOT rebuild: $secondNow',
+            loginState.userDetail?.displayName ?? '',
+            style: AppStyles.textRegular.copyWith(fontSize: 18),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            Constants.notRebuild + secondNow,
+            style: AppStyles.textRegular,
           ),
           ElevatedButton(
               onPressed: () => push(context, const PostScreen()),
-              child: const Text('Post List'))
+              child: const Text(
+                Constants.postList,
+                style: AppStyles.textRegular,
+              ))
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => ref.read(homeProvider.notifier).increment(),
+        onPressed: () {
+          ref.read(homeProvider.notifier).increment();
+        },
         child: const Icon(Icons.add),
       ),
     );
@@ -63,5 +91,41 @@ class HomeScreen extends HookConsumerWidget with Utils {
 
   String get secondNow {
     return DateTime.now().second.toString();
+  }
+
+  Widget drawerCustom(BuildContext context, WidgetRef ref) {
+    final userState = ref.watch(loginProvider);
+    return Drawer(
+      child: ListView(
+        children: [
+          UserAccountsDrawerHeader(
+            accountName: Text(
+              userState.userDetail?.displayName ?? Constants.name,
+              style: AppStyles.textRegular.copyWith(fontSize: 24),
+            ),
+            accountEmail: Text(
+              userState.userDetail?.email ?? '',
+              style: AppStyles.textRegular,
+            ),
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  userState.userDetail?.photoUrl ?? Asset.imageDefault),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.power_settings_new),
+            title: const Text(
+              Constants.logOut,
+              style: AppStyles.textRegular,
+            ),
+            onTap: () {
+              ref.read(loginProvider.notifier).logOut();
+              snackBar(context, Constants.logOut, Colors.green);
+              pushAndRemoveUntil(context, const LoginScreen());
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

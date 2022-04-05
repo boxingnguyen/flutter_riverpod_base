@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'env_state.freezed.dart';
 
 @freezed
-abstract class EnvState with _$EnvState {
+class EnvState with _$EnvState {
   const factory EnvState({
     required String baseUrlApi,
     required String baseUrlS3,
