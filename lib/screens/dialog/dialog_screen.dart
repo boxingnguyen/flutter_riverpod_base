@@ -6,7 +6,7 @@ import 'package:provider_base/utils/utils.dart';
 
 class DialogScreen extends StatelessWidget with Utils {
   const DialogScreen({Key? key}) : super(key: key);
-  // TODO(Minnt): 
+  // TODO(Minnt):
   // Move Dialog to Form screen and rename Form and Dialog
   // refactor code, havent format yet
   // Make File preview screen in here with pdf, image, video
@@ -14,7 +14,7 @@ class DialogScreen extends StatelessWidget with Utils {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(context: context, title: 'Dialog Screen'),
-      body: DialogBody(),
+      body: const DialogBody(),
     );
   }
 }
@@ -31,34 +31,55 @@ class DialogBody extends HookConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          _rowDialog(context, 'Ok dialog', () => showOkAlertDialog(
-              context: context, title: 'Title', message: 'This is message'),),
-          _rowDialog(context, 'Confirm dialog', () => showConfirmationDialog(
-            context: context,
-            title: 'Title',
-            message: 'This is message',
-          ),),
-          _rowDialog(context, 'Ok cancel dialog', () => showOkCancelAlertDialog(
-            context: context,
-            title: 'Title',
-            message: 'This is message',
-          ),),
-          _rowDialog(context, 'Modal action sheet', () => showModalActionSheet(
-            context: context,
-            title: 'Title',
-            message: 'This is message',
-          ),),
+          _rowDialog(
+            context,
+            'Ok dialog',
+            () => showOkAlertDialog(
+                context: context, title: 'Title', message: 'This is message'),
+          ),
+          _rowDialog(
+            context,
+            'Confirm dialog',
+            () => showConfirmationDialog(
+              context: context,
+              title: 'Title',
+              message: 'This is message',
+            ),
+          ),
+          _rowDialog(
+            context,
+            'Ok cancel dialog',
+            () => showOkCancelAlertDialog(
+              context: context,
+              title: 'Title',
+              message: 'This is message',
+            ),
+          ),
+          _rowDialog(
+            context,
+            'Modal action sheet',
+            () => showModalActionSheet(
+              context: context,
+              title: 'Title',
+              message: 'This is message',
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _rowDialog(BuildContext context, String message, VoidCallback? voidCallback) {
+  Widget _rowDialog(
+      BuildContext context, String message, VoidCallback? voidCallback) {
     return GestureDetector(
-        onTap: voidCallback,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(message, style: AppStyles.textRegular,),
-        ));
+      onTap: voidCallback,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Text(
+          message,
+          style: AppStyles.textRegular,
+        ),
+      ),
+    );
   }
 }

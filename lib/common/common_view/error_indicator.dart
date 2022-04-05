@@ -9,7 +9,7 @@ class CommonErrorIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ElevatedButton(
-        onPressed: onTapRetry ?? () {},
+        onPressed: onTapRetry,
         child: const Text('Retry'),
       ),
     );
