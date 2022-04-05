@@ -9,6 +9,7 @@ import 'package:provider_base/common/core/theme/app_theme_state_notifier.dart';
 import 'package:provider_base/env/env_state.dart';
 import 'package:provider_base/screens/modules/modules_screen.dart';
 import 'package:provider_base/utils/analytics_utils.dart';
+import 'package:provider_base/utils/notification_util.dart';
 
 late final StateProvider envProvider;
 final analyticsUtilProvider = Provider((ref) => AnalyticsUtil(App.analytics));
@@ -33,11 +34,13 @@ class App extends HookConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(appThemeProvider);
+    final themeState = ref.watch(appThemeProvider);
+    ref.read(analyticsUtilProvider).logEvent(AnalyticsEventType.appLaunched);
+    NotificationUtil.initialize(context);
+
     return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: state.appTheme,
+      title: 'Provider Base',
+      theme: themeState.appTheme,
       initialRoute: ModulesScreen.routeName,
       routes: routes,
       navigatorObservers: [
@@ -46,6 +49,11 @@ class App extends HookConsumerWidget {
       supportedLocales: const [
         Locale('en'),
       ],
+      builder: (context, child) => GestureDetector(
+        onTap: () =>
+            WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus(),
+        child: child,
+      ),
     );
   }
 }
