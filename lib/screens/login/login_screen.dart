@@ -6,6 +6,8 @@ import 'package:provider_base/common/common_view/button_login.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/screens/home/home_screen.dart';
+import 'package:provider_base/screens/login/components/sign_in_email.dart';
+import 'package:provider_base/screens/login/components/sign_up_email.dart';
 import 'package:provider_base/screens/login/login_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
 
@@ -32,7 +34,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const SizedBox(height: 35),
+              const Spacer(),
               Text(
                 Constants.medium,
                 style: AppStyles.textBold.copyWith(
@@ -61,8 +63,8 @@ class LoginScreen extends HookConsumerWidget with Utils {
               ),
               ButtonLogin(
                 urlSvg: Asset.gmailLogo,
-                message: Constants.signUpWithGmail,
-                onTap: () {},
+                message: Constants.signUpWithEmail,
+                onTap: () => push(context, const SignUpEmail()),
               ),
               Platform.isIOS
                   ? ButtonLogin(
@@ -80,7 +82,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
                     style: AppStyles.textMedium,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () => push(context, const SignInEmail()),
                     child: Text(
                       Constants.signIn,
                       style: AppStyles.textMedium.copyWith(
@@ -102,6 +104,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
                   style: TextStyle(decoration: TextDecoration.underline),
                 ),
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),

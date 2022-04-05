@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
+import 'package:provider_base/screens/home/components/update_phone.dart';
 import 'package:provider_base/screens/home/home_state_notifier.dart';
 import 'package:provider_base/screens/login/login_screen.dart';
 import 'package:provider_base/screens/login/login_state_notifier.dart';
@@ -111,6 +112,14 @@ class HomeScreen extends HookConsumerWidget with Utils {
               backgroundImage: NetworkImage(
                   userState.userDetail?.photoUrl ?? Asset.imageDefault),
             ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.phone),
+            title: const Text(
+              Constants.updatePhoneNumber,
+              style: AppStyles.textRegular,
+            ),
+            onTap: () => push(context, const UpdatePhone()),
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),

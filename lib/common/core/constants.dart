@@ -22,7 +22,7 @@ class Constants {
 
   static const signUpWithFacebook = 'Sign up with Facebook';
   static const signUpWithApple = 'Sign up with Apple';
-  static const signUpWithGmail = 'Sign up with Gmail';
+  static const signUpWithEmail = 'Sign up with Email';
   static const signUpWithGoogle = 'Sign up with Google';
   static const counterExample = 'Counter example';
   static const getNumberNum = 'Get random num: ';
@@ -49,6 +49,18 @@ class Constants {
       'Smart stories for \n curious people.';
   static const error = 'Error';
   static const retry = 'Retry';
+  static const email = 'Email';
+  static const password = 'Password';
+  static const signUp = 'Sign Up';
+  static const signInUp = 'Sign In';
+  static const signInWithEmail = 'Sign in with Email';
+  static const updatePhoneNumber = 'Update phone number';
+  static const phone = 'Phone';
+  static const code = 'Code';
+  static const getCode = 'Get code';
+
+  // int
+  static const otherFieldMaxLength100 = 100;
 }
 
 class Asset {
