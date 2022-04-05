@@ -36,7 +36,6 @@ class App extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(appThemeProvider);
-    // TODO(anhnq): setup locale and font for whole app
     return MaterialApp(
       darkTheme: ThemeData(
         cupertinoOverrideTheme: const CupertinoThemeData(
@@ -55,6 +54,9 @@ class App extends HookConsumerWidget {
       routes: routes,
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: analytics),
+      ],
+      supportedLocales: const [
+        Locale('en'),
       ],
     );
   }

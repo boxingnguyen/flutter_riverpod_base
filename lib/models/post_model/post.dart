@@ -16,7 +16,7 @@ class Post with _$Post {
     Comment? comment,
   }) = _Post;
 
-  /// Connect the generated [_$PersonFromJson] function to the `fromJson`
+  /// Connect the generated [_$PostFromJson] function to the `fromJson`
   /// factory.
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 }

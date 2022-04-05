@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/api/api_client.dart';
 import 'package:provider_base/api/api_endpoints.dart';
@@ -32,9 +34,9 @@ class PostStateNotifier extends StateNotifier<PostState> with LocatorMixin {
     if (postsResponse is List) {
       posts = postsResponse.map((e) => Post.fromJson(e)).toList();
       state = state.copyWith(posts: NetworkState(posts));
-      print(posts.length);
+      log(posts.length.toString());
     } else {
-      state = state.copyWith(posts: NetworkState.error('The deo nao'));
+      state = state.copyWith(posts: const NetworkState.error('Error'));
     }
 
     return posts;

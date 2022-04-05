@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class UtilScreen extends StatelessWidget {
@@ -53,7 +54,7 @@ class _AppLifecycleReactorState extends State<AppLifecycleReactor>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(context: context, title: 'Utilities Screen'),
-      body: Center(child: Text('Last App status: $_appStatus')),
+      body: Center(child: Text('Last App status: $_appStatus', style: AppStyles.textRegular,)),
     );
   }
 }
