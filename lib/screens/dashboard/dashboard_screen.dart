@@ -13,7 +13,7 @@ import 'package:provider_base/utils/utils.dart';
 
 class DashboardScreen extends HookConsumerWidget with Utils {
   const DashboardScreen({Key? key}) : super(key: key);
-
+  // TODO(Minnt): add button back to module screen
   static String routeName = '/dashboard';
 
   @override
@@ -40,7 +40,7 @@ class DashboardScreen extends HookConsumerWidget with Utils {
       FormScreen(),
       SimpleWebView(url: 'https://pub.dev/packages/form_field_validator'),
       DialogScreen(),
-      // todo(min): add setting screen
+      // TODO(Minnt): add setting screen with change language
       HomeScreen(
         title: 'Home 5',
       ),
@@ -104,9 +104,8 @@ class DashboardScreen extends HookConsumerWidget with Utils {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: _buttonIcon(
-                    color: AppStyles.cardLightModeColor,
-                    icon: Icons.text_fields
-                  ),
+                      color: AppStyles.cardLightModeColor,
+                      icon: Icons.text_fields),
                 ),
                 Positioned(
                   top: 0,
@@ -120,9 +119,8 @@ class DashboardScreen extends HookConsumerWidget with Utils {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: _buttonIcon(
-                    color: AppStyles.cardDarkModeColor,
-                    icon: Icons.text_fields
-                  ),
+                      color: AppStyles.cardDarkModeColor,
+                      icon: Icons.text_fields),
                 ),
                 Positioned(
                   top: 0,
@@ -146,13 +144,9 @@ class DashboardScreen extends HookConsumerWidget with Utils {
           ),
           BottomNavigationBarItem(
             icon: _buttonIcon(
-              color: AppStyles.cardLightModeColor,
-                icon: Icons.window
-            ),
+                color: AppStyles.cardLightModeColor, icon: Icons.window),
             activeIcon: _buttonIcon(
-              color: AppStyles.cardDarkModeColor,
-              icon: Icons.window
-            ),
+                color: AppStyles.cardDarkModeColor, icon: Icons.window),
             label: 'Dialog',
           ),
           BottomNavigationBarItem(

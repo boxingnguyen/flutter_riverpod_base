@@ -9,7 +9,7 @@ import 'package:provider_base/utils/utils.dart';
 
 class FormScreen extends StatelessWidget with Utils {
   const FormScreen({Key? key}) : super(key: key);
-
+  // TODO(linhlc): fix form screen dissappear error email when show/ hide pass
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
