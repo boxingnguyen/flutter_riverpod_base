@@ -27,6 +27,10 @@ mixin Utils {
         MaterialPageRoute(builder: (context) => routerName), (route) => false);
   }
 
+  void unFocusScope(BuildContext context) {
+    FocusScope.of(context).requestFocus(FocusNode());
+  }
+
   Future<void> snackBar(
     BuildContext context,
     String title,
@@ -56,6 +60,11 @@ mixin Utils {
 
   double screenWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;
+  }
+
+  bool isPortrait(context) {
+    final orientation = MediaQuery.of(context).orientation;
+    return orientation == Orientation.portrait;
   }
 
   AppBar getAppBar({

@@ -7,5 +7,7 @@ part 'login_state.freezed.dart';
 class LoginState with _$LoginState {
   factory LoginState({
     UserDetail? userDetail,
+    @Default(false) bool isSignUp,
+    @Default(false) bool showLoadingIndicator,
   }) = _LoginState;
 }
