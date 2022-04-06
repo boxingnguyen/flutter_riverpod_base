@@ -1,9 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 part 'reel.freezed.dart';
 part 'reel.g.dart';
 
 @freezed
-abstract class Reel with _$Reel {
+class Reel with _$Reel {
   const factory Reel({
     String? description,
     String? sources,
@@ -16,4 +17,3 @@ abstract class Reel with _$Reel {
 
   factory Reel.fromJson(Map<String, dynamic> json) => _$ReelFromJson(json);
 }
-
