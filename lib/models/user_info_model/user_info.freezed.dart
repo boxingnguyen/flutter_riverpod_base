@@ -23,12 +23,17 @@ class _$UserInfoTearOff {
   const _$UserInfoTearOff();
 
   _UserInfo call(
-      {String? userId, String? email, String? avatarUrl, String? fullName}) {
+      {String? userId,
+      String? email,
+      String? avatarUrl,
+      String? fullName,
+      String? fcmToken}) {
     return _UserInfo(
       userId: userId,
       email: email,
       avatarUrl: avatarUrl,
       fullName: fullName,
+      fcmToken: fcmToken,
     );
   }
 
@@ -46,6 +51,7 @@ mixin _$UserInfo {
   String? get email => throw _privateConstructorUsedError;
   String? get avatarUrl => throw _privateConstructorUsedError;
   String? get fullName => throw _privateConstructorUsedError;
+  String? get fcmToken => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,7 +64,11 @@ abstract class $UserInfoCopyWith<$Res> {
   factory $UserInfoCopyWith(UserInfo value, $Res Function(UserInfo) then) =
       _$UserInfoCopyWithImpl<$Res>;
   $Res call(
-      {String? userId, String? email, String? avatarUrl, String? fullName});
+      {String? userId,
+      String? email,
+      String? avatarUrl,
+      String? fullName,
+      String? fcmToken});
 }
 
 /// @nodoc
@@ -75,6 +85,7 @@ class _$UserInfoCopyWithImpl<$Res> implements $UserInfoCopyWith<$Res> {
     Object? email = freezed,
     Object? avatarUrl = freezed,
     Object? fullName = freezed,
+    Object? fcmToken = freezed,
   }) {
     return _then(_value.copyWith(
       userId: userId == freezed
@@ -93,6 +104,10 @@ class _$UserInfoCopyWithImpl<$Res> implements $UserInfoCopyWith<$Res> {
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String?,
+      fcmToken: fcmToken == freezed
+          ? _value.fcmToken
+          : fcmToken // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -103,7 +118,11 @@ abstract class _$UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
       __$UserInfoCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? userId, String? email, String? avatarUrl, String? fullName});
+      {String? userId,
+      String? email,
+      String? avatarUrl,
+      String? fullName,
+      String? fcmToken});
 }
 
 /// @nodoc
@@ -121,6 +140,7 @@ class __$UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
     Object? email = freezed,
     Object? avatarUrl = freezed,
     Object? fullName = freezed,
+    Object? fcmToken = freezed,
   }) {
     return _then(_UserInfo(
       userId: userId == freezed
@@ -139,6 +159,10 @@ class __$UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String?,
+      fcmToken: fcmToken == freezed
+          ? _value.fcmToken
+          : fcmToken // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -147,7 +171,8 @@ class __$UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$_UserInfo implements _UserInfo {
-  _$_UserInfo({this.userId, this.email, this.avatarUrl, this.fullName});
+  _$_UserInfo(
+      {this.userId, this.email, this.avatarUrl, this.fullName, this.fcmToken});
 
   factory _$_UserInfo.fromJson(Map<String, dynamic> json) =>
       _$$_UserInfoFromJson(json);
@@ -160,10 +185,12 @@ class _$_UserInfo implements _UserInfo {
   final String? avatarUrl;
   @override
   final String? fullName;
+  @override
+  final String? fcmToken;
 
   @override
   String toString() {
-    return 'UserInfo(userId: $userId, email: $email, avatarUrl: $avatarUrl, fullName: $fullName)';
+    return 'UserInfo(userId: $userId, email: $email, avatarUrl: $avatarUrl, fullName: $fullName, fcmToken: $fcmToken)';
   }
 
   @override
@@ -174,7 +201,8 @@ class _$_UserInfo implements _UserInfo {
             const DeepCollectionEquality().equals(other.userId, userId) &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.avatarUrl, avatarUrl) &&
-            const DeepCollectionEquality().equals(other.fullName, fullName));
+            const DeepCollectionEquality().equals(other.fullName, fullName) &&
+            const DeepCollectionEquality().equals(other.fcmToken, fcmToken));
   }
 
   @override
@@ -183,7 +211,8 @@ class _$_UserInfo implements _UserInfo {
       const DeepCollectionEquality().hash(userId),
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(avatarUrl),
-      const DeepCollectionEquality().hash(fullName));
+      const DeepCollectionEquality().hash(fullName),
+      const DeepCollectionEquality().hash(fcmToken));
 
   @JsonKey(ignore: true)
   @override
@@ -201,7 +230,8 @@ abstract class _UserInfo implements UserInfo {
       {String? userId,
       String? email,
       String? avatarUrl,
-      String? fullName}) = _$_UserInfo;
+      String? fullName,
+      String? fcmToken}) = _$_UserInfo;
 
   factory _UserInfo.fromJson(Map<String, dynamic> json) = _$_UserInfo.fromJson;
 
@@ -213,6 +243,8 @@ abstract class _UserInfo implements UserInfo {
   String? get avatarUrl;
   @override
   String? get fullName;
+  @override
+  String? get fcmToken;
   @override
   @JsonKey(ignore: true)
   _$UserInfoCopyWith<_UserInfo> get copyWith =>

@@ -12,6 +12,7 @@ class UserInfo with _$UserInfo {
     String? email,
     String? avatarUrl,
     String? fullName,
+    String? fcmToken,
   }) = _UserInfo;
 
   /// Connect the generated [_$UserInfoFromJson] function to the `fromJson`
