@@ -7,5 +7,7 @@ class HomeState with _$HomeState {
   factory HomeState({
     @Default(0) int counter,
     @Default(17) int random,
+    @Default(false) bool showLoadingIndicator,
+    @Default(false) bool updatePhone,
   }) = _HomeState;
 }

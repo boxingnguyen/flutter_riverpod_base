@@ -6,6 +6,8 @@ import 'package:provider_base/common/common_view/button_login.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/screens/home/home_screen.dart';
+import 'package:provider_base/screens/login/components/sign_in_email.dart';
+import 'package:provider_base/screens/login/components/sign_up_email.dart';
 import 'package:provider_base/screens/login/login_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
 
@@ -32,7 +34,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const SizedBox(height: 35),
+              const Spacer(),
               Text(
                 Constants.medium,
                 style: AppStyles.textBold.copyWith(
@@ -61,14 +63,14 @@ class LoginScreen extends HookConsumerWidget with Utils {
               ),
               ButtonLogin(
                 urlSvg: Asset.gmailLogo,
-                message: Constants.signUpWithGmail,
-                onTap: () {},
+                message: Constants.signUpWithEmail,
+                onTap: () => push(context, const SignUpEmail()),
               ),
               Platform.isIOS
                   ? ButtonLogin(
                       urlSvg: Asset.appleLogo,
                       message: Constants.signUpWithApple,
-                      onTap: () {},
+                      onTap: () => _signInWithApple(context, ref),
                     )
                   : const SizedBox(),
               const SizedBox(height: 20),
@@ -80,7 +82,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
                     style: AppStyles.textMedium,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () => push(context, const SignInEmail()),
                     child: Text(
                       Constants.signIn,
                       style: AppStyles.textMedium.copyWith(
@@ -102,6 +104,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
                   style: TextStyle(decoration: TextDecoration.underline),
                 ),
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -123,6 +126,18 @@ class LoginScreen extends HookConsumerWidget with Utils {
 
   Future<void> _signInWithFacebook(BuildContext context, WidgetRef ref) async {
     await ref.read(loginProvider.notifier).signInWithFacebook();
+    final userState = ref.watch(loginProvider);
+
+    if (userState.userDetail?.displayName == null) {
+      snackBar(context, Constants.loginFailed, Colors.red);
+      return;
+    }
+    snackBar(context, Constants.loginSuccessful, Colors.green);
+    await pushReplacement(context, const HomeScreen(title: Constants.base));
+  }
+
+  Future<void> _signInWithApple(BuildContext context, WidgetRef ref) async {
+    await ref.read(loginProvider.notifier).signInWithApple();
     final userState = ref.watch(loginProvider);
 
     if (userState.userDetail?.displayName == null) {

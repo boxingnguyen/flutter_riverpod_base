@@ -27,6 +27,10 @@ mixin Utils {
         MaterialPageRoute(builder: (context) => routerName), (route) => false);
   }
 
+  void unFocusScope(BuildContext context) {
+    FocusScope.of(context).requestFocus(FocusNode());
+  }
+
   Future<void> snackBar(
     BuildContext context,
     String title,
