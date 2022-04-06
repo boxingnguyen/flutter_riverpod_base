@@ -1,10 +1,14 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:math' as math;
 
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider_base/models/user/user_detail.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import 'login_state.dart';
 
@@ -83,6 +87,45 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
     await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 
+  String sha256ofString(String input) {
+    final bytes = utf8.encode(input);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
+  }
+
+  String generateNonce() {
+    const charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = math.Random.secure();
+    return List.generate(
+        32, (_) => charset[random.nextInt(charset.length)]).join();
+  }
+
+  Future<void> signInWithApple() async {
+    try {
+      final rawNonce = generateNonce();
+      final nonce = sha256ofString(rawNonce);
+
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+          scopes: [
+            AppleIDAuthorizationScopes.email,
+            AppleIDAuthorizationScopes.fullName,
+          ],
+          nonce: nonce
+      );
+
+      final oauthCredential = OAuthProvider("apple.com").credential(
+        idToken: appleCredential.userIdentifier,
+        rawNonce: rawNonce,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(
+          oauthCredential);
+    } catch (e) {
+      log('$e');
+    }
+  }
+
   Future<String> onSignUp(
     String emailControllerText,
     String passwordControllerText,
@@ -109,7 +152,7 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       state = state.copyWith(showLoadingIndicator: false);
       return '';
     } catch (e) {
-      print(e);
+      log('$e');
       state = state.copyWith(showLoadingIndicator: false);
       return e.toString().split(']').last;
     }
@@ -142,7 +185,7 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       state = state.copyWith(showLoadingIndicator: false);
       return '';
     } catch (e) {
-      print(e);
+      log('$e');
       state = state.copyWith(showLoadingIndicator: false);
       return e.toString().split(']').last;
     }

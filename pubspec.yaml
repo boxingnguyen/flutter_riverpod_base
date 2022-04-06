@@ -70,6 +70,10 @@ dependencies:
 
   shared_preferences: ^2.0.12
 
+  # Sign in with Apple
+  sign_in_with_apple: ^3.3.0
+  crypto: ^3.0.1
+
 dev_dependencies:
   build_runner: ^2.1.7
 

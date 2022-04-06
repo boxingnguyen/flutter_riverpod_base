@@ -47,13 +47,19 @@ class LoginScreen extends HookConsumerWidget with Utils {
                 style: AppStyles.textBold.copyWith(fontSize: 18),
               ),
               const SizedBox(height: 10),
-              ButtonLogin(
-                urlSvg: Asset.googleLogo,
-                message: Constants.signUpWithGoogle,
-                onTap: () {
-                  _signInWithGoogle(context, ref);
-                },
-              ),
+              Platform.isIOS
+                  ? ButtonLogin(
+                      urlSvg: Asset.appleLogo,
+                      message: Constants.signUpWithApple,
+                      onTap: () => _signInWithApple(context, ref),
+                    )
+                  : ButtonLogin(
+                      urlSvg: Asset.googleLogo,
+                      message: Constants.signUpWithGoogle,
+                      onTap: () {
+                        _signInWithGoogle(context, ref);
+                      },
+                    ),
               ButtonLogin(
                 urlSvg: Asset.fbLogo,
                 message: Constants.signUpWithFacebook,
@@ -66,13 +72,6 @@ class LoginScreen extends HookConsumerWidget with Utils {
                 message: Constants.signUpWithEmail,
                 onTap: () => push(context, const SignUpEmail()),
               ),
-              Platform.isIOS
-                  ? ButtonLogin(
-                      urlSvg: Asset.appleLogo,
-                      message: Constants.signUpWithApple,
-                      onTap: () {},
-                    )
-                  : const SizedBox(),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -126,6 +125,18 @@ class LoginScreen extends HookConsumerWidget with Utils {
 
   Future<void> _signInWithFacebook(BuildContext context, WidgetRef ref) async {
     await ref.read(loginProvider.notifier).signInWithFacebook();
+    final userState = ref.watch(loginProvider);
+
+    if (userState.userDetail?.displayName == null) {
+      snackBar(context, Constants.loginFailed, Colors.red);
+      return;
+    }
+    snackBar(context, Constants.loginSuccessful, Colors.green);
+    await pushReplacement(context, const HomeScreen(title: Constants.base));
+  }
+
+  Future<void> _signInWithApple(BuildContext context, WidgetRef ref) async {
+    await ref.read(loginProvider.notifier).signInWithApple();
     final userState = ref.watch(loginProvider);
 
     if (userState.userDetail?.displayName == null) {
