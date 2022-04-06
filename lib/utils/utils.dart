@@ -50,15 +50,6 @@ mixin Utils {
     );
   }
 
-  Future<dynamic> pushReplacement(BuildContext context, Widget routerName) {
-    return Navigator.of(context).pushReplacement(
-        MaterialPageRoute<dynamic>(builder: (context) => routerName));
-  }
-
-  Future<dynamic> pushAndRemoveUntil(BuildContext context, Widget routerName) {
-    return Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (context) => routerName), (route) => false);
-  }
 
   double screenHeight(BuildContext context) {
     return MediaQuery.of(context).size.height;

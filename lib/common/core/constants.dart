@@ -20,6 +20,8 @@ class AppColors {
 class Constants {
   static const fontRoboto = 'Roboto';
 
+  static const imagePath = 'assets/images';
+  static const imageSvgPath = 'assets/images_svg';
   static const signUpWithFacebook = 'Sign up with Facebook';
   static const signUpWithApple = 'Sign up with Apple';
   static const signUpWithGmail = 'Sign up with Gmail';
