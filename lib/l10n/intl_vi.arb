@@ -14,6 +14,6 @@
     "msgap013": "Trang chủ",  "@msgap013": {    "type": "text",    "placeholders": {}  },
     "msgap014": "Mẫu đơn",  "@msgap014": {    "type": "text",    "placeholders": {}  },
     "msgap015": "Web",  "@msgap015": {    "type": "text",    "placeholders": {}  },
-    "msgap016": "Hộp thoại",  "@msgap016": {    "type": "text",    "placeholders": {}  },
+    "msgap016": "Tập tin",  "@msgap016": {    "type": "text",    "placeholders": {}  },
     "msgap017": "Cài đặt",  "@msgap017": {    "type": "text",    "placeholders": {}  }
 }

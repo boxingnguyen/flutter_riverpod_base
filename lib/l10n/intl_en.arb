@@ -15,6 +15,6 @@
     "msgap013": "Home",  "@msgap013": {    "type": "text",    "placeholders": {}  },
     "msgap014": "Form",  "@msgap014": {    "type": "text",    "placeholders": {}  },
     "msgap015": "Web",  "@msgap015": {    "type": "text",    "placeholders": {}  },
-    "msgap016": "Dialog",  "@msgap016": {    "type": "text",    "placeholders": {}  },
+    "msgap016": "Files",  "@msgap016": {    "type": "text",    "placeholders": {}  },
     "msgap017": "Settings",  "@msgap017": {    "type": "text",    "placeholders": {}  }
 }

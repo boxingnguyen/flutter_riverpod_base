@@ -13,7 +13,14 @@ class SettingsScreen extends StatelessWidget with Utils {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar(context: context, title: L10n.of(context).msgap010),
+      appBar: getAppBar(
+        context: context,
+        title: L10n.of(context).msgap010,
+        pressBack: () => Navigator.of(
+          context,
+          rootNavigator: true,
+        ).pop(context),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(
           vertical: AppStyles.verticalSpace,
@@ -45,15 +52,7 @@ class SettingsScreen extends StatelessWidget with Utils {
                       ),
                     ),
                   );
-                }
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const ChangeLanguageScreen(),
-                //   ),
-                // ),
-                // pushName(context, ChangeLanguageScreen.routeName),
-                ),
+                }),
           ],
         ),
       ),

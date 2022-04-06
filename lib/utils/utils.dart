@@ -120,7 +120,7 @@ mixin Utils {
           },
       child: const Icon(
         Icons.arrow_back_ios,
-        color: Colors.black,
+        color: Colors.white,
         size: 20,
       ),
     );

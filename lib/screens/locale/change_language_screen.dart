@@ -81,7 +81,7 @@ class __BodyState extends ConsumerState<_Body> {
         RadioListTile(
           value: LanguageValue.japan,
           groupValue: _currentLocale,
-          title: Text(L10n.of(context).msgap007),
+          title: Text(L10n.of(context).msgap004),
           subtitle: const Text('Japan'),
           onChanged: (value) {
             _changeLocale(LanguageValue.japan);

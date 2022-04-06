@@ -6,15 +6,14 @@ import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/l10n/l10n.dart';
 import 'package:provider_base/screens/dashboard/cupertino_tab_controller_hook.dart';
 import 'package:provider_base/screens/dashboard/dashboard_state_notifier.dart';
-import 'package:provider_base/screens/dialog/dialog_screen.dart';
-import 'package:provider_base/screens/form/form_screen.dart';
+import 'package:provider_base/screens/files/files_screen.dart';
+import 'package:provider_base/screens/form_and_dialog/form_screen.dart';
 import 'package:provider_base/screens/settings/settings_screen.dart';
 import 'package:provider_base/screens/todo/todo_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class DashboardScreen extends HookConsumerWidget with Utils {
   const DashboardScreen({Key? key}) : super(key: key);
-  // TODO(Minnt): add button back to module screen
   static String routeName = '/dashboard';
 
   @override
@@ -40,7 +39,7 @@ class DashboardScreen extends HookConsumerWidget with Utils {
       TodoScreen(),
       FormScreen(),
       SimpleWebView(url: 'https://pub.dev/packages/form_field_validator'),
-      DialogScreen(),
+      FilesScreen(),
       SettingsScreen(),
     ];
 
