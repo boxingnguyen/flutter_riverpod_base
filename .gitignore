@@ -52,3 +52,6 @@ lib/l10n/messages_*.dart
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+lib/**/*.freezed.dart
+lib/**/*.g.dart

@@ -5,11 +5,14 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:provider_base/api/api_exceptions.dart';
-import 'package:provider_base/local_share.dart';
+import 'package:provider_base/common/core/data/local_storage.dart';
+import 'package:provider_base/common/core/data/secure_storage.dart';
+
+import 'api_endpoints.dart';
 
 class ApiClient {
   static String baseUrl = 'https://jsonplaceholder.typicode.com';
-  static Future<String?> get accessToken async => LocalShare().getAccessToken();
+  static Future<String?> get accessToken async => LocalStorage.getAccessToken();
   static Map<String, String> get headers =>
       {'Authorization': 'Bearer $accessToken'};
 
@@ -80,12 +83,28 @@ class ApiClient {
   }
 
   static dynamic _handleError(onError) {
-    print(onError);
+    log(onError.toString());
+
     if (onError is TimeoutException) {
-      print('timeout');
+      log('timeout');
     } else if (onError is SocketException) {
-      print('socket');
+      log('socket');
     }
+  }
+
+  static Future<String> reGetAccessToken({required String username}) async {
+    String refreshToken = await SecureStorage.getToken(isAccessToken: false);
+    log('f5 token: ' + refreshToken.toString());
+    final params = {'userName': username, "refreshToken": refreshToken};
+
+    final res = await postRequest(
+      ApiEndpoints.refreshToken,
+      params: params,
+    );
+    final accessToken = (res['accessToken'] ?? '').toString();
+    SecureStorage.saveToken(accessToken);
+
+    return accessToken;
   }
 
   static dynamic _handleResponse(http.Response response) {

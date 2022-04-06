@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CommonButton {
-  static Widget customBtn(
-      {Color backgroundColor = Colors.white,
-      required String label,
-      Color labelColor = Colors.blue,
-      required Color iconColor,
-      required IconData iconData,
-      required Function() onTap}) {
+  static Widget customBtn({
+    Color backgoundColor = Colors.white,
+    required String label,
+    Color labelColor = Colors.blue,
+    required Color iconColor,
+    required IconData iconData,
+    required Function() onTap,
+  }) {
     return ElevatedButton.icon(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
+        backgroundColor: MaterialStateProperty.all<Color>(backgoundColor),
       ),
       onPressed: onTap,
       icon: FaIcon(
@@ -26,12 +27,12 @@ class CommonButton {
   }
 
   static Widget backBtn(
-      BuildContext context, VoidCallback? pressBack, dynamic popValue) {
+    BuildContext context,
+    VoidCallback? pressBack,
+    dynamic popValue,
+  ) {
     return InkWell(
-      onTap: pressBack ??
-          () {
-            Navigator.of(context).pop(popValue);
-          },
+      onTap: pressBack ?? () => Navigator.of(context).pop(popValue),
       child: const Icon(
         Icons.arrow_back_ios,
         color: Colors.black,
@@ -52,19 +53,6 @@ class CommonButton {
         ),
         child: const Icon(Icons.close, size: 20),
       ),
-    );
-  }
-
-  static Widget iconBtn(BuildContext context,
-      {required Function() onPressed,
-      required Icon iconBtn,
-      required Color colorBtn,
-      required double iconSize}) {
-    return IconButton(
-      onPressed: onPressed,
-      icon: iconBtn,
-      color: colorBtn,
-      iconSize: iconSize,
     );
   }
 }

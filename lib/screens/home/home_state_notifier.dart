@@ -14,7 +14,6 @@ class HomeStateNotifier extends StateNotifier<HomeState> with LocatorMixin {
 
   void increment() {
     var counter = state.counter;
-
     state = state.copyWith(counter: ++counter);
     dev.log('counter change: $counter');
   }

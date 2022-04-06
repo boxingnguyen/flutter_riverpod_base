@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:provider_base/models/user_model/user.dart';
-import 'package:provider_base/screens/login/login_state.dart';
+
+import '../../models/user/user_detail.dart';
+import 'login_state.dart';
 
 final loginProvider = StateNotifierProvider<LoginStateNotifier, LoginState>(
     (_) => LoginStateNotifier());
@@ -17,7 +20,7 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
   GoogleSignInAccount? googleSignInAccount;
   UserDetail? userDetail;
   Map? userData;
-  final _auth = FirebaseAuth.instance;
+  bool loginDone = false;
 
   Future<void> signInWithGoogle() async {
     try {
@@ -34,7 +37,7 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       final authResult = await _auth.signInWithCredential(credential);
 
       final User? user = authResult.user;
-      assert(!user!.isAnonymous);
+      assert(!(user?.isAnonymous ?? true));
       assert(await user?.getIdToken() != null);
 
       final User? currentUser = _auth.currentUser;
@@ -46,7 +49,7 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       );
       state = LoginState(userDetail: userDetail);
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 
@@ -56,25 +59,31 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
     );
 
     if (result.status == LoginStatus.success) {
-      final credential = FacebookAuthProvider.credential(
-        result.accessToken!.token,
+      final requestData = await FacebookAuth.i.getUserData(
+        fields: 'email, name, picture',
       );
-      final user = (await _auth.signInWithCredential(credential)).user;
+      userData = requestData;
       final newUser = UserDetail(
-        displayName: user?.displayName ?? '',
-        email: user?.email ?? '',
-        photoUrl: user?.photoURL ?? '',
+        displayName: requestData['name'],
+        email: requestData['email'],
+        photoUrl: requestData['picture']['data']['url'],
       );
       state = state.copyWith(userDetail: newUser);
     } else {
-      print(result.status);
+      log(result.status.name);
     }
+
+    if (result.accessToken == null) {
+      return;
+    }
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(result.accessToken!.token);
+    await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 
   Future<void> logOut() async {
     googleSignInAccount = await googleSignIn.signOut();
-    await _auth.signOut();
-    //await FacebookAuth.i.logOut();
+    await FacebookAuth.i.logOut();
     userData = null;
     state = state.copyWith(userDetail: null);
   }
