@@ -47,19 +47,13 @@ class LoginScreen extends HookConsumerWidget with Utils {
                 style: AppStyles.textBold.copyWith(fontSize: 18),
               ),
               const SizedBox(height: 10),
-              Platform.isIOS
-                  ? ButtonLogin(
-                      urlSvg: Asset.appleLogo,
-                      message: Constants.signUpWithApple,
-                      onTap: () => _signInWithApple(context, ref),
-                    )
-                  : ButtonLogin(
-                      urlSvg: Asset.googleLogo,
-                      message: Constants.signUpWithGoogle,
-                      onTap: () {
-                        _signInWithGoogle(context, ref);
-                      },
-                    ),
+              ButtonLogin(
+                urlSvg: Asset.googleLogo,
+                message: Constants.signUpWithGoogle,
+                onTap: () {
+                  _signInWithGoogle(context, ref);
+                },
+              ),
               ButtonLogin(
                 urlSvg: Asset.fbLogo,
                 message: Constants.signUpWithFacebook,
@@ -72,6 +66,13 @@ class LoginScreen extends HookConsumerWidget with Utils {
                 message: Constants.signUpWithEmail,
                 onTap: () => push(context, const SignUpEmail()),
               ),
+              Platform.isIOS
+                  ? ButtonLogin(
+                      urlSvg: Asset.appleLogo,
+                      message: Constants.signUpWithApple,
+                      onTap: () => _signInWithApple(context, ref),
+                    )
+                  : const SizedBox(),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
