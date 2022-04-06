@@ -2,7 +2,9 @@ import 'dart:developer' as dev;
 import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/common/core/constants.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 import 'home_state.dart';
@@ -12,6 +14,8 @@ final homeProvider = StateNotifierProvider<HomeStateNotifier, HomeState>(
 
 class HomeStateNotifier extends StateNotifier<HomeState> with LocatorMixin {
   HomeStateNotifier() : super(HomeState());
+
+  String currentVerificationId = '';
 
   void increment() {
     var counter = state.counter;
@@ -24,9 +28,11 @@ class HomeStateNotifier extends StateNotifier<HomeState> with LocatorMixin {
     state = state.copyWith(random: random);
   }
 
-  Future<void> onGetCode(String phoneNumber, User? currentUser) async {
+  Future<String> onGetCode(String phoneNumber, User? currentUser) async {
+    String failed = '';
+
     if (currentUser == null) {
-      return;
+      return failed;
     }
     await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: phoneNumber,
@@ -35,15 +41,34 @@ class HomeStateNotifier extends StateNotifier<HomeState> with LocatorMixin {
           await currentUser.updatePhoneNumber(phoneCredential);
           // either this occurs or the user needs to manually enter the SMS code
         },
-        verificationFailed: (e) {},
-        codeSent: (verificationId, [forceResendingToken]) async {
-          String smsCode = '';
-          // get the SMS code from the user somehow (probably using a text field)
-          final AuthCredential credential = PhoneAuthProvider.credential(
-              verificationId: verificationId, smsCode: smsCode);
-          // await (await FirebaseAuth.instance.currentUser())
-          //     .updatePhoneNumberCredential(credential);
+        verificationFailed: (e) {
+          failed = e.message ?? '';
         },
-        codeAutoRetrievalTimeout: (e) {});
+        codeSent: (verificationId, [forceResendingToken]) {
+          currentVerificationId = verificationId;
+        },
+        codeAutoRetrievalTimeout: (e) {
+          failed = e;
+        });
+    return failed;
+  }
+
+  Future<String> codeSent({
+    required User? currentUser,
+    required String smsCode,
+    int? forceResendingToken,
+  }) async {
+    if (currentUser == null) {
+      return Constants.updatePhoneNumberFailed;
+    }
+    // get the SMS code from the user somehow (probably using a text field)
+    final phoneCredential = PhoneAuthProvider.credential(
+        verificationId: currentVerificationId, smsCode: smsCode);
+    print(phoneCredential.providerId);
+    print(phoneCredential.signInMethod);
+    print(phoneCredential.token);
+    print(phoneCredential.hashCode);
+    await currentUser.updatePhoneNumber(phoneCredential);
+    return Constants.updatePhoneNumberSuccessful;
   }
 }

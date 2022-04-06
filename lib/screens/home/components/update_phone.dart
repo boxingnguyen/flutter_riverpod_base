@@ -46,8 +46,15 @@ class UpdatePhone extends HookConsumerWidget with Utils {
                   TextFieldLogin(
                     controller: phoneController,
                     labelText: Constants.phone,
-                    suffixIcon: _suffixIcon(() => stateNotifier.onGetCode(
-                        phoneController.text, loginStateNotifier.currentUser)),
+                    suffixIcon: _suffixIcon(
+                      onGetCode: () async {
+                        final message = await stateNotifier.onGetCode(
+                          phoneController.text,
+                          loginStateNotifier.currentUser,
+                        );
+                        snackBar(context, message, AppStyles.errorColor);
+                      },
+                    ),
                   ),
                   const SizedBox(height: 15),
                   TextFieldLogin(
@@ -59,18 +66,13 @@ class UpdatePhone extends HookConsumerWidget with Utils {
                     label: Constants.signInUp,
                     onTap: () async {
                       unFocusScope(context);
-                      // final isSignUp = await stateNotifier.onSignIn(
-                      //   emailController.text,
-                      //   passwordController.text,
-                      // );
-                      // if (isSignUp.isNotEmpty) {
-                      //   snackBar(context, isSignUp, AppStyles.errorColor);
-                      //   return;
-                      // }
-                      // snackBar(
-                      //     context, Constants.loginSuccessful, Colors.green);
-                      // await pushReplacement(
-                      //     context, const HomeScreen(title: Constants.base));
+                      final message = await stateNotifier.codeSent(
+                        currentUser: loginStateNotifier.currentUser,
+                        smsCode: codeController.text,
+                      );
+                      if (message == Constants.updatePhoneNumberSuccessful) {
+                        Navigator.of(context).pop();
+                      }
                     },
                     colorButton:
                         state.updatePhone ? AppColors.green : AppColors.grey6,
@@ -87,7 +89,7 @@ class UpdatePhone extends HookConsumerWidget with Utils {
     );
   }
 
-  Widget _suffixIcon(Function() onGetCode) {
+  Widget _suffixIcon({required void Function() onGetCode}) {
     return GestureDetector(
       onTap: onGetCode,
       child: Container(

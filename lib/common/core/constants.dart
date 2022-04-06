@@ -58,6 +58,8 @@ class Constants {
   static const phone = 'Phone';
   static const code = 'Code';
   static const getCode = 'Get code';
+  static const updatePhoneNumberFailed = 'Update phone number failed';
+  static const updatePhoneNumberSuccessful = 'Update phone number successful';
 
   // int
   static const otherFieldMaxLength100 = 100;
