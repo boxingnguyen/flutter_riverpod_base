@@ -3,13 +3,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/common_view/error_indicator.dart';
 import 'package:provider_base/common/common_view/loading_indicator.dart';
+import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/screens/dashboard/dashboard_state_notifier.dart';
 import 'package:provider_base/screens/todo/todo_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class TodoScreen extends StatelessWidget with Utils {
   const TodoScreen({Key? key}) : super(key: key);
-  // TODO(linhlc): scroll to bottom after load more
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +54,7 @@ class TodoBody extends HookConsumerWidget with Utils {
 
     return Stack(
       children: [
-        todoState.showLoadingIndicator
+        todoState.showLoadingIndicator && listTodo.isEmpty
             ? const LoadingIndicator()
             : const SizedBox(),
         todoState.showErrorIndicator
@@ -67,14 +67,22 @@ class TodoBody extends HookConsumerWidget with Utils {
           child: ListView.builder(
               controller: scrollController,
               physics: const BouncingScrollPhysics(),
-              itemCount: listTodo.length,
+              itemCount: listTodo.length + 1,
               itemBuilder: (context, index) {
-                final item = listTodo.elementAt(index);
-                return ListTile(
-                  title: Text(item.title ?? ''),
-                  subtitle: Text(item.id.toString()),
-                  leading: const Icon(Icons.watch),
-                );
+                if (index == listTodo.length) {
+                  return listTodo.isNotEmpty ? const Center(
+                    child: CircularProgressIndicator(
+                      color: AppStyles.primaryColor,
+                    ),
+                  ) : const SizedBox();
+                } else {
+                  final item = listTodo.elementAt(index);
+                  return ListTile(
+                    title: Text(item.title ?? ''),
+                    subtitle: Text(item.id.toString()),
+                    leading: const Icon(Icons.watch),
+                  );
+                }
               }),
         )
       ],
