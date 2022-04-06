@@ -9,25 +9,25 @@ import 'package:provider_base/utils/utils.dart';
 
 class FormScreen extends StatelessWidget with Utils {
   const FormScreen({Key? key}) : super(key: key);
-  // TODO(linhlc): fix form screen dissappear error email when show/ hide pass
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         appBar: getAppBar(context: context, title: 'Form Screen'),
-        body: const FormBody(),
+        body: FormBody(formKey: _formKey,),
       ),
     );
   }
 }
 
 class FormBody extends HookConsumerWidget with Utils {
-  const FormBody({Key? key}) : super(key: key);
+  const FormBody({Key? key, required this.formKey}) : super(key: key);
 
+  final GlobalKey<FormState> formKey;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _formKey = GlobalKey<FormState>();
     final formState = ref.watch(formNotifierProvider);
     final formStateNotifier = ref.read(formNotifierProvider.notifier);
 
@@ -51,7 +51,7 @@ class FormBody extends HookConsumerWidget with Utils {
       padding:
           const EdgeInsets.symmetric(horizontal: AppStyles.horizontalSpace),
       child: Form(
-        key: _formKey,
+        key: formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -86,7 +86,7 @@ class FormBody extends HookConsumerWidget with Utils {
             ElevatedButton(
                 onPressed: () {
                   // Validate returns true if the form is valid, or false otherwise.
-                  if (_formKey.currentState!.validate()) {
+                  if (formKey.currentState!.validate()) {
                     // If the form is valid, display a snackbar. In the real world,
                     // you'd often call a server or save the information in a database.
                     ScaffoldMessenger.of(context).showSnackBar(

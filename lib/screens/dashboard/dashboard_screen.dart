@@ -38,7 +38,11 @@ class DashboardScreen extends HookConsumerWidget with Utils {
     const _pages = [
       TodoScreen(),
       FormScreen(),
-      SimpleWebView(url: 'https://pub.dev/packages/form_field_validator'),
+      Scaffold(
+          body: SafeArea(
+        child:
+            SimpleWebView(url: 'https://pub.dev/packages/form_field_validator'),
+      )),
       DialogScreen(),
       // TODO(Minnt): add setting screen with change language
       HomeScreen(
