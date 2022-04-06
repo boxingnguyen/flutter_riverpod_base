@@ -19,6 +19,7 @@ final loginProvider = StateNotifierProvider<LoginStateNotifier, LoginState>(
 class LoginStateNotifier extends StateNotifier<LoginState> {
   LoginStateNotifier() : super(LoginState());
 
+  // TODO(tupa1) add Google Analytics when catch exeption
   final GoogleSignIn googleSignIn = GoogleSignIn(
     scopes: ['email'],
   );

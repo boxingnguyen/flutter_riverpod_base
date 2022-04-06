@@ -22,6 +22,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
     - fix bug sigin flutter with facebook
     - merge sigin in apple
     - add sign up screen
+    - fix hide snackbar when tap canncel dialog
   */
 
   @override
