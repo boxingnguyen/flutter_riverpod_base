@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/models/user/user_detail.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -94,11 +95,10 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
   }
 
   String generateNonce() {
-    const charset =
-        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
     final random = math.Random.secure();
-    return List.generate(
-        32, (_) => charset[random.nextInt(charset.length)]).join();
+    return List.generate(32,
+            (_) => Constants.charset[random.nextInt(Constants.charset.length)])
+        .join();
   }
 
   Future<void> signInWithApple() async {

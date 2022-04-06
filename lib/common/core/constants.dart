@@ -63,6 +63,8 @@ class Constants {
 
   // int
   static const otherFieldMaxLength100 = 100;
+  static const charset =
+      '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
 }
 
 class Asset {
