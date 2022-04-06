@@ -10,6 +10,10 @@ import 'package:provider_base/screens/home/home_screen.dart';
 import 'package:provider_base/screens/login/login_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
 
+// TODO(tupa1):
+// - fix name
+// - add forgot password -> screen forgot pass input email
+// - if input password wrong > 5 times, show capcha
 class SignInEmail extends HookConsumerWidget with Utils {
   const SignInEmail({Key? key}) : super(key: key);
 

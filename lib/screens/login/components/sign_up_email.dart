@@ -15,6 +15,9 @@ class SignUpEmail extends HookConsumerWidget with Utils {
     Key? key,
   }) : super(key: key);
 
+  // TODO(tupa1): fix design, use validator of textfield
+  // password secure
+  // add privacy, & term of service
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final emailController = useTextEditingController();
