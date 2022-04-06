@@ -36,6 +36,8 @@ class App extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeState = ref.watch(appThemeProvider);
     ref.read(analyticsUtilProvider).logEvent(AnalyticsEventType.appLaunched);
+
+    // initialize flutter local notification
     NotificationUtil.initialize(context);
 
     return MaterialApp(
@@ -50,6 +52,7 @@ class App extends HookConsumerWidget {
         Locale('en'),
       ],
       builder: (context, child) => GestureDetector(
+        // dismiss keyboard when tap outside whole app
         onTap: () =>
             WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus(),
         child: child,

@@ -39,7 +39,6 @@ class HomeScreen extends HookConsumerWidget with Utils {
                     Constants.getNumberNum + '${state.random}',
                     style: AppStyles.textRegular,
                   ),
-                  TextField(),
                   TextButton(
                     onPressed: () =>
                         ref.read(homeProvider.notifier).getRandom(),
