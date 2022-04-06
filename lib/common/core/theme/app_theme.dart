@@ -10,6 +10,10 @@ class AppTheme {
 
   static ThemeData _themeData({bool isLightMode = true}) {
     return ThemeData(
+      inputDecorationTheme: InputDecorationTheme(
+        enabledBorder: border,
+        focusedBorder: border,
+      ),
       fontFamily: Constants.fontRoboto,
       brightness: isLightMode ? Brightness.light : Brightness.dark,
       visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -39,3 +43,8 @@ class AppTheme {
     );
   }
 }
+
+var border = OutlineInputBorder(
+  borderSide: const BorderSide(color: AppStyles.bgDarkModeColor),
+  borderRadius: BorderRadius.circular(15),
+);
