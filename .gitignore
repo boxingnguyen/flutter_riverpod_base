@@ -43,11 +43,6 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-lib/generated
-lib/**/*.freezed.dart
-lib/**/*.g.dart
-lib/l10n/messages_*.dart
-
 # Android Studio will place build artifacts here
 /android/app/debug
 /android/app/profile

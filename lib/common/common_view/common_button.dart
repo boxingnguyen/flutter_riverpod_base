@@ -55,19 +55,4 @@ class CommonButton {
       ),
     );
   }
-
-    static Widget iconBtn(BuildContext context,
-      {required Function() onPressed,
-      required Icon iconBtn,
-      required Color colorBtn,
-      required double iconSize}) {
-    return IconButton(
-      onPressed: onPressed,
-      icon: iconBtn,
-      color: colorBtn,
-      iconSize: iconSize,
-    );
-  }
-
-
 }
