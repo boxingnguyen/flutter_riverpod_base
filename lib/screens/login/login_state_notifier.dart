@@ -89,6 +89,9 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
   }
 
   String sha256ofString(String input) {
+    if (input.isEmpty) {
+      return '';
+    }
     final bytes = utf8.encode(input);
     final digest = sha256.convert(bytes);
     return digest.toString();
@@ -106,21 +109,18 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       final rawNonce = generateNonce();
       final nonce = sha256ofString(rawNonce);
 
-      final appleCredential = await SignInWithApple.getAppleIDCredential(
-          scopes: [
-            AppleIDAuthorizationScopes.email,
-            AppleIDAuthorizationScopes.fullName,
-          ],
-          nonce: nonce
-      );
+      final appleCredential =
+          await SignInWithApple.getAppleIDCredential(scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ], nonce: nonce);
 
       final oauthCredential = OAuthProvider("apple.com").credential(
         idToken: appleCredential.userIdentifier,
         rawNonce: rawNonce,
       );
 
-      await FirebaseAuth.instance.signInWithCredential(
-          oauthCredential);
+      await FirebaseAuth.instance.signInWithCredential(oauthCredential);
     } catch (e) {
       log('$e');
     }
