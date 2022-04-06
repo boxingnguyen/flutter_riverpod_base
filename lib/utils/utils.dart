@@ -54,6 +54,7 @@ mixin Utils {
     );
   }
 
+
   double screenHeight(BuildContext context) {
     return MediaQuery.of(context).size.height;
   }
