@@ -8,6 +8,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/core/theme/app_theme_state_notifier.dart';
 import 'package:provider_base/env/env_state.dart';
+import 'package:provider_base/l10n/l10n.dart';
+import 'package:provider_base/l10n/language_constants.dart';
+import 'package:provider_base/l10n/ln10_delegate.dart';
+import 'package:provider_base/screens/locale/locale_state_notifier.dart';
 import 'package:provider_base/screens/modules/modules_screen.dart';
 import 'package:provider_base/screens/routes.dart';
 import 'package:provider_base/utils/analytics_utils.dart';
@@ -36,6 +40,7 @@ class App extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(appThemeProvider);
+    final localeState = ref.watch(localeProvider);
     // TODO(anhnq): setup locale and font for whole app
     return MaterialApp(
       darkTheme: ThemeData(
@@ -46,11 +51,20 @@ class App extends HookConsumerWidget {
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate, // This is required
+        GlobalCupertinoLocalizations.delegate,
+        L10n.delegate,
+        L10nDelegate(),
+        // This is required
+      ],
+      supportedLocales: const [
+        Locale(LanguageValue.english),
+        Locale(LanguageValue.vietnam),
+        Locale(LanguageValue.japan),
       ],
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: state.appTheme,
+      locale: localeState.locale,
       initialRoute: ModulesScreen.routeName,
       routes: routes,
       navigatorObservers: [

@@ -70,6 +70,10 @@ dependencies:
     sdk: flutter
   flutter_cupertino_localizations: ^1.0.1
 
+  # Multi-langugae
+  intl: ^0.17.0
+  multiple_localization: ^0.3.0
+
 dev_dependencies:
   # code generate
   build_runner: ^2.1.7
@@ -91,6 +95,17 @@ dev_dependencies:
 
   # web view
   webview_flutter: 2.0.12
+
+  # Internationalization
+  intl_utils: ^2.6.1
+
+flutter_intl:
+  enabled: false # Required. Must be set to true to activate the package. Default: false
+  class_name: L10n # Optional. Sets the name for the generated localization class. Default: S
+  main_locale: en # Optional. Sets the main locale used for generating localization files. Provided value should consist of language code and optional script and country codes separated with underscore (e.g. 'en', 'en_GB', 'zh_Hans', 'zh_Hans_CN'). Default: en
+  arb_dir: lib/l10n # Optional. Sets the directory of your ARB resource files. Provided value should be a valid path on your system. Default: lib/l10n
+  output_dir: lib/l10n # Optional. Sets the directory of generated localization files. Provided value should be a valid path on your system. Default: lib/generated
+  use_deferred_loading: false # Optional. Must be set to true to generate localization code that is loaded with deferred loading. Default: false
 
 flutter:
   # The following line ensures that the Material Icons font is
