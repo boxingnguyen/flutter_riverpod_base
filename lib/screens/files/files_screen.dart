@@ -1,23 +1,40 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/core/app_style.dart';
+import 'package:provider_base/screens/files/files_preview_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
-class FilesScreen extends StatelessWidget with Utils {
+class FilesScreen extends StatefulWidget with Utils {
   const FilesScreen({Key? key}) : super(key: key);
+
+  @override
+  State<FilesScreen> createState() => _FilesScreenState();
+}
+
+class _FilesScreenState extends State<FilesScreen> with Utils {
+  // Used for test preview
+  final imagePath = 'assets/files_example/landscape.jpeg';
+  final videoPath =
+      'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4';
+
+  File? file;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBar(
-          context: context,
-          title: 'Files',
-          centerTitle: true,
-          pressBack: () => Navigator.of(
-            context,
-            rootNavigator: true,
-          ).pop(context),
-        ),
-        body: Padding(
+      appBar: getAppBar(
+        context: context,
+        title: 'Files',
+        centerTitle: true,
+        pressBack: () => Navigator.of(
+          context,
+          rootNavigator: true,
+        ).pop(context),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
           padding: const EdgeInsets.symmetric(
               horizontal: AppStyles.horizontalSpace,
               vertical: AppStyles.verticalSpace),
@@ -33,14 +50,17 @@ class FilesScreen extends StatelessWidget with Utils {
                 height: 10,
               ),
               InkWell(
-                child: Image.network(
-                  'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
+                child: Image.asset(
+                  imagePath,
                   height: 200,
                   width: 200,
                   fit: BoxFit.cover,
                 ),
-                onTap: () => getFileExtension(
-                    'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80'),
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => FilesPreviewScreen(path: imagePath),
+                  ),
+                ),
               ),
               const SizedBox(
                 height: AppStyles.verticalSpace,
@@ -51,6 +71,33 @@ class FilesScreen extends StatelessWidget with Utils {
                     .copyWith(fontSize: AppStyles.fontSizeL),
               ),
               const SizedBox(
+                height: 10,
+              ),
+              file != null
+                  ? GestureDetector(
+                      child: Text(file?.path ?? ''),
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              FilesPreviewScreen(path: file!.path),
+                        ),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final pickedFile = await _pickFiles();
+                  print(pickedFile!.path);
+                  setState(() {
+                    file = pickedFile;
+                  });
+                },
+                child: const Text('Upload file to test'),
+              ),
+              const SizedBox(
                 height: AppStyles.verticalSpace,
               ),
               Text(
@@ -58,13 +105,34 @@ class FilesScreen extends StatelessWidget with Utils {
                 style: AppStyles.textMedium
                     .copyWith(fontSize: AppStyles.fontSizeL),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              GestureDetector(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => FilesPreviewScreen(path: videoPath),
+                  ),
+                ),
+                child: Text(videoPath),
+              ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 
-  String getFileExtension(String fileName) {
-    print("." + fileName.split('.').last);
-    return "." + fileName.split('.').last;
+  // Pick file to test
+  Future<File?> _pickFiles() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+    if (result != null) {
+      final File file = File(result.files.single.path ?? '');
+      return file;
+    }
+    return null;
   }
 }
