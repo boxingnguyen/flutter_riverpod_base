@@ -45,9 +45,7 @@ class DashboardScreen extends HookConsumerWidget with Utils {
       )),
       DialogScreen(),
       // TODO(Minnt): add setting screen with change language
-      HomeScreen(
-        title: 'Home 5',
-      ),
+      HomeScreen(),
     ];
 
     Widget _buttonIcon({IconData? icon, Color? color}) {

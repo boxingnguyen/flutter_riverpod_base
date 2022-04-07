@@ -8,6 +8,7 @@ class LoginState with _$LoginState {
   factory LoginState({
     UserDetail? userDetail,
     @Default(false) bool isSignUp,
+    @Default(false) bool isEmptyInput,
     @Default(false) bool showLoadingIndicator,
   }) = _LoginState;
 }

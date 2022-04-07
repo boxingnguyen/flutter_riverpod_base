@@ -10,6 +10,6 @@ final Map<String, WidgetBuilder> routes = {
   ModulesScreen.routeName: (context) => const ModulesScreen(),
   UtilScreen.routeName: (context) => const UtilScreen(),
   LoginScreen.routeName: (context) => const LoginScreen(),
-  HomeScreen.routeName: (context) => const HomeScreen(title: 'fu'),
-  DashboardScreen.routeName: (context) => DashboardScreen(),
+  HomeScreen.routeName: (context) => const HomeScreen(),
+  DashboardScreen.routeName: (context) => const DashboardScreen(),
 };

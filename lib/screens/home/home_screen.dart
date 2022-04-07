@@ -10,8 +10,7 @@ import 'package:provider_base/screens/post/post_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class HomeScreen extends HookConsumerWidget with Utils {
-  const HomeScreen({Key? key, required this.title}) : super(key: key);
-  final String title;
+  const HomeScreen({Key? key}) : super(key: key);
   static const routeName = '/home_screen';
 
   @override
