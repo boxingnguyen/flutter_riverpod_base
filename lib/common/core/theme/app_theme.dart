@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/core/app_style.dart';
+import 'package:provider_base/common/core/constants.dart';
 
 class AppTheme {
   AppTheme._();
@@ -9,6 +10,11 @@ class AppTheme {
 
   static ThemeData _themeData({bool isLightMode = true}) {
     return ThemeData(
+      inputDecorationTheme: InputDecorationTheme(
+        enabledBorder: border,
+        focusedBorder: border,
+      ),
+      fontFamily: Constants.fontRoboto,
       brightness: isLightMode ? Brightness.light : Brightness.dark,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       scaffoldBackgroundColor:
@@ -37,3 +43,8 @@ class AppTheme {
     );
   }
 }
+
+var border = OutlineInputBorder(
+  borderSide: const BorderSide(color: AppStyles.bgDarkModeColor),
+  borderRadius: BorderRadius.circular(15),
+);

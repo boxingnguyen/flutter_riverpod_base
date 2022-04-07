@@ -5,7 +5,6 @@ import 'package:provider_base/common/common_view/loading_indicator.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class SimpleWebView extends StatefulWidget {
-  // TODO(linhlc): fix safe area
   const SimpleWebView({
     Key? key,
     required this.url,

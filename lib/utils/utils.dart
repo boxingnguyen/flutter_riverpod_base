@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider_base/common/core/app_style.dart';
 
 mixin Utils {
   Future<dynamic> push(
@@ -14,6 +15,32 @@ mixin Utils {
         settings: settings,
       ),
     );
+  }
+
+  Future<dynamic> pushReplacement(BuildContext context, Widget routerName) {
+    return Navigator.of(context).pushReplacement(
+        MaterialPageRoute<dynamic>(builder: (context) => routerName));
+  }
+
+  Future<dynamic> pushAndRemoveUntil(BuildContext context, Widget routerName) {
+    return Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => routerName), (route) => false);
+  }
+
+  void unFocusScope(BuildContext context) {
+    FocusScope.of(context).requestFocus(FocusNode());
+  }
+
+  Future<void> snackBar(
+    BuildContext context,
+    String title,
+    Color titlecolor,
+  ) async {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+      title,
+      style: AppStyles.textMedium.copyWith(color: titlecolor),
+    )));
   }
 
   void pushName(
@@ -33,6 +60,11 @@ mixin Utils {
 
   double screenWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;
+  }
+
+  bool isPortrait(context) {
+    final orientation = MediaQuery.of(context).orientation;
+    return orientation == Orientation.portrait;
   }
 
   AppBar getAppBar({

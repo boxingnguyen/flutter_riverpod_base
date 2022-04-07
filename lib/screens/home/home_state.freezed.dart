@@ -18,10 +18,16 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$HomeStateTearOff {
   const _$HomeStateTearOff();
 
-  _HomeState call({int counter = 0, int random = 17}) {
+  _HomeState call(
+      {int counter = 0,
+      int random = 17,
+      bool showLoadingIndicator = false,
+      bool updatePhone = false}) {
     return _HomeState(
       counter: counter,
       random: random,
+      showLoadingIndicator: showLoadingIndicator,
+      updatePhone: updatePhone,
     );
   }
 }
@@ -33,6 +39,8 @@ const $HomeState = _$HomeStateTearOff();
 mixin _$HomeState {
   int get counter => throw _privateConstructorUsedError;
   int get random => throw _privateConstructorUsedError;
+  bool get showLoadingIndicator => throw _privateConstructorUsedError;
+  bool get updatePhone => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -43,7 +51,8 @@ mixin _$HomeState {
 abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res>;
-  $Res call({int counter, int random});
+  $Res call(
+      {int counter, int random, bool showLoadingIndicator, bool updatePhone});
 }
 
 /// @nodoc
@@ -58,6 +67,8 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
   $Res call({
     Object? counter = freezed,
     Object? random = freezed,
+    Object? showLoadingIndicator = freezed,
+    Object? updatePhone = freezed,
   }) {
     return _then(_value.copyWith(
       counter: counter == freezed
@@ -68,6 +79,14 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
           ? _value.random
           : random // ignore: cast_nullable_to_non_nullable
               as int,
+      showLoadingIndicator: showLoadingIndicator == freezed
+          ? _value.showLoadingIndicator
+          : showLoadingIndicator // ignore: cast_nullable_to_non_nullable
+              as bool,
+      updatePhone: updatePhone == freezed
+          ? _value.updatePhone
+          : updatePhone // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -78,7 +97,8 @@ abstract class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
           _HomeState value, $Res Function(_HomeState) then) =
       __$HomeStateCopyWithImpl<$Res>;
   @override
-  $Res call({int counter, int random});
+  $Res call(
+      {int counter, int random, bool showLoadingIndicator, bool updatePhone});
 }
 
 /// @nodoc
@@ -94,6 +114,8 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
   $Res call({
     Object? counter = freezed,
     Object? random = freezed,
+    Object? showLoadingIndicator = freezed,
+    Object? updatePhone = freezed,
   }) {
     return _then(_HomeState(
       counter: counter == freezed
@@ -104,6 +126,14 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
           ? _value.random
           : random // ignore: cast_nullable_to_non_nullable
               as int,
+      showLoadingIndicator: showLoadingIndicator == freezed
+          ? _value.showLoadingIndicator
+          : showLoadingIndicator // ignore: cast_nullable_to_non_nullable
+              as bool,
+      updatePhone: updatePhone == freezed
+          ? _value.updatePhone
+          : updatePhone // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -111,7 +141,11 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_HomeState implements _HomeState {
-  _$_HomeState({this.counter = 0, this.random = 17});
+  _$_HomeState(
+      {this.counter = 0,
+      this.random = 17,
+      this.showLoadingIndicator = false,
+      this.updatePhone = false});
 
   @JsonKey()
   @override
@@ -119,10 +153,16 @@ class _$_HomeState implements _HomeState {
   @JsonKey()
   @override
   final int random;
+  @JsonKey()
+  @override
+  final bool showLoadingIndicator;
+  @JsonKey()
+  @override
+  final bool updatePhone;
 
   @override
   String toString() {
-    return 'HomeState(counter: $counter, random: $random)';
+    return 'HomeState(counter: $counter, random: $random, showLoadingIndicator: $showLoadingIndicator, updatePhone: $updatePhone)';
   }
 
   @override
@@ -131,14 +171,20 @@ class _$_HomeState implements _HomeState {
         (other.runtimeType == runtimeType &&
             other is _HomeState &&
             const DeepCollectionEquality().equals(other.counter, counter) &&
-            const DeepCollectionEquality().equals(other.random, random));
+            const DeepCollectionEquality().equals(other.random, random) &&
+            const DeepCollectionEquality()
+                .equals(other.showLoadingIndicator, showLoadingIndicator) &&
+            const DeepCollectionEquality()
+                .equals(other.updatePhone, updatePhone));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(counter),
-      const DeepCollectionEquality().hash(random));
+      const DeepCollectionEquality().hash(random),
+      const DeepCollectionEquality().hash(showLoadingIndicator),
+      const DeepCollectionEquality().hash(updatePhone));
 
   @JsonKey(ignore: true)
   @override
@@ -147,12 +193,20 @@ class _$_HomeState implements _HomeState {
 }
 
 abstract class _HomeState implements HomeState {
-  factory _HomeState({int counter, int random}) = _$_HomeState;
+  factory _HomeState(
+      {int counter,
+      int random,
+      bool showLoadingIndicator,
+      bool updatePhone}) = _$_HomeState;
 
   @override
   int get counter;
   @override
   int get random;
+  @override
+  bool get showLoadingIndicator;
+  @override
+  bool get updatePhone;
   @override
   @JsonKey(ignore: true)
   _$HomeStateCopyWith<_HomeState> get copyWith =>

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class UtilScreen extends StatelessWidget {
@@ -36,14 +36,13 @@ class _AppLifecycleReactorState extends State<AppLifecycleReactor>
   @override
   void dispose() {
     WidgetsBinding.instance?.removeObserver(this);
-    // Force crash for test
-    FirebaseCrashlytics.instance.crash();
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     setState(() {
+      log(state.toString());
       _appStatus = state;
       log(state.name);
     });
@@ -51,9 +50,14 @@ class _AppLifecycleReactorState extends State<AppLifecycleReactor>
 
   @override
   Widget build(BuildContext context) {
+    log(isPortrait(context) ? 'Portrait' : 'Landscape');
     return Scaffold(
       appBar: getAppBar(context: context, title: 'Utilities Screen'),
-      body: Center(child: Text('Last App status: $_appStatus')),
+      body: Center(
+          child: Text(
+        'Last App status: $_appStatus',
+        style: AppStyles.textRegular,
+      )),
     );
   }
 }

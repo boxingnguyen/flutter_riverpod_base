@@ -35,21 +35,10 @@ class TextFormFieldCustom extends StatelessWidget {
       validator: validator,
       decoration: InputDecoration(
         hintText: hintText,
-        enabledBorder: OutlineInputBorder(
-          borderSide:
-              const BorderSide(width: 1, color: AppStyles.bgDarkModeColor),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide:
-              const BorderSide(width: 1, color: AppStyles.bgDarkModeColor),
-          borderRadius: BorderRadius.circular(15),
-        ),
         isDense: true,
         // use prefixIcon for showing always.
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
       ),
       onEditingComplete: onEditingComplete,
       obscureText: obscureText,

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/common/core/routes.dart';
 import 'package:provider_base/common/core/theme/app_theme_state_notifier.dart';
 import 'package:provider_base/env/env_state.dart';
 import 'package:provider_base/l10n/l10n.dart';
@@ -13,8 +14,8 @@ import 'package:provider_base/l10n/language_constants.dart';
 import 'package:provider_base/l10n/ln10_delegate.dart';
 import 'package:provider_base/screens/locale/locale_state_notifier.dart';
 import 'package:provider_base/screens/modules/modules_screen.dart';
-import 'package:provider_base/screens/routes.dart';
 import 'package:provider_base/utils/analytics_utils.dart';
+import 'package:provider_base/utils/notification_util.dart';
 
 late final StateProvider envProvider;
 final analyticsUtilProvider = Provider((ref) => AnalyticsUtil(App.analytics));
@@ -42,6 +43,12 @@ class App extends HookConsumerWidget {
     final state = ref.watch(appThemeProvider);
     final localeState = ref.watch(localeProvider);
     // TODO(anhnq): setup locale and font for whole app
+    final themeState = ref.watch(appThemeProvider);
+    ref.read(analyticsUtilProvider).logEvent(AnalyticsEventType.appLaunched);
+
+    // initialize flutter local notification
+    NotificationUtil.initialize(context);
+
     return MaterialApp(
       darkTheme: ThemeData(
         cupertinoOverrideTheme: const CupertinoThemeData(
@@ -61,7 +68,7 @@ class App extends HookConsumerWidget {
         Locale(LanguageValue.vietnam),
         Locale(LanguageValue.japan),
       ],
-      title: 'Flutter Demo',
+      title: 'Provider Base',
       debugShowCheckedModeBanner: false,
       theme: state.appTheme,
       locale: localeState.locale,
@@ -70,6 +77,12 @@ class App extends HookConsumerWidget {
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: analytics),
       ],
+      builder: (context, child) => GestureDetector(
+        // dismiss keyboard when tap outside whole app
+        onTap: () =>
+            WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus(),
+        child: child,
+      ),
     );
   }
 }

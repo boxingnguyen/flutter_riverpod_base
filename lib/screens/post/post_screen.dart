@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/common_view/common_empty_indicator.dart';
 import 'package:provider_base/common/common_view/error_indicator.dart';
+import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/models/post_model/post.dart';
 import 'package:provider_base/screens/post/post_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
@@ -14,7 +15,7 @@ class PostScreen extends HookConsumerWidget with Utils {
     final postState = ref.watch(futureProvider);
 
     return Scaffold(
-      appBar: getAppBar(context: context, title: 'List Post'),
+      appBar: getAppBar(context: context, title: Constants.listPost),
       body: Center(
         // way2
         child: postState.map(

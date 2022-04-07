@@ -5,7 +5,7 @@ import 'package:provider_base/models/post_model/post.dart';
 part 'post_state.freezed.dart';
 
 @freezed
-abstract class PostState with _$PostState {
+class PostState with _$PostState {
   factory PostState({
     @Default(NetworkState.loading()) NetworkState<List<Post?>> posts,
   }) = _PostState;
