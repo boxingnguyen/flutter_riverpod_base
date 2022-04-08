@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/l10n/l10n.dart';
 import 'package:provider_base/l10n/language_constants.dart';
@@ -31,7 +32,7 @@ class _Body extends ConsumerStatefulWidget {
 }
 
 class __BodyState extends ConsumerState<_Body> {
-  String _currentLocale = LanguageValue.english;
+  late String _currentLocale;
 
   @override
   void initState() {
@@ -40,9 +41,9 @@ class __BodyState extends ConsumerState<_Body> {
   }
 
   Future<void> _getCurrentLocale() async {
-    final currentLocale = await getLocale();
+    final currentLocale = Intl.getCurrentLocale();
     setState(() {
-      _currentLocale = currentLocale ?? '';
+      _currentLocale = currentLocale;
     });
   }
 
