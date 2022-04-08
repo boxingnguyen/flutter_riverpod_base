@@ -17,8 +17,7 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
   // Used for test preview
   final imagePath = 'assets/files_example/landscape.jpeg';
   final videoPath =
-      'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4';
-
+      'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4';
   File? file;
 
   @override
@@ -90,7 +89,6 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
               ElevatedButton(
                 onPressed: () async {
                   final pickedFile = await _pickFiles();
-                  print(pickedFile!.path);
                   setState(() {
                     file = pickedFile;
                   });

@@ -19,7 +19,7 @@ class VideoPlayerPreview extends StatefulWidget {
 
 class _VideoPlayerPreviewState extends State<VideoPlayerPreview> {
   late VideoPlayerController _videoPlayerController;
-  late ChewieController? _chewieController;
+  ChewieController? _chewieController;
 
   @override
   void initState() {
@@ -55,11 +55,8 @@ class _VideoPlayerPreviewState extends State<VideoPlayerPreview> {
     } else {
       _videoPlayerController = VideoPlayerController.file(File(widget.path));
     }
-    _videoPlayerController.initialize().then((value) => {
-          _videoPlayerController.addListener(() {
-            setState(() {});
-          })
-        });
+
+    await Future.wait([_videoPlayerController.initialize()]);
 
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
@@ -78,6 +75,8 @@ class _VideoPlayerPreviewState extends State<VideoPlayerPreview> {
       },
     );
 
+    setState(() {});
+
     _chewieController!.addListener(() {
       if (!_chewieController!.isFullScreen) {
         SystemChrome.setPreferredOrientations([
@@ -86,7 +85,5 @@ class _VideoPlayerPreviewState extends State<VideoPlayerPreview> {
         ]);
       }
     });
-
-    await Future.wait([_videoPlayerController.initialize()]);
   }
 }
