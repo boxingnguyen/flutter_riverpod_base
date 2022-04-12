@@ -63,10 +63,11 @@ class LoginScreen extends HookConsumerWidget with Utils {
                 },
               ),
               ButtonLogin(
-                urlSvg: Asset.gmailLogo,
-                message: Constants.signUpWithEmail,
-                onTap: () => push(context, const SignUpEmail()),
-              ),
+                  urlSvg: Asset.gmailLogo,
+                  message: Constants.signUpWithEmail,
+                  onTap: () => pushWithoutContext(const SignUpEmail())
+                  //push(context, const SignUpEmail()),
+                  ),
               Platform.isIOS
                   ? ButtonLogin(
                       urlSvg: Asset.appleLogo,
@@ -83,7 +84,8 @@ class LoginScreen extends HookConsumerWidget with Utils {
                     style: AppStyles.textMedium,
                   ),
                   GestureDetector(
-                    onTap: () => push(context, const SignInEmail()),
+                    onTap: () => pushWithoutContext(const SignInEmail()),
+                    //push(context, const SignInEmail()),
                     child: Text(
                       Constants.signIn,
                       style: AppStyles.textMedium.copyWith(
@@ -118,11 +120,15 @@ class LoginScreen extends HookConsumerWidget with Utils {
     final userState = ref.watch(loginProvider);
 
     if (userState.userDetail?.displayName == null) {
-      snackBar(context, Constants.loginFailed, Colors.red);
+      //  snackBar(context, Constants.loginFailed, Colors.red);
+      snackBarWithoutContext(Constants.loginFailed, AppStyles.errorColor);
       return;
     }
-    snackBar(context, Constants.loginSuccessful, Colors.green);
-    await pushReplacement(context, const HomeScreen(title: Constants.base));
+    // snackBar(context, Constants.loginSuccessful, Colors.green);
+    // await pushReplacement(context, const HomeScreen(title: Constants.base));
+    snackBarWithoutContext(Constants.loginSuccessful, Colors.green);
+    await pushReplacementWithoutContext(
+        const HomeScreen(title: Constants.base));
   }
 
   Future<void> _signInWithFacebook(BuildContext context, WidgetRef ref) async {
@@ -130,11 +136,15 @@ class LoginScreen extends HookConsumerWidget with Utils {
     final userState = ref.watch(loginProvider);
 
     if (userState.userDetail?.displayName == null) {
-      snackBar(context, Constants.loginFailed, Colors.red);
+      //snackBar(context, Constants.loginFailed, Colors.red);
+      snackBarWithoutContext(Constants.loginFailed, AppStyles.errorColor);
       return;
     }
-    snackBar(context, Constants.loginSuccessful, Colors.green);
-    await pushReplacement(context, const HomeScreen(title: Constants.base));
+    // snackBar(context, Constants.loginSuccessful, Colors.green);
+    // await pushReplacement(context, const HomeScreen(title: Constants.base));
+    snackBarWithoutContext(Constants.loginSuccessful, Colors.green);
+    await pushReplacementWithoutContext(
+        const HomeScreen(title: Constants.base));
   }
 
   Future<void> _signInWithApple(BuildContext context, WidgetRef ref) async {
@@ -142,10 +152,14 @@ class LoginScreen extends HookConsumerWidget with Utils {
     final userState = ref.watch(loginProvider);
 
     if (userState.userDetail?.displayName == null) {
-      snackBar(context, Constants.loginFailed, Colors.red);
+      // snackBar(context, Constants.loginFailed, Colors.red);
+      snackBarWithoutContext(Constants.loginFailed, Colors.red);
       return;
     }
-    snackBar(context, Constants.loginSuccessful, Colors.green);
-    await pushReplacement(context, const HomeScreen(title: Constants.base));
+    // snackBar(context, Constants.loginSuccessful, Colors.green);
+    // await pushReplacement(context, const HomeScreen(title: Constants.base));
+    snackBarWithoutContext(Constants.loginSuccessful, Colors.green);
+    await pushReplacementWithoutContext(
+        const HomeScreen(title: Constants.base));
   }
 }

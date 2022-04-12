@@ -17,6 +17,9 @@ late final StateProvider envProvider;
 final analyticsUtilProvider = Provider((ref) => AnalyticsUtil(App.analytics));
 final firebaseAnalyticsProvider = Provider((ref) => FirebaseAnalytics());
 final firebaseFirestore = Provider((ref) => FirebaseFirestore.instance);
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<ScaffoldMessengerState> snackbarKey =
+    GlobalKey<ScaffoldMessengerState>();
 
 Future<void> setupAndRunApp({required EnvState env}) async {
   envProvider = StateProvider((ref) => env);
@@ -43,6 +46,8 @@ class App extends HookConsumerWidget {
     NotificationUtil.initialize(context);
 
     return MaterialApp(
+      navigatorKey: navigatorKey,
+      scaffoldMessengerKey: snackbarKey,
       darkTheme: ThemeData(
         cupertinoOverrideTheme: const CupertinoThemeData(
           textTheme: CupertinoTextThemeData(), // This is required

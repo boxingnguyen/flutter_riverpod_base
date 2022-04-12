@@ -25,7 +25,7 @@ class ModulesScreen extends HookConsumerWidget with Utils {
       'OTP/Capcha': '/otp_capcha',
       'QR Code': '/qr_code',
       'Play Video': '/play_video',
-      'Dashboard' : DashboardScreen.routeName,
+      'Dashboard': DashboardScreen.routeName,
     };
 
     return Scaffold(
@@ -72,7 +72,8 @@ class ModulesScreen extends HookConsumerWidget with Utils {
         ref
             .read(analyticsUtilProvider)
             .setUserProperty(name: 'age', value: '29');
-        return pushName(context, routeName);
+        //  return pushName(context, routeName);
+        return pushNameWithoutContext(routeName);
       },
       child: Container(
         alignment: Alignment.center,

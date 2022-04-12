@@ -71,7 +71,8 @@ class UpdatePhone extends HookConsumerWidget with Utils {
                         smsCode: codeController.text,
                       );
                       if (message == Constants.updatePhoneNumberSuccessful) {
-                        Navigator.of(context).pop();
+                      //  Navigator.of(context).pop();
+                        popWithoutContext();
                       }
                     },
                     colorButton:

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider_base/main/app.dart';
+import 'package:provider_base/utils/utils.dart';
 
-class CommonButton {
+class CommonButton with Utils {
   static Widget customBtn({
     Color backgoundColor = Colors.white,
     required String label,
@@ -32,7 +34,8 @@ class CommonButton {
     dynamic popValue,
   ) {
     return InkWell(
-      onTap: pressBack ?? () => Navigator.of(context).pop(popValue),
+      onTap: pressBack ?? () => navigatorKey.currentState!.pop(),
+      //Navigator.of(context).pop(popValue),
       child: const Icon(
         Icons.arrow_back_ios,
         color: Colors.black,
@@ -43,7 +46,8 @@ class CommonButton {
 
   static Widget closeBtn(BuildContext context, dynamic popValue) {
     return InkWell(
-      onTap: () => Navigator.of(context).pop(popValue),
+      onTap: () => navigatorKey.currentState!.pop(),
+      //Navigator.of(context).pop(popValue),
       child: Container(
         margin: const EdgeInsets.only(right: 10),
         padding: const EdgeInsets.all(6),

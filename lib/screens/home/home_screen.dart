@@ -74,7 +74,8 @@ class HomeScreen extends HookConsumerWidget with Utils {
             style: AppStyles.textRegular,
           ),
           ElevatedButton(
-              onPressed: () => push(context, const PostScreen()),
+              onPressed: () => pushWithoutContext(const PostScreen()),
+              // onPressed: () => push(context, const PostScreen()),
               child: const Text(
                 Constants.postList,
                 style: AppStyles.textRegular,
@@ -114,13 +115,14 @@ class HomeScreen extends HookConsumerWidget with Utils {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.phone),
-            title: const Text(
-              Constants.updatePhoneNumber,
-              style: AppStyles.textRegular,
-            ),
-            onTap: () => push(context, const UpdatePhone()),
-          ),
+              leading: const Icon(Icons.phone),
+              title: const Text(
+                Constants.updatePhoneNumber,
+                style: AppStyles.textRegular,
+              ),
+              onTap: () => pushWithoutContext(const UpdatePhone())
+              //push(context, const UpdatePhone()),
+              ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),
             title: const Text(
@@ -129,8 +131,10 @@ class HomeScreen extends HookConsumerWidget with Utils {
             ),
             onTap: () {
               ref.read(loginProvider.notifier).logOut();
-              snackBar(context, Constants.logOut, Colors.green);
-              pushAndRemoveUntil(context, const LoginScreen());
+              // snackBar(context, Constants.logOut, Colors.green);
+              // pushAndRemoveUntil(context, const LoginScreen());
+              snackBarWithoutContext(Constants.logOut, Colors.green);
+              pushAndRemoveUntilWithoutContext(const LoginScreen());
             },
           ),
         ],

@@ -76,13 +76,15 @@ class SignUpEmail extends HookConsumerWidget with Utils {
                         passwordController.text,
                       );
                       if (isSignUp.isNotEmpty) {
-                        snackBar(context, isSignUp, AppStyles.errorColor);
+                        //snackBar(context, isSignUp, AppStyles.errorColor);
+                        snackBarWithoutContext(isSignUp, AppStyles.errorColor);
                         return;
                       }
-                      snackBar(
-                          context, Constants.loginSuccessful, Colors.green);
-                      await pushReplacement(
-                          context, const HomeScreen(title: Constants.base));
+                     // snackBar(context, Constants.loginSuccessful, Colors.green);
+                      snackBarWithoutContext(Constants.loginSuccessful, Colors.green);
+                      // await pushReplacement(
+                      //     context, const HomeScreen(title: Constants.base));
+                      await pushReplacementWithoutContext(const HomeScreen(title: Constants.base));
                     },
                     colorButton:
                         state.isSignUp ? AppColors.green : AppColors.grey6,
