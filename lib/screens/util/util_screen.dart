@@ -53,11 +53,26 @@ class _AppLifecycleReactorState extends State<AppLifecycleReactor>
     log(isPortrait(context) ? 'Portrait' : 'Landscape');
     return Scaffold(
       appBar: getAppBar(context: context, title: 'Utilities Screen'),
-      body: Center(
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        // Example of navigation without context
+        Center(
+          child: ElevatedButton(
+              onPressed: () => Utils.handleUnauthorizedError(),
+              child: const Text(
+                'Test session expired',
+                style: AppStyles.textRegular,
+              )),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Center(
           child: Text(
-        'Last App status: $_appStatus',
-        style: AppStyles.textRegular,
-      )),
+            'Last App status: $_appStatus',
+            style: AppStyles.textRegular,
+          ),
+        )
+      ]),
     );
   }
 }

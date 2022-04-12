@@ -60,6 +60,7 @@ class Constants {
   static const getCode = 'Get code';
   static const updatePhoneNumberFailed = 'Update phone number failed';
   static const updatePhoneNumberSuccessful = 'Update phone number successful';
+  static const sessionExpired = 'Session expired, push to login';
 
   // int
   static const otherFieldMaxLength100 = 100;

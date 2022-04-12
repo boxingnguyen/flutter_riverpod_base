@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/core/app_style.dart';
+import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/main/app.dart';
+import 'package:provider_base/screens/login/login_screen.dart';
 
 mixin Utils {
   void popWithoutContext() {
@@ -244,5 +246,20 @@ mixin Utils {
         child: const Icon(Icons.close, size: 20),
       ),
     );
+  }
+
+  static void handleUnauthorizedError(){
+    Future.delayed(const Duration(seconds: 5)).then((value)  {
+      snackbarKey.currentState?.showSnackBar(SnackBar(
+          content: Text(
+            Constants.sessionExpired,
+            style: AppStyles.textMedium.copyWith(color: AppStyles.errorColor),
+          )));
+      navigatorKey.currentState!.push<dynamic>(
+        MaterialPageRoute<dynamic>(
+          builder: (_) => const LoginScreen(),
+        ),
+      );
+    });
   }
 }
