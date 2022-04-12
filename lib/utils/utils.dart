@@ -6,30 +6,30 @@ import 'package:provider_base/screens/login/login_screen.dart';
 
 mixin Utils {
   void popWithoutContext() {
-    navigatorKey.currentState!.pop();
+    navigatorKey.currentState?.pop();
   }
 
-  Future<dynamic> pushReplacementNamedWithoutContext(
+  Future<dynamic>? pushReplacementNamedWithoutContext(
     String routeName, {
     Object? arguments,
   }) {
-    return navigatorKey.currentState!.pushReplacementNamed(
+    return navigatorKey.currentState?.pushReplacementNamed(
       routeName,
       arguments: arguments,
     );
   }
 
-  Future<dynamic> pushReplacementWithoutContext(Widget routerName) {
-    return navigatorKey.currentState!.pushReplacement(
+  Future<dynamic>? pushReplacementWithoutContext(Widget routerName) {
+    return navigatorKey.currentState?.pushReplacement(
         MaterialPageRoute<dynamic>(builder: (_) => routerName));
   }
 
-  Future<dynamic> pushNamedAndRemoveUntilWithoutContext(
+  Future<dynamic>? pushNamedAndRemoveUntilWithoutContext(
     String routeName,
     bool Function(Route route) predicate, {
     Object? arguments,
   }) {
-    return navigatorKey.currentState!.pushNamedAndRemoveUntil(
+    return navigatorKey.currentState?.pushNamedAndRemoveUntil(
       routeName,
       predicate,
       arguments: arguments,
@@ -51,7 +51,7 @@ mixin Utils {
     String routeName, {
     Object? arguments,
   }) {
-    navigatorKey.currentState!.pushNamed(
+    navigatorKey.currentState?.pushNamed(
       routeName,
       arguments: arguments,
     );
@@ -62,7 +62,7 @@ mixin Utils {
     RouteSettings? settings,
     bool fullscreenDialog = false,
   }) async {
-    return navigatorKey.currentState!.push<dynamic>(
+    return navigatorKey.currentState?.push<dynamic>(
       MaterialPageRoute<dynamic>(
         builder: (_) => route,
         fullscreenDialog: fullscreenDialog,
@@ -71,8 +71,8 @@ mixin Utils {
     );
   }
 
-  Future<dynamic> pushAndRemoveUntilWithoutContext(Widget routerName) {
-    return navigatorKey.currentState!.pushAndRemoveUntil(
+  Future<dynamic>? pushAndRemoveUntilWithoutContext(Widget routerName) {
+    return navigatorKey.currentState?.pushAndRemoveUntil(
         MaterialPageRoute(builder: (_) => routerName), (route) => false);
   }
 
@@ -220,7 +220,7 @@ mixin Utils {
   static Widget _backBtn(
       BuildContext context, VoidCallback? pressBack, dynamic popValue) {
     return InkWell(
-      onTap: pressBack ?? () => navigatorKey.currentState!.pop(),
+      onTap: pressBack ?? () => navigatorKey.currentState?.pop(),
       // {
       //   Navigator.of(context).pop(popValue);
       // },
@@ -234,7 +234,7 @@ mixin Utils {
 
   static Widget _closeBtn(BuildContext context, dynamic popValue) {
     return InkWell(
-      onTap: () => navigatorKey.currentState!.pop(),
+      onTap: () => navigatorKey.currentState?.pop(),
       //Navigator.of(context).pop(popValue),
       child: Container(
         margin: const EdgeInsets.only(right: 10),
@@ -255,7 +255,7 @@ mixin Utils {
             Constants.sessionExpired,
             style: AppStyles.textMedium.copyWith(color: AppStyles.errorColor),
           )));
-      navigatorKey.currentState!.push<dynamic>(
+      navigatorKey.currentState?.push<dynamic>(
         MaterialPageRoute<dynamic>(
           builder: (_) => const LoginScreen(),
         ),
