@@ -5,8 +5,10 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:provider_base/api/api_exceptions.dart';
+import 'package:provider_base/common/core/data/dummy_data.dart';
 import 'package:provider_base/common/core/data/local_storage.dart';
 import 'package:provider_base/common/core/data/secure_storage.dart';
+import 'package:provider_base/utils/utils.dart';
 
 import 'api_endpoints.dart';
 
@@ -45,6 +47,13 @@ class ApiClient {
     final result = http
         .post(uri,
             headers: isAuthorized ? headers : {}, body: json.encode(params))
+        .then(_handleResponse)
+        .catchError(_handleError);
+    return result;
+  }
+
+  static Future<dynamic> postDummyDataRequest() async {
+    final result = DummyData.handleCheckExpired()
         .then(_handleResponse)
         .catchError(_handleError);
 
@@ -118,6 +127,8 @@ class ApiClient {
       case 400:
         throw BadRequestException(response.body, url);
       case 401:
+        Utils.handleUnauthorizedError();
+        break;
       case 403:
         throw UnAuthorizedException(response.body, url);
       case 500:

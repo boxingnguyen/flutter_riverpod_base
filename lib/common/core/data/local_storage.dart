@@ -17,6 +17,22 @@ class LocalStorage {
   static const _keyAccessToken = 'access_token';
   static const _keyOnDarkMode = 'on_dark_mode';
   static const _keyUserInfo = 'user_info';
+  static const _keyExpiredAt = 'expired_at';
+
+  static Future<int?> getExpiredAt() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(_keyExpiredAt);
+  }
+
+  static Future<void> saveExpiredAt(int expiredAt) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt(_keyExpiredAt, expiredAt);
+  }
+
+  static Future<void> clearAll() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
 
   static Future<String?> getAccessToken() async {
     final prefs = await SharedPreferences.getInstance();

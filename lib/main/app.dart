@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/common/core/routes.dart';
 import 'package:provider_base/common/core/theme/app_theme_state_notifier.dart';
 import 'package:provider_base/env/env_state.dart';
@@ -17,9 +18,7 @@ late final StateProvider envProvider;
 final analyticsUtilProvider = Provider((ref) => AnalyticsUtil(App.analytics));
 final firebaseAnalyticsProvider = Provider((ref) => FirebaseAnalytics());
 final firebaseFirestore = Provider((ref) => FirebaseFirestore.instance);
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-final GlobalKey<ScaffoldMessengerState> snackbarKey =
-    GlobalKey<ScaffoldMessengerState>();
+
 
 Future<void> setupAndRunApp({required EnvState env}) async {
   envProvider = StateProvider((ref) => env);
@@ -46,8 +45,8 @@ class App extends HookConsumerWidget {
     NotificationUtil.initialize(context);
 
     return MaterialApp(
-      navigatorKey: navigatorKey,
-      scaffoldMessengerKey: snackbarKey,
+      navigatorKey: Constants.navigatorKey,
+      scaffoldMessengerKey: Constants.snackbarKey,
       darkTheme: ThemeData(
         cupertinoOverrideTheme: const CupertinoThemeData(
           textTheme: CupertinoTextThemeData(), // This is required

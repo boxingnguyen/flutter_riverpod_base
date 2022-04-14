@@ -20,6 +20,9 @@ class AppColors {
 class Constants {
   static const fontRoboto = 'Roboto';
 
+  static GlobalKey<NavigatorState> navigatorKey =  GlobalKey<NavigatorState>();
+  static GlobalKey<ScaffoldMessengerState> snackbarKey = GlobalKey<ScaffoldMessengerState>();
+
   static const signUpWithFacebook = 'Sign up with Facebook';
   static const signUpWithApple = 'Sign up with Apple';
   static const signUpWithEmail = 'Sign up with Email';

@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
-import 'package:provider_base/main/app.dart';
+import 'package:provider_base/common/core/data/local_storage.dart';
 import 'package:provider_base/screens/login/login_screen.dart';
 
 mixin Utils {
   void popWithoutContext() {
-    navigatorKey.currentState?.pop();
+    Constants.navigatorKey.currentState?.pop();
   }
 
   Future<dynamic>? pushReplacementNamedWithoutContext(
     String routeName, {
     Object? arguments,
   }) {
-    return navigatorKey.currentState?.pushReplacementNamed(
+    return Constants.navigatorKey.currentState?.pushReplacementNamed(
       routeName,
       arguments: arguments,
     );
   }
 
   Future<dynamic>? pushReplacementWithoutContext(Widget routerName) {
-    return navigatorKey.currentState?.pushReplacement(
+    return Constants.navigatorKey.currentState?.pushReplacement(
         MaterialPageRoute<dynamic>(builder: (_) => routerName));
   }
 
@@ -29,7 +29,7 @@ mixin Utils {
     bool Function(Route route) predicate, {
     Object? arguments,
   }) {
-    return navigatorKey.currentState?.pushNamedAndRemoveUntil(
+    return Constants.navigatorKey.currentState?.pushNamedAndRemoveUntil(
       routeName,
       predicate,
       arguments: arguments,
@@ -40,7 +40,7 @@ mixin Utils {
     String title,
     Color titlecolor,
   ) async {
-    snackbarKey.currentState?.showSnackBar(SnackBar(
+    Constants.snackbarKey.currentState?.showSnackBar(SnackBar(
         content: Text(
       title,
       style: AppStyles.textMedium.copyWith(color: titlecolor),
@@ -51,7 +51,7 @@ mixin Utils {
     String routeName, {
     Object? arguments,
   }) {
-    navigatorKey.currentState?.pushNamed(
+    Constants.navigatorKey.currentState?.pushNamed(
       routeName,
       arguments: arguments,
     );
@@ -62,7 +62,7 @@ mixin Utils {
     RouteSettings? settings,
     bool fullscreenDialog = false,
   }) async {
-    return navigatorKey.currentState?.push<dynamic>(
+    return Constants.navigatorKey.currentState?.push<dynamic>(
       MaterialPageRoute<dynamic>(
         builder: (_) => route,
         fullscreenDialog: fullscreenDialog,
@@ -72,7 +72,7 @@ mixin Utils {
   }
 
   Future<dynamic>? pushAndRemoveUntilWithoutContext(Widget routerName) {
-    return navigatorKey.currentState?.pushAndRemoveUntil(
+    return Constants.navigatorKey.currentState?.pushAndRemoveUntil(
         MaterialPageRoute(builder: (_) => routerName), (route) => false);
   }
 
@@ -220,7 +220,7 @@ mixin Utils {
   static Widget _backBtn(
       BuildContext context, VoidCallback? pressBack, dynamic popValue) {
     return InkWell(
-      onTap: pressBack ?? () => navigatorKey.currentState?.pop(),
+      onTap: pressBack ?? () => Constants.navigatorKey.currentState?.pop(),
       // {
       //   Navigator.of(context).pop(popValue);
       // },
@@ -234,7 +234,7 @@ mixin Utils {
 
   static Widget _closeBtn(BuildContext context, dynamic popValue) {
     return InkWell(
-      onTap: () => navigatorKey.currentState?.pop(),
+      onTap: () => Constants.navigatorKey.currentState?.pop(),
       //Navigator.of(context).pop(popValue),
       child: Container(
         margin: const EdgeInsets.only(right: 10),
@@ -248,18 +248,19 @@ mixin Utils {
     );
   }
 
-  static void handleUnauthorizedError(){
-    Future.delayed(const Duration(seconds: 5)).then((value)  {
-      snackbarKey.currentState?.showSnackBar(SnackBar(
-          content: Text(
-            Constants.sessionExpired,
-            style: AppStyles.textMedium.copyWith(color: AppStyles.errorColor),
-          )));
-      navigatorKey.currentState?.push<dynamic>(
-        MaterialPageRoute<dynamic>(
-          builder: (_) => const LoginScreen(),
-        ),
-      );
-    });
+  static void handleUnauthorizedError() async {
+    // Future.delayed(const Duration(seconds: 5)).then((value)  {
+    Constants.snackbarKey.currentState?.showSnackBar(SnackBar(
+        content: Text(
+      Constants.sessionExpired,
+      style: AppStyles.textMedium.copyWith(color: AppStyles.errorColor),
+    )));
+    await LocalStorage.clearAll();
+    Constants.navigatorKey.currentState?.push<dynamic>(
+      MaterialPageRoute<dynamic>(
+        builder: (_) => const LoginScreen(),
+      ),
+    );
+    //   });
   }
 }
