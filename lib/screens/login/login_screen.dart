@@ -144,6 +144,8 @@ class LoginScreen extends HookConsumerWidget with Utils {
     }
   }
 
+  // email đã được tạo từ provider khác thì sẽ không login được bằng facebook
+  
   Future<void> _signUpWithFacebook(
     BuildContext context,
     WidgetRef ref, {
