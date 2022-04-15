@@ -20,8 +20,9 @@ class AppColors {
 class Constants {
   static const fontRoboto = 'Roboto';
 
-  static GlobalKey<NavigatorState> navigatorKey =  GlobalKey<NavigatorState>();
-  static GlobalKey<ScaffoldMessengerState> snackbarKey = GlobalKey<ScaffoldMessengerState>();
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  static GlobalKey<ScaffoldMessengerState> snackbarKey =
+      GlobalKey<ScaffoldMessengerState>();
 
   static const signUpWithFacebook = 'Sign up with Facebook';
   static const signUpWithApple = 'Sign up with Apple';
@@ -86,6 +87,8 @@ class Asset {
   static const imageDefault = 'https://picsum.photos/250?image=9';
 }
 
+// TODO(tupa1): remove class, use theme color & AppStyles,
+// default color like black0 don't need to initialize
 class ColorApp {
   // green
   static const green0 = Color(0xFFAFCEB3);

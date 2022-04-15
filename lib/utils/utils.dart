@@ -248,7 +248,9 @@ mixin Utils {
     );
   }
 
+  // push to login when unauthorized -> force logout and push to login
   static void handleUnauthorizedError() async {
+    // TOD(Dieptt): remove unused code
     // Future.delayed(const Duration(seconds: 5)).then((value)  {
     Constants.snackbarKey.currentState?.showSnackBar(SnackBar(
         content: Text(
@@ -256,6 +258,7 @@ mixin Utils {
       style: AppStyles.textMedium.copyWith(color: AppStyles.errorColor),
     )));
     await LocalStorage.clearAll();
+    // TOD(Dieptt): push to login need push and replacement, use name route
     Constants.navigatorKey.currentState?.push<dynamic>(
       MaterialPageRoute<dynamic>(
         builder: (_) => const LoginScreen(),

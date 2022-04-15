@@ -19,7 +19,6 @@ final analyticsUtilProvider = Provider((ref) => AnalyticsUtil(App.analytics));
 final firebaseAnalyticsProvider = Provider((ref) => FirebaseAnalytics());
 final firebaseFirestore = Provider((ref) => FirebaseFirestore.instance);
 
-
 Future<void> setupAndRunApp({required EnvState env}) async {
   envProvider = StateProvider((ref) => env);
 
