@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,9 +12,7 @@ import 'package:provider_base/utils/analytics_utils.dart';
 import 'package:provider_base/utils/notification_util.dart';
 
 late final StateProvider envProvider;
-final analyticsUtilProvider = Provider((ref) => AnalyticsUtil(App.analytics));
-final firebaseAnalyticsProvider = Provider((ref) => FirebaseAnalytics());
-final firebaseFirestore = Provider((ref) => FirebaseFirestore.instance);
+final analyticsUtilProvider = Provider((ref) => AnalyticsUtil());
 
 Future<void> setupAndRunApp({required EnvState env}) async {
   envProvider = StateProvider((ref) => env);
@@ -31,7 +27,6 @@ Future<void> setupAndRunApp({required EnvState env}) async {
 
 class App extends HookConsumerWidget {
   const App({Key? key}) : super(key: key);
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
 
   // This widget is the root of your application.
   @override
@@ -59,7 +54,8 @@ class App extends HookConsumerWidget {
       initialRoute: ModulesScreen.routeName,
       routes: routes,
       navigatorObservers: [
-        FirebaseAnalyticsObserver(analytics: analytics),
+        FirebaseAnalyticsObserver(
+            analytics: ref.read(analyticsUtilProvider).analytics),
       ],
       supportedLocales: const [
         Locale('en'),
