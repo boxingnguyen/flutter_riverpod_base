@@ -8,11 +8,13 @@ import 'package:provider_base/common/core/routes.dart';
 import 'package:provider_base/common/core/theme/app_theme_state_notifier.dart';
 import 'package:provider_base/env/env_state.dart';
 import 'package:provider_base/screens/modules/modules_screen.dart';
-import 'package:provider_base/utils/analytics_utils.dart';
+import 'package:provider_base/utils/analytics_util.dart';
+import 'package:provider_base/utils/navigator_util.dart';
 import 'package:provider_base/utils/notification_util.dart';
 
 late final StateProvider envProvider;
 final analyticsUtilProvider = Provider((ref) => AnalyticsUtil());
+final navigatorUtilProvider = Provider((ref) => NavigatorUtil());
 
 Future<void> setupAndRunApp({required EnvState env}) async {
   envProvider = StateProvider((ref) => env);
@@ -53,6 +55,7 @@ class App extends HookConsumerWidget {
       theme: themeState.appTheme,
       initialRoute: ModulesScreen.routeName,
       routes: routes,
+      navigatorKey: ref.read(navigatorUtilProvider).navigatorKey,
       navigatorObservers: [
         FirebaseAnalyticsObserver(
             analytics: ref.read(analyticsUtilProvider).analytics),
