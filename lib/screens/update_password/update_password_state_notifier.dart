@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:state_notifier/state_notifier.dart';
 import 'package:provider_base/screens/update_password/update_password_state.dart';
+import 'package:state_notifier/state_notifier.dart';
 
 final updatePasswordProvider =
     StateNotifierProvider<UpdatePasswordStateNotifier, UpdatePasswordState>(
@@ -41,5 +41,9 @@ class UpdatePasswordStateNotifier extends StateNotifier<UpdatePasswordState>
     currentUser.updatePassword(password);
     state = state.copyWith(showLoadingIndicator: false);
     return true;
+  }
+
+  void hideLoading() {
+    state = state.copyWith(showLoadingIndicator: false);
   }
 }

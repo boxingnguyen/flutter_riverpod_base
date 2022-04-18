@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/common_view/button_upload.dart';
+import 'package:provider_base/common/common_view/captcha_screen.dart';
 import 'package:provider_base/common/common_view/common_empty_indicator.dart';
 import 'package:provider_base/common/common_view/text_field_login.dart';
 import 'package:provider_base/common/core/app_style.dart';
@@ -11,9 +12,7 @@ import 'package:provider_base/screens/login/login_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
 
 // TODO(tupa1):
-// - fix name
 // - add forgot password -> screen forgot pass input email
-// - if input password wrong > 5 times, show capcha
 class SignInEmail extends HookConsumerWidget with Utils {
   const SignInEmail({Key? key}) : super(key: key);
 
@@ -66,9 +65,23 @@ class SignInEmail extends HookConsumerWidget with Utils {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  state.numberShowCaptcha >= 5
+                      ? CaptchaScreen(
+                          onVerifiedError: (error) =>
+                              snackBar(context, error, AppStyles.errorColor),
+                          onVerifiedSuccessfully: (success) {
+                            snackBar(context, success, Colors.green);
+                            stateNotifier.onCaptchaSuccess();
+                          },
+                        )
+                      : const SizedBox(),
+                  SizedBox(height: state.numberShowCaptcha >= 5 ? 20 : 0),
                   ButtonUpload(
                     label: Constants.signInUp,
                     onTap: () async {
+                      if (state.isCaptcha) {
+                        return;
+                      }
                       unFocusScope(context);
                       final isSignUp = await stateNotifier.onSignIn(
                         emailController.text,

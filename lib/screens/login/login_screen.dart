@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/common_view/button_login.dart';
+import 'package:provider_base/common/common_view/simple_web_view.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/screens/home/home_screen.dart';
@@ -17,9 +18,6 @@ import 'package:provider_base/utils/utils.dart';
 class LoginScreen extends HookConsumerWidget with Utils {
   const LoginScreen({Key? key}) : super(key: key);
   static const routeName = '/login_screen';
-  /* TODO(:tupa1) Refactor code
-    - format code
-  */
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -108,7 +106,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
                 style: AppStyles.textMedium,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () => push(context, const TermOfService()),
                 child: const Text(
                   Constants.termsOfService,
                   style: TextStyle(decoration: TextDecoration.underline),
@@ -145,7 +143,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
   }
 
   // email đã được tạo từ provider khác thì sẽ không login được bằng facebook
-  
+
   Future<void> _signUpWithFacebook(
     BuildContext context,
     WidgetRef ref, {
@@ -203,5 +201,18 @@ class LoginScreen extends HookConsumerWidget with Utils {
     }
     snackBar(context, Constants.loginSuccessful, Colors.green);
     await pushReplacement(context, const HomeScreen());
+  }
+}
+
+class TermOfService extends StatelessWidget {
+  const TermOfService({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(),
+        body: const SimpleWebView(
+          url: 'https://translate.google.com/',
+        ));
   }
 }

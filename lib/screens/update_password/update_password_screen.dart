@@ -112,36 +112,13 @@ class Body extends HookConsumerWidget with Utils {
                 const SizedBox(height: 20),
                 ButtonUpload(
                   label: Constants.updatePassword,
-                  onTap: () async {
-                    final validate = formKey.currentState?.validate() ?? false;
-                    final isSuccess =
-                        await updatePasswordStateNotifier.onSuccess(
-                      passwordController.text,
-                      rePasswordController.text,
-                    );
-
-                    if (validate && isSuccess) {
-                      final updateStatus = await updatePasswordStateNotifier
-                          .updatePasswordForAccount(
-                        passwordController.text,
-                        loginStateNotifier.currentUser,
-                      );
-                      if (!updateStatus) {
-                        snackBar(
-                          context,
-                          Constants.reLoginToUpdate,
-                          AppColors.green,
-                        );
-                        return;
-                      }
-                      push(context, const HomeScreen());
-                      snackBar(
-                        context,
-                        Constants.updatePasswordSuccess,
-                        AppColors.green,
-                      );
-                    }
-                  },
+                  onTap: () => _onUpdatePassword(
+                    context,
+                    updatePasswordStateNotifier: updatePasswordStateNotifier,
+                    loginStateNotifier: loginStateNotifier,
+                    passwordController: passwordController,
+                    rePasswordController: rePasswordController,
+                  ),
                   colorButton: AppColors.green,
                 )
               ],
@@ -153,5 +130,43 @@ class Body extends HookConsumerWidget with Utils {
             : const SizedBox(),
       ],
     );
+  }
+
+  Future<void> _onUpdatePassword(
+    BuildContext context, {
+    required UpdatePasswordStateNotifier updatePasswordStateNotifier,
+    required LoginStateNotifier loginStateNotifier,
+    required TextEditingController passwordController,
+    required TextEditingController rePasswordController,
+  }) async {
+    final validate = formKey.currentState?.validate() ?? false;
+    final isSuccess = await updatePasswordStateNotifier.onSuccess(
+      passwordController.text,
+      rePasswordController.text,
+    );
+
+    if (validate && isSuccess) {
+      final updateStatus =
+          await updatePasswordStateNotifier.updatePasswordForAccount(
+        passwordController.text,
+        loginStateNotifier.currentUser,
+      );
+
+      if (!updateStatus) {
+        snackBar(
+          context,
+          Constants.reLoginToUpdate,
+          AppColors.green,
+        );
+        return;
+      }
+      push(context, const HomeScreen());
+      snackBar(
+        context,
+        Constants.updatePasswordSuccess,
+        AppColors.green,
+      );
+    }
+    updatePasswordStateNotifier.hideLoading();
   }
 }

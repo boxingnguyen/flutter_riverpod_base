@@ -44,7 +44,7 @@ class Constants {
   static const or = 'Or';
   static const base = 'Base';
   static const qrScanner = 'QR Scanner';
-  static const termsOfService = 'Terms of Service';
+  static const termsOfService = 'Privacy - Terms of Service';
   static const byCreatingAnAccountAcceptMedium =
       'By creating an account. I accept Medium\'s';
   static const alreadyHaveAnAccount = 'Already have an account? ';

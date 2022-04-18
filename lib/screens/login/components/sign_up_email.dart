@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/common_view/button_upload.dart';
+import 'package:provider_base/common/common_view/captcha_screen.dart';
 import 'package:provider_base/common/common_view/common_empty_indicator.dart';
 import 'package:provider_base/common/common_view/text_field_login.dart';
 import 'package:provider_base/common/core/app_style.dart';
@@ -15,9 +16,6 @@ class SignUpEmail extends HookConsumerWidget with Utils {
     Key? key,
   }) : super(key: key);
 
-  // TODO(tupa1): fix design, use validator of textfield
-  // password secure
-  // add privacy, & term of service
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final emailController = useTextEditingController();
@@ -67,9 +65,23 @@ class SignUpEmail extends HookConsumerWidget with Utils {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  state.numberShowCaptcha >= 5
+                      ? CaptchaScreen(
+                          onVerifiedError: (error) =>
+                              snackBar(context, error, AppStyles.errorColor),
+                          onVerifiedSuccessfully: (success) {
+                            snackBar(context, success, Colors.green);
+                            stateNotifier.onCaptchaSuccess();
+                          },
+                        )
+                      : const SizedBox(),
+                  SizedBox(height: state.numberShowCaptcha >= 5 ? 20 : 0),
                   ButtonUpload(
                     label: Constants.signUp,
                     onTap: () async {
+                      if (state.isCaptcha) {
+                        return;
+                      }
                       unFocusScope(context);
                       final isSignUp = await stateNotifier.onSignUp(
                         emailController.text,

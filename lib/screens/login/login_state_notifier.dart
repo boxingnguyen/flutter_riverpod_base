@@ -167,7 +167,13 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       return '';
     } catch (e) {
       log('$e');
-      state = state.copyWith(showLoadingIndicator: false);
+      state = state.copyWith(
+        showLoadingIndicator: false,
+        numberShowCaptcha: state.numberShowCaptcha + 1,
+      );
+      if (state.numberShowCaptcha >= 5) {
+        state = state.copyWith(isCaptcha: true);
+      }
       return e.toString().split(']').last;
     }
   }
@@ -200,14 +206,22 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       return '';
     } catch (e) {
       log('$e');
-      state = state.copyWith(showLoadingIndicator: false);
+      state = state.copyWith(
+        showLoadingIndicator: false,
+        numberShowCaptcha: state.numberShowCaptcha + 1,
+      );
+      if (state.numberShowCaptcha >= 5) {
+        state = state.copyWith(isCaptcha: true);
+      }
       return e.toString().split(']').last;
     }
   }
 
   void onTextFieldChange(
       String emailControllerText, String passwordControllerText) {
-    if (emailControllerText.isEmpty || passwordControllerText.isEmpty) {
+    if (emailControllerText.isEmpty ||
+        passwordControllerText.isEmpty ||
+        state.isCaptcha) {
       if (mounted) {
         state = state.copyWith(isEmptyInput: false);
       }
@@ -228,5 +242,9 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
 
   void changeToSign() {
     state = state.copyWith(isSignUp: !state.isSignUp);
+  }
+
+  void onCaptchaSuccess() {
+    state = state.copyWith(isCaptcha: false);
   }
 }
