@@ -73,7 +73,7 @@ class NotificationUtil {
     // set the first 3 properties to false
     // then call the requestPermissions method with desired permissions
     // at the appropriate point in your application
-    // see https://pub.dev/packages/flutter_local_notifications#initialisation
+    // see https://pub.dev/packages/flutter_local_notifications#ios-all-supported-versions-and-macos-1014-requesting-notification-permissions
     const settingsIOS = IOSInitializationSettings();
 
     const initializationSettings = InitializationSettings(
@@ -97,7 +97,7 @@ class NotificationUtil {
     );
   }
 
-  // only for ios
+  // only for ios/ mac os
   static Future<void> requestPermissions() async {
     if (Platform.isAndroid) {
       return;
