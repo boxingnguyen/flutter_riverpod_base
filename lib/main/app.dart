@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,13 +12,13 @@ import 'package:provider_base/l10n/language_constants.dart';
 import 'package:provider_base/l10n/ln10_delegate.dart';
 import 'package:provider_base/screens/locale/locale_state_notifier.dart';
 import 'package:provider_base/screens/modules/modules_screen.dart';
-import 'package:provider_base/utils/analytics_utils.dart';
+import 'package:provider_base/utils/analytics_util.dart';
+import 'package:provider_base/utils/navigator_util.dart';
 import 'package:provider_base/utils/notification_util.dart';
 
 late final StateProvider envProvider;
-final analyticsUtilProvider = Provider((ref) => AnalyticsUtil(App.analytics));
-final firebaseAnalyticsProvider = Provider((ref) => FirebaseAnalytics());
-final firebaseFirestore = Provider((ref) => FirebaseFirestore.instance);
+final analyticsUtilProvider = Provider((ref) => AnalyticsUtil());
+final navigatorUtilProvider = Provider((ref) => NavigatorUtil());
 
 Future<void> setupAndRunApp({required EnvState env}) async {
   envProvider = StateProvider((ref) => env);
@@ -35,7 +33,6 @@ Future<void> setupAndRunApp({required EnvState env}) async {
 
 class App extends HookConsumerWidget {
   const App({Key? key}) : super(key: key);
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
 
   // This widget is the root of your application.
   @override
@@ -74,8 +71,10 @@ class App extends HookConsumerWidget {
       locale: localeState.locale,
       initialRoute: ModulesScreen.routeName,
       routes: routes,
+      navigatorKey: ref.read(navigatorUtilProvider).navigatorKey,
       navigatorObservers: [
-        FirebaseAnalyticsObserver(analytics: analytics),
+        FirebaseAnalyticsObserver(
+            analytics: ref.read(analyticsUtilProvider).analytics),
       ],
       builder: (context, child) => GestureDetector(
         // dismiss keyboard when tap outside whole app
