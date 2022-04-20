@@ -47,7 +47,8 @@ extension AnalyticsEventTypeExtension on AnalyticsEventType {
 }
 
 class AnalyticsUtil {
-  final FirebaseAnalytics analytics = FirebaseAnalytics();
+  AnalyticsUtil(this.analytics);
+  final FirebaseAnalytics analytics;
 
   Future<void> logEvent(
     AnalyticsEventType type, {
