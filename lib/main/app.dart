@@ -8,7 +8,6 @@ import 'package:provider_base/common/core/routes.dart';
 import 'package:provider_base/common/core/theme/app_theme_state_notifier.dart';
 import 'package:provider_base/env/env_state.dart';
 import 'package:provider_base/l10n/l10n.dart';
-import 'package:provider_base/l10n/language_constants.dart';
 import 'package:provider_base/l10n/ln10_delegate.dart';
 import 'package:provider_base/screens/locale/locale_state_notifier.dart';
 import 'package:provider_base/screens/modules/modules_screen.dart';
@@ -53,18 +52,13 @@ class App extends HookConsumerWidget {
         ),
       ),
       localizationsDelegates: const [
+        L10n.delegate,
+        L10nDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
-        L10n.delegate,
-        L10nDelegate(),
-        // This is required
       ],
-      supportedLocales: const [
-        Locale(LanguageValue.english),
-        Locale(LanguageValue.vietnam),
-        Locale(LanguageValue.japan),
-      ],
+      supportedLocales: L10n.delegate.supportedLocales,
       title: 'Provider Base',
       debugShowCheckedModeBanner: false,
       theme: state.appTheme,
