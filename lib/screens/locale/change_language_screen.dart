@@ -6,8 +6,9 @@ import 'package:provider_base/l10n/l10n.dart';
 import 'package:provider_base/l10n/language_constants.dart';
 import 'package:provider_base/screens/locale/locale_state.dart';
 import 'package:provider_base/screens/locale/locale_state_notifier.dart';
+import 'package:provider_base/utils/utils.dart';
 
-class ChangeLanguageScreen extends StatelessWidget {
+class ChangeLanguageScreen extends StatelessWidget with Utils {
   const ChangeLanguageScreen({Key? key}) : super(key: key);
 
   static String routeName = '/change_language';
@@ -15,8 +16,9 @@ class ChangeLanguageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(L10n.of(context).msgap008),
+      appBar: getAppBar(
+        context: context,
+        title: L10n.of(context).msgap008,
       ),
       body: const _Body(),
     );

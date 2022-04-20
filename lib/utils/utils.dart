@@ -88,7 +88,14 @@ mixin Utils {
     void Function()? actionProfile,
     void Function()? actionNotify,
   }) {
-    final _title = title != null ? Text(title) : null;
+    final _title = title != null
+        ? Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+          )
+        : null;
     final _actions = <Widget>[];
 
     if (hasClose) {
