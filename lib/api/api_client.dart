@@ -11,6 +11,8 @@ import 'package:provider_base/common/core/data/secure_storage.dart';
 import 'api_endpoints.dart';
 
 class ApiClient {
+  // TODO(anyone): change baseUrl by env state
+  // TODO(anyone): use network state
   static String baseUrl = 'https://jsonplaceholder.typicode.com';
   static Future<String?> get accessToken async => LocalStorage.getAccessToken();
   static Map<String, String> get headers =>
