@@ -101,6 +101,9 @@ dev_dependencies:
   # web view
   webview_flutter: 2.0.12
 
+  #test network image
+  network_image_mock: ^2.0.1
+
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
