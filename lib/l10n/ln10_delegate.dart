@@ -14,8 +14,12 @@ class L10nDelegate extends LocalizationsDelegate<L10n> {
 
   @override
   Future<L10n> load(Locale locale) {
-    return MultipleLocalizations.load(initializeMessages, locale, (l) => L10n(),
-        setDefaultLocale: true);
+    return MultipleLocalizations.load(
+      initializeMessages,
+      locale,
+      (l) => L10n(),
+      setDefaultLocale: true,
+    );
   }
 
   @override
