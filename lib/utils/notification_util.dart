@@ -9,6 +9,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/data/local_storage.dart';
 
+// TODO(anyone): xin provision certificate từ Linhlc test ios notification env release
+
 // It must not be an anonymous function.
 // It must be a top-level function.
 // see https://firebase.flutter.dev/docs/messaging/usage#background-messages
