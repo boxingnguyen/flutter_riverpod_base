@@ -6,8 +6,6 @@ import 'package:provider_base/screens/locale/locale_state.dart';
 import 'package:provider_base/screens/locale/locale_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
 
-enum LanguageValue { en, vi, ja }
-
 class LocaleScreen extends StatelessWidget with Utils {
   const LocaleScreen({Key? key}) : super(key: key);
 
