@@ -8,8 +8,8 @@ import 'package:provider_base/utils/utils.dart';
 
 enum LanguageValue { en, vi, ja }
 
-class ChangeLanguageScreen extends StatelessWidget with Utils {
-  const ChangeLanguageScreen({Key? key}) : super(key: key);
+class LocaleScreen extends StatelessWidget with Utils {
+  const LocaleScreen({Key? key}) : super(key: key);
 
   static String routeName = '/change_language';
 

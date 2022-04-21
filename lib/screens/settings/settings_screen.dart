@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/l10n/l10n.dart';
-import 'package:provider_base/screens/locale/change_language_screen.dart';
+import 'package:provider_base/screens/locale/locale_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class SettingsScreen extends StatelessWidget with Utils {
@@ -37,22 +36,16 @@ class SettingsScreen extends StatelessWidget with Utils {
               height: AppStyles.verticalSpace,
             ),
             SettingItem(
-                title: L10n.of(context).msgap008,
-                icon: Icons.language,
-                press: () async {
-                  await Navigator.of(
-                    context,
-                    rootNavigator: true,
-                  ).push(
-                    CupertinoPageRoute<void>(
-                      builder: (BuildContext context) =>
-                          const ChangeLanguageScreen(),
-                      settings: RouteSettings(
-                        name: ChangeLanguageScreen.routeName,
-                      ),
-                    ),
-                  );
-                }),
+              title: L10n.of(context).msgap008,
+              icon: Icons.language,
+              press: () async => await push(
+                context,
+                const LocaleScreen(),
+                settings: RouteSettings(
+                  name: LocaleScreen.routeName,
+                ),
+              ),
+            ),
           ],
         ),
       ),

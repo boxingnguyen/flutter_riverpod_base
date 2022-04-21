@@ -33,89 +33,95 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
         ).pop(context),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: AppStyles.horizontalSpace,
-              vertical: AppStyles.verticalSpace),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Preview Images',
-                style: AppStyles.textMedium
-                    .copyWith(fontSize: AppStyles.fontSizeL),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppStyles.horizontalSpace,
+          vertical: AppStyles.verticalSpace,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Preview Images',
+              style: AppStyles.textMedium.copyWith(
+                fontSize: AppStyles.fontSizeL,
               ),
-              const SizedBox(
-                height: 10,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            InkWell(
+              child: Image.asset(
+                imagePath,
+                height: 200,
+                width: 200,
+                fit: BoxFit.cover,
               ),
-              InkWell(
-                child: Image.asset(
-                  imagePath,
-                  height: 200,
-                  width: 200,
-                  fit: BoxFit.cover,
+              onTap: () => push(
+                context,
+                FilesPreviewScreen(
+                  path: imagePath,
                 ),
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => FilesPreviewScreen(path: imagePath),
-                  ),
-                ),
               ),
-              const SizedBox(
-                height: AppStyles.verticalSpace,
+            ),
+            const SizedBox(
+              height: AppStyles.verticalSpace,
+            ),
+            Text(
+              'Preview PDF',
+              style: AppStyles.textMedium.copyWith(
+                fontSize: AppStyles.fontSizeL,
               ),
-              Text(
-                'Preview PDF',
-                style: AppStyles.textMedium
-                    .copyWith(fontSize: AppStyles.fontSizeL),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              file != null
-                  ? GestureDetector(
-                      child: Text(file?.path ?? ''),
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              FilesPreviewScreen(path: file!.path),
-                        ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            file != null
+                ? GestureDetector(
+                    child: Text(file?.path ?? ''),
+                    onTap: () => push(
+                      context,
+                      FilesPreviewScreen(
+                        path: file!.path,
                       ),
-                    )
-                  : const SizedBox.shrink(),
-              const SizedBox(
-                height: 10,
+                    ),
+                  )
+                : const SizedBox.shrink(),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final pickedFile = await _pickFiles();
+                setState(() {
+                  file = pickedFile;
+                });
+              },
+              child: const Text('Upload file to test'),
+            ),
+            const SizedBox(
+              height: AppStyles.verticalSpace,
+            ),
+            Text(
+              'Preview Video',
+              style: AppStyles.textMedium.copyWith(
+                fontSize: AppStyles.fontSizeL,
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  final pickedFile = await _pickFiles();
-                  setState(() {
-                    file = pickedFile;
-                  });
-                },
-                child: const Text('Upload file to test'),
-              ),
-              const SizedBox(
-                height: AppStyles.verticalSpace,
-              ),
-              Text(
-                'Preview Video',
-                style: AppStyles.textMedium
-                    .copyWith(fontSize: AppStyles.fontSizeL),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              GestureDetector(
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => FilesPreviewScreen(path: videoPath),
-                  ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            GestureDetector(
+              onTap: () => push(
+                context,
+                FilesPreviewScreen(
+                  path: videoPath,
                 ),
-                child: Text(videoPath),
               ),
-            ],
-          ),
+              child: Text(
+                videoPath,
+              ),
+            ),
+          ],
         ),
       ),
     );

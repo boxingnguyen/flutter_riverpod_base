@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/core/app_style.dart';
 
@@ -8,6 +11,16 @@ mixin Utils {
     RouteSettings? settings,
     bool fullscreenDialog = false,
   }) async {
+    if (Platform.isIOS) {
+      return Navigator.of(
+        context,
+      ).push(
+        CupertinoPageRoute<dynamic>(
+          builder: (BuildContext context) => route,
+          settings: settings,
+        ),
+      );
+    }
     return Navigator.of(context).push<dynamic>(
       MaterialPageRoute<dynamic>(
         builder: (context) => route,
