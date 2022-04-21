@@ -109,6 +109,9 @@ dev_dependencies:
   # Internationalization
   intl_utils: ^2.6.1
 
+  #test network image
+  network_image_mock: ^2.0.1
+
 flutter_intl:
   enabled: false # Required. Must be set to true to activate the package. Default: false
   class_name: L10n # Optional. Sets the name for the generated localization class. Default: S

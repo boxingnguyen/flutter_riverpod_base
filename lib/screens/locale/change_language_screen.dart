@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/l10n/l10n.dart';
-import 'package:provider_base/l10n/language_constants.dart';
-import 'package:provider_base/screens/locale/locale_state.dart';
 import 'package:provider_base/screens/locale/locale_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
+
+enum LanguageValue { en, vi, ja }
 
 class ChangeLanguageScreen extends StatelessWidget with Utils {
   const ChangeLanguageScreen({Key? key}) : super(key: key);
@@ -25,69 +24,43 @@ class ChangeLanguageScreen extends StatelessWidget with Utils {
   }
 }
 
-class _Body extends ConsumerStatefulWidget {
-  final LocaleState? localeState;
-  const _Body({Key? key, this.localeState}) : super(key: key);
+class _Body extends HookConsumerWidget {
+  const _Body({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<_Body> createState() => __BodyState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localeState = ref.watch(localeProvider);
+    var currentLocale = localeState.locale.languageCode;
 
-class __BodyState extends ConsumerState<_Body> {
-  late String _currentLocale;
-
-  @override
-  void initState() {
-    super.initState();
-    _getCurrentLocale();
-  }
-
-  Future<void> _getCurrentLocale() async {
-    final currentLocale = Intl.getCurrentLocale();
-    setState(() {
-      _currentLocale = currentLocale;
-    });
-  }
-
-  Future<void> _changeLocale(String languageCode) async {
-    if (_currentLocale == languageCode) {
-      return;
-    }
-    _currentLocale = languageCode;
-    ref.read(localeProvider.notifier).setLocale(languageCode);
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Column(
       children: [
         RadioListTile(
-          value: LanguageValue.english,
-          groupValue: _currentLocale,
+          value: LanguageValue.en.name,
+          groupValue: currentLocale,
           title: Text(L10n.of(context).msgap002),
           subtitle: Text(L10n.of(context).msgap005),
           onChanged: (value) {
-            _changeLocale(LanguageValue.english);
+            ref.read(localeProvider.notifier).setLocale(LanguageValue.en);
           },
           activeColor: AppStyles.primaryColor,
         ),
         RadioListTile(
-          value: LanguageValue.vietnam,
-          groupValue: _currentLocale,
+          value: LanguageValue.vi.name,
+          groupValue: currentLocale,
           title: Text(L10n.of(context).msgap003),
           subtitle: Text(L10n.of(context).msgap006),
           onChanged: (value) {
-            _changeLocale(LanguageValue.vietnam);
+            ref.read(localeProvider.notifier).setLocale(LanguageValue.vi);
           },
           activeColor: AppStyles.primaryColor,
         ),
         RadioListTile(
-          value: LanguageValue.japan,
-          groupValue: _currentLocale,
+          value: LanguageValue.ja.name,
+          groupValue: currentLocale,
           title: Text(L10n.of(context).msgap004),
           subtitle: const Text('Japan'),
           onChanged: (value) {
-            _changeLocale(LanguageValue.japan);
+            ref.read(localeProvider.notifier).setLocale(LanguageValue.ja);
           },
           activeColor: AppStyles.primaryColor,
         ),

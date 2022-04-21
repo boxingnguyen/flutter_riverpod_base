@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoPlayerPreview extends StatefulWidget {
+final playerProvider = StateProvider<bool>((ref) => false);
+
+class VideoPlayerPreview extends ConsumerStatefulWidget {
   const VideoPlayerPreview({
     required this.path,
     Key? key,
@@ -17,7 +20,7 @@ class VideoPlayerPreview extends StatefulWidget {
   _VideoPlayerPreviewState createState() => _VideoPlayerPreviewState();
 }
 
-class _VideoPlayerPreviewState extends State<VideoPlayerPreview> {
+class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
 
@@ -30,10 +33,11 @@ class _VideoPlayerPreviewState extends State<VideoPlayerPreview> {
 
   @override
   Widget build(BuildContext context) {
+    final isPlayerInitialized = ref.watch(playerProvider) == true;
+
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: _chewieController != null &&
-              _chewieController!.videoPlayerController.value.isInitialized
+      child: isPlayerInitialized
           ? Chewie(
               controller: _chewieController!,
             )
@@ -75,7 +79,8 @@ class _VideoPlayerPreviewState extends State<VideoPlayerPreview> {
       },
     );
 
-    setState(() {});
+    // set state chewieController is initialized
+    ref.read(playerProvider.notifier).update((state) => true);
 
     _chewieController!.addListener(() {
       if (!_chewieController!.isFullScreen) {
