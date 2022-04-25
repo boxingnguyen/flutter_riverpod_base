@@ -84,7 +84,7 @@ class SignInEmail extends HookConsumerWidget with Utils {
                           context, const HomeScreen(title: Constants.base));
                     },
                     colorButton:
-                        state.isSignUp ? AppColors.green : AppColors.grey6,
+                        state.isSignUp ? AppStyles.green : AppStyles.grey6,
                   )
                 ],
               ),

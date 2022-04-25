@@ -8,8 +8,8 @@ import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/screens/form_and_dialog/form_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
 
-class FormScreen extends StatelessWidget with Utils {
-  const FormScreen({Key? key}) : super(key: key);
+class FormAndDialogScreen extends StatelessWidget with Utils {
+  const FormAndDialogScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
@@ -111,9 +111,10 @@ class FormBody extends HookConsumerWidget with Utils {
               ],
             ),
           ),
+          const SizedBox(
+            height: AppStyles.verticalSpace,
+          ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               _rowDialog(
                 context,
@@ -159,13 +160,17 @@ class FormBody extends HookConsumerWidget with Utils {
 
   Widget _rowDialog(
       BuildContext context, String message, VoidCallback? voidCallback) {
-    return GestureDetector(
-      onTap: voidCallback,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Text(
-          message,
-          style: AppStyles.textRegular,
+    return Padding(
+      padding: const EdgeInsets.only(top: AppStyles.verticalSpace),
+      child: GestureDetector(
+        onTap: voidCallback,
+        child: Chip(
+          label: Text(message,
+              style: AppStyles.textMedium.copyWith(color: AppStyles.white)),
+          padding: const EdgeInsets.symmetric(
+              vertical: AppStyles.verticalSpace,
+              horizontal: AppStyles.horizontalSpace),
+          backgroundColor: AppStyles.primaryColor,
         ),
       ),
     );

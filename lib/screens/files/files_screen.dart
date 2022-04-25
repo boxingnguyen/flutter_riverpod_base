@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:provider_base/common/common_view/hyperlink_text.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/screens/files/files_preview_screen.dart';
 import 'package:provider_base/utils/utils.dart';
@@ -110,15 +111,13 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
             const SizedBox(
               height: 10,
             ),
-            GestureDetector(
-              onTap: () => push(
+            HyperLinkText(
+              text: videoPath,
+              press: () => push(
                 context,
                 FilesPreviewScreen(
                   path: videoPath,
                 ),
-              ),
-              child: Text(
-                videoPath,
               ),
             ),
           ],

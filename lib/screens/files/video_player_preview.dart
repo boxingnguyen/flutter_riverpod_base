@@ -23,7 +23,7 @@ class VideoPlayerPreview extends ConsumerStatefulWidget {
 class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
   late VideoPlayerController _videoPlayerController;
   // TODO(mintt): use late declare and try use hook if need
-  ChewieController? _chewieController;
+  late ChewieController _chewieController;
 
   @override
   void initState() {
@@ -50,7 +50,7 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
   void dispose() {
     super.dispose();
     _videoPlayerController.dispose();
-    _chewieController!.dispose();
+    _chewieController.dispose();
   }
 
   // Init video player
@@ -83,8 +83,8 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
     // set state chewieController is initialized
     ref.read(playerProvider.notifier).update((state) => true);
 
-    _chewieController!.addListener(() {
-      if (!_chewieController!.isFullScreen) {
+    _chewieController.addListener(() {
+      if (!_chewieController.isFullScreen) {
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
           DeviceOrientation.portraitDown,
@@ -93,3 +93,68 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
     });
   }
 }
+
+// class VideoPlayerPreview extends HookConsumerWidget {
+//   final String path;
+//   const VideoPlayerPreview({Key? key, required this.path}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     late VideoPlayerController _videoPlayerController;
+//     late ChewieController _chewieController;
+
+//     useEffect(
+//       () {
+//         return () async {
+//           if (Uri.parse(path).isAbsolute) {
+//             _videoPlayerController = VideoPlayerController.network(path);
+//           } else {
+//             _videoPlayerController = VideoPlayerController.file(File(path));
+//           }
+
+//           await Future.wait([_videoPlayerController.initialize()]);
+
+//           _chewieController = ChewieController(
+//             videoPlayerController: _videoPlayerController,
+//             aspectRatio: _videoPlayerController.value.aspectRatio,
+//             autoInitialize: true,
+//             looping: false,
+//             fullScreenByDefault: false,
+//             autoPlay: true,
+//             errorBuilder: (context, errorMessage) {
+//               return Center(
+//                 child: Text(
+//                   errorMessage,
+//                   style: const TextStyle(color: Colors.white),
+//                 ),
+//               );
+//             },
+//           );
+
+//           // set state chewieController is initialized
+//           ref.read(playerProvider.notifier).update((state) => true);
+
+//           _chewieController.addListener(() {
+//             if (!_chewieController.isFullScreen) {
+//               SystemChrome.setPreferredOrientations([
+//                 DeviceOrientation.portraitUp,
+//                 DeviceOrientation.portraitDown,
+//               ]);
+//             }
+//           });
+//         };
+//       },
+//     );
+
+//     final isPlayerInitialized = ref.watch(playerProvider) == true;
+
+//     return Padding(
+//       padding: const EdgeInsets.all(8),
+//       child: isPlayerInitialized
+//           ? Chewie(
+//               controller: _chewieController,
+//             )
+//           : const CircularProgressIndicator(),
+//     );
+//   }
+// }

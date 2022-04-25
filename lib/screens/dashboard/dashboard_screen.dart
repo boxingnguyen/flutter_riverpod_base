@@ -7,7 +7,7 @@ import 'package:provider_base/l10n/l10n.dart';
 import 'package:provider_base/screens/dashboard/cupertino_tab_controller_hook.dart';
 import 'package:provider_base/screens/dashboard/dashboard_state_notifier.dart';
 import 'package:provider_base/screens/files/files_screen.dart';
-import 'package:provider_base/screens/form_and_dialog/form_screen.dart';
+import 'package:provider_base/screens/form_and_dialog/form_and_dialog_screen.dart';
 import 'package:provider_base/screens/settings/settings_screen.dart';
 import 'package:provider_base/screens/todo/todo_screen.dart';
 import 'package:provider_base/utils/utils.dart';
@@ -37,7 +37,7 @@ class DashboardScreen extends HookConsumerWidget with Utils {
 
     const _pages = [
       TodoScreen(),
-      FormScreen(),
+      FormAndDialogScreen(),
       SimpleWebView(url: 'https://pub.dev/packages/form_field_validator'),
       FilesScreen(),
       SettingsScreen(),

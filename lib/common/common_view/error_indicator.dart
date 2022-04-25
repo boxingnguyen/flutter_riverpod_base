@@ -23,14 +23,14 @@ class CommonErrorIndicator extends StatelessWidget {
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: AppColors.black,
+              primary: AppStyles.black,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30))),
             ),
             child: Text(
               Constants.retry,
               style: AppStyles.textBold.copyWith(
-                color: AppColors.white,
+                color: AppStyles.white,
               ),
             ),
             onPressed: onTapRetry,
