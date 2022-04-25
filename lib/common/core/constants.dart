@@ -48,6 +48,7 @@ class Constants {
   static const byCreatingAnAccountAcceptMedium =
       'By creating an account. I accept Medium\'s';
   static const alreadyHaveAnAccount = 'Already have an account? ';
+  static const notAccount = "Don't have an account? ";
   static const flutterBSD = 'Flutter BSD';
   static const smartStoriesForCuriousPeople =
       'Smart stories for \n curious people.';

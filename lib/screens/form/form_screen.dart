@@ -16,7 +16,9 @@ class FormScreen extends StatelessWidget with Utils {
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         appBar: getAppBar(context: context, title: 'Form Screen'),
-        body: FormBody(formKey: _formKey,),
+        body: FormBody(
+          formKey: _formKey,
+        ),
       ),
     );
   }
@@ -59,10 +61,11 @@ class FormBody extends HookConsumerWidget with Utils {
               height: 20,
             ),
             TextFormFieldCustom(
-                suffixIcon: const Icon(Icons.email_outlined),
-                controller: emailController,
-                hintText: 'Email',
-                validator: emailValidator),
+              suffixIcon: const Icon(Icons.email_outlined),
+              controller: emailController,
+              hintText: 'Email',
+              validator: emailValidator,
+            ),
             const SizedBox(
               height: 20,
             ),

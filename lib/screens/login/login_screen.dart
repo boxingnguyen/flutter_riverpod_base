@@ -83,7 +83,9 @@ class LoginScreen extends HookConsumerWidget with Utils {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    Constants.alreadyHaveAnAccount,
+                    isSignUp
+                        ? Constants.alreadyHaveAnAccount
+                        : Constants.notAccount,
                     style: AppStyles.textMedium,
                   ),
                   GestureDetector(
@@ -91,7 +93,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
                     child: Container(
                       color: Colors.transparent,
                       child: Text(
-                        isSignUp ? Constants.signUp : Constants.signIn,
+                        isSignUp ? Constants.signIn : Constants.signUp,
                         style: AppStyles.textMedium.copyWith(
                           color: ColorApp.red0,
                         ),
