@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// TODO(minnt): remove AppColors, use app styles and theme
 class AppColors {
   // black
   static const Color black = Color(0xFF111111);
@@ -82,6 +83,7 @@ class Asset {
   static const imageDefault = 'https://picsum.photos/250?image=9';
 }
 
+// TODO(tupa1): remove this class -> use app styles and theme
 class ColorApp {
   // green
   static const green0 = Color(0xFFAFCEB3);
