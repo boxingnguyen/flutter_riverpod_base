@@ -29,10 +29,13 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 // see https://firebase.flutter.dev/docs/messaging/usage#message-types
 // and firebase.flutter.dev/docs/messaging/usage#low-priority-messages
 
+// TODO(anyone): integrate firebase with APNs apple
+// see: https://firebase.flutter.dev/docs/messaging/apple-integration/
 class NotificationUtil {
   NotificationUtil._();
 
-  static const channelId = '1';
+  static const channelId = 'channelId';
+  static const channelName = 'channelName';
   static const localNotifyID = 0;
   static final messaging = FirebaseMessaging.instance;
 
@@ -59,6 +62,8 @@ class NotificationUtil {
   }
 
   static Future<void> _initializeLocalNotification(BuildContext context) async {
+    // initialise the plugin. ic_notification needs to be a added as a drawable resource to the Android head project
+    // see more: https://developer.android.com/studio/write/image-asset-studio#create-notification
     const settingsAndroid = AndroidInitializationSettings('ic_notification');
 
     await FirebaseMessaging.instance
@@ -72,7 +77,7 @@ class NotificationUtil {
     // set the first 3 properties to false
     // then call the requestPermissions method with desired permissions
     // at the appropriate point in your application
-    // see https://pub.dev/packages/flutter_local_notifications#initialisation
+    // see https://pub.dev/packages/flutter_local_notifications#ios-all-supported-versions-and-macos-1014-requesting-notification-permissions
     const settingsIOS = IOSInitializationSettings();
 
     const initializationSettings = InitializationSettings(
@@ -96,7 +101,7 @@ class NotificationUtil {
     );
   }
 
-  // only for ios
+  // only for ios/ mac os
   static Future<void> requestPermissions() async {
     if (Platform.isAndroid) {
       return;
@@ -113,7 +118,7 @@ class NotificationUtil {
   static Future<void> _onMessage(BuildContext context) async {
     const channel = AndroidNotificationChannel(
       channelId,
-      'Name',
+      channelName,
       importance:
           Importance.high, // Required to display a heads up notification
       ledColor: AppStyles.primaryColor,
