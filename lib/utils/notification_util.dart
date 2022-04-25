@@ -10,6 +10,8 @@ import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/data/local_storage.dart';
 
 // TODO(anyone): xin provision certificate từ Linhlc test ios notification env release
+// For Ios: be sure add capabilities by Xcode, please add: Push notification
+// and ackground modes choose Background fetch and Remote notifications
 
 // It must not be an anonymous function.
 // It must be a top-level function.
