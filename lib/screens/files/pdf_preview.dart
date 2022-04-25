@@ -73,6 +73,7 @@ class _PdfPreviewState extends State<PdfPreview> {
                   horizontal: 16,
                 ),
                 child: Text(
+                  // TODO(mintt): use Statefulbuilder or hookbuilder instead
                   '$_currentPage / $_totalPages',
                   style: AppStyles.textRegular.copyWith(
                     fontWeight: FontWeight.w500,

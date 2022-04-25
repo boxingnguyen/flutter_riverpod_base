@@ -22,6 +22,7 @@ class VideoPlayerPreview extends ConsumerStatefulWidget {
 
 class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
   late VideoPlayerController _videoPlayerController;
+  // TODO(mintt): use late declare and try use hook if need
   ChewieController? _chewieController;
 
   @override
