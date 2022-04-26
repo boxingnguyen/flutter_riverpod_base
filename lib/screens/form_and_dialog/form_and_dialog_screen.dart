@@ -111,9 +111,6 @@ class FormBody extends HookConsumerWidget with Utils {
               ],
             ),
           ),
-          const SizedBox(
-            height: AppStyles.verticalSpace,
-          ),
           Column(
             children: [
               _rowDialog(
@@ -165,11 +162,16 @@ class FormBody extends HookConsumerWidget with Utils {
       child: GestureDetector(
         onTap: voidCallback,
         child: Chip(
-          label: Text(message,
-              style: AppStyles.textMedium.copyWith(color: AppStyles.white)),
+          label: Text(
+            message,
+            style: AppStyles.textMedium.copyWith(
+              color: AppStyles.white,
+            ),
+          ),
           padding: const EdgeInsets.symmetric(
-              vertical: AppStyles.verticalSpace,
-              horizontal: AppStyles.horizontalSpace),
+            vertical: AppStyles.verticalSpace,
+            horizontal: AppStyles.horizontalSpace,
+          ),
           backgroundColor: AppStyles.primaryColor,
         ),
       ),
