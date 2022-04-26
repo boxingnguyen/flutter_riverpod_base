@@ -39,7 +39,7 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
       padding: const EdgeInsets.all(8),
       child: isPlayerInitialized
           ? Chewie(
-              controller: _chewieController!,
+              controller: _chewieController,
             )
           : const CircularProgressIndicator(),
     );
