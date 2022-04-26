@@ -9,9 +9,10 @@ import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/screens/home/home_screen.dart';
 import 'package:provider_base/screens/login/components/account_created_screen.dart';
-import 'package:provider_base/screens/login/components/sign_in_email.dart';
-import 'package:provider_base/screens/login/components/sign_up_email.dart';
+import 'package:provider_base/screens/login/components/forgot_password_screen.dart';
 import 'package:provider_base/screens/login/login_state_notifier.dart';
+import 'package:provider_base/screens/sign_in_email/sign_in_email_screen.dart';
+import 'package:provider_base/screens/sign_up_email/sign_up_email_screen.dart';
 import 'package:provider_base/screens/update_password/update_password_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
@@ -66,8 +67,8 @@ class LoginScreen extends HookConsumerWidget with Utils {
                     ? Constants.signUpWithEmail
                     : Constants.signInWithEmail,
                 onTap: isSignUp
-                    ? () => push(context, const SignUpEmail())
-                    : () => push(context, const SignInEmail()),
+                    ? () => push(context, const SignUpEmailScreen())
+                    : () => push(context, const SignInEmailScreen()),
               ),
               Platform.isIOS
                   ? ButtonLogin(
@@ -99,9 +100,24 @@ class LoginScreen extends HookConsumerWidget with Utils {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
+              isSignUp
+                  ? const SizedBox()
+                  : GestureDetector(
+                      onTap: () => push(context, const ForgotPasswordScreen()),
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 5),
+                        color: Colors.transparent,
+                        child: Text(
+                          Constants.forgotPassword,
+                          style: AppStyles.textMedium.copyWith(
+                            color: ColorApp.red0,
+                          ),
+                        ),
+                      ),
+                    ),
               const Spacer(),
               Text(
                 Constants.byCreatingAnAccountAcceptMedium,

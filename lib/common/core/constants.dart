@@ -71,6 +71,12 @@ class Constants {
   static const reEnterPassword = 'Re-enter wrong password';
   static const reLoginToUpdate = 'Re login to update';
   static const updatePasswordSuccess = 'Update password success';
+  static const forgotPassword = 'Forgot Password';
+  static const findPassword = 'Find Password';
+  static const findPasswordSuccess =
+      'Password reset link has been sent to your email, please check your email';
+  static const emailToFindYourPassword =
+      'Enter your email to find your password';
 
   // int
   static const otherFieldMaxLength100 = 100;
