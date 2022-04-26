@@ -13,8 +13,6 @@ import 'package:provider_base/screens/sign_in_email/sign_in_email_state_notifier
 import 'package:provider_base/utils/utils.dart';
 import 'package:provider_base/utils/validate.dart';
 
-// TODO(tupa1):
-// - add forgot password -> screen forgot pass input email
 class SignInEmailScreen extends HookConsumerWidget {
   const SignInEmailScreen({Key? key, this.formKey}) : super(key: key);
   final GlobalKey<FormState>? formKey;
