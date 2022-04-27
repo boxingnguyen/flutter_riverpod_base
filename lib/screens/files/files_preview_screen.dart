@@ -34,6 +34,7 @@ class FilesPreviewScreen extends StatelessWidget with Utils {
   }
 
   Widget _buildImagePreview(BuildContext context, String path) {
+    // TODO(mintt): use Herro instead, comment package photo to introduce
     return PhotoView(
       imageProvider: AssetImage(path),
     );

@@ -10,10 +10,16 @@ class PdfPreview extends HookWidget {
   final String path;
   const PdfPreview({Key? key, required this.path}) : super(key: key);
 
+  // TODO(mintt):
+  // - navigation: back when swipe from file preview screen (ios)
+  // - remove unnccessesary properties PDFView
+  // - optimize state management use useValueNotifier(initialData) for current page & total page
+  // - title change to file name
   @override
   Widget build(BuildContext context) {
     final _currentPage = useState(1);
     final _totalPages = useState(0);
+
     final Completer<PDFViewController> _controller =
         Completer<PDFViewController>();
 
@@ -25,9 +31,6 @@ class PdfPreview extends HookWidget {
             Positioned.fill(
               child: PDFView(
                 filePath: path,
-                enableSwipe: true,
-                swipeHorizontal: true,
-                autoSpacing: false,
                 pageFling: false,
                 onRender: (_pages) => _totalPages.value = _pages ?? 0,
                 onError: (error) {

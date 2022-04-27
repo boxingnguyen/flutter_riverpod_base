@@ -102,6 +102,7 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
             const SizedBox(
               height: AppStyles.verticalSpace,
             ),
+            // TODO(mintt): change to thumbnail view instead of go to screen 2
             Text(
               'Preview Video',
               style: AppStyles.textMedium.copyWith(
@@ -120,6 +121,7 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
                 ),
               ),
             ),
+            // TODO(mintt): add youtube player
           ],
         ),
       ),

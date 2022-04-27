@@ -11,6 +11,7 @@ enum AnalyticsEventType {
   loginWithGoogle,
   loginWithFacebook,
   playVideo,
+  filePreview
 }
 
 extension AnalyticsEventTypeExtension on AnalyticsEventType {
@@ -40,6 +41,9 @@ extension AnalyticsEventTypeExtension on AnalyticsEventType {
         break;
       case AnalyticsEventType.playVideo:
         string = 'play_video';
+        break;
+      case AnalyticsEventType.filePreview:
+        string = 'file_preview';
         break;
     }
     return string;

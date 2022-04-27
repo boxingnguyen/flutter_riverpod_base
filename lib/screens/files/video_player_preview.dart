@@ -21,6 +21,7 @@ class VideoPlayerPreview extends ConsumerStatefulWidget {
 }
 
 class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
+  // TODO(mintt): investigate case error when open video preview from 2nd times
   late VideoPlayerController _videoPlayerController;
   late ChewieController _chewieController;
 
