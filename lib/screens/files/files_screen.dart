@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/common_view/hyperlink_text.dart';
+import 'package:provider_base/common/common_view/youtube_player.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/screens/files/files_preview_screen.dart';
 import 'package:provider_base/screens/files/pdf_preview.dart';
@@ -18,6 +19,8 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
   final videoPath =
       'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4';
   final pdfPath = 'http://www.africau.edu/images/default/sample.pdf';
+
+  final youtubeUrl = 'https://www.youtube.com/watch?v=EgZpeFSspNw';
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +106,16 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
             ),
             // ThumbnailVideo(filePath: videoPath),
             // TODO(mintt): add youtube player
+            const SizedBox(
+              height: AppStyles.verticalSpace,
+            ),
+            Text(
+              'Youtube Player',
+              style: AppStyles.textMedium.copyWith(
+                fontSize: AppStyles.fontSizeL,
+              ),
+            ),
+            YoutubeViewer(youtubeUrl: youtubeUrl),
           ],
         ),
       ),
