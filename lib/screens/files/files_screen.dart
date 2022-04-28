@@ -1,10 +1,8 @@
-import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/common_view/hyperlink_text.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/screens/files/files_preview_screen.dart';
+import 'package:provider_base/screens/files/pdf_preview.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class FilesScreen extends StatefulWidget with Utils {
@@ -19,7 +17,7 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
   final imagePath = 'assets/files_example/landscape.jpeg';
   final videoPath =
       'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4';
-  File? file;
+  final pdfPath = 'http://www.africau.edu/images/default/sample.pdf';
 
   @override
   Widget build(BuildContext context) {
@@ -76,29 +74,11 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
             const SizedBox(
               height: 10,
             ),
-            file != null
-                ? GestureDetector(
-                    child: Text(file?.path ?? ''),
-                    onTap: () => push(
-                      context,
-                      FilesPreviewScreen(
-                        path: file!.path,
-                      ),
-                    ),
-                  )
-                : const SizedBox.shrink(),
-            const SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                final pickedFile = await _pickFiles();
-                setState(() {
-                  file = pickedFile;
-                });
-              },
-              child: const Text('Upload file to test'),
-            ),
+            HyperLinkText(
+                text: pdfPath,
+                press: () {
+                  push(context, PdfPreview(path: pdfPath));
+                }),
             const SizedBox(
               height: AppStyles.verticalSpace,
             ),
@@ -121,23 +101,11 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
                 ),
               ),
             ),
+            // ThumbnailVideo(filePath: videoPath),
             // TODO(mintt): add youtube player
           ],
         ),
       ),
     );
-  }
-
-  // Pick file to test
-  Future<File?> _pickFiles() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
-    if (result != null) {
-      final File file = File(result.files.single.path ?? '');
-      return file;
-    }
-    return null;
   }
 }

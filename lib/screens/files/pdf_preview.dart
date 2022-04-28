@@ -1,36 +1,32 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:provider_base/common/common_view/error_indicator.dart';
 import 'package:provider_base/common/core/app_style.dart';
+import 'package:provider_base/utils/utils.dart';
 
-class PdfPreview extends HookWidget {
+class PdfPreview extends HookWidget with Utils {
   final String path;
   const PdfPreview({Key? key, required this.path}) : super(key: key);
 
-  // TODO(mintt):
-  // - navigation: back when swipe from file preview screen (ios)
-  // - remove unnccessesary properties PDFView
-  // - optimize state management use useValueNotifier(initialData) for current page & total page
-  // - title change to file name
   @override
   Widget build(BuildContext context) {
-    final _currentPage = useState(1);
-    final _totalPages = useState(0);
+    final _currentPage = useValueNotifier(1);
+    final _totalPages = useValueNotifier(0);
 
     final Completer<PDFViewController> _controller =
         Completer<PDFViewController>();
 
     return Scaffold(
+      appBar: getAppBar(context: context, title: _getFileName(path)),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Stack(
           children: [
             Positioned.fill(
-              child: PDFView(
-                filePath: path,
+              child: PDF(
                 pageFling: false,
                 onRender: (_pages) => _totalPages.value = _pages ?? 0,
                 onError: (error) {
@@ -48,6 +44,8 @@ class PdfPreview extends HookWidget {
                 },
                 onPageChanged: (int? page, int? total) =>
                     _currentPage.value = (page ?? 0) + 1,
+              ).fromUrl(
+                path,
               ),
             ),
             Positioned(
@@ -66,19 +64,31 @@ class PdfPreview extends HookWidget {
                   vertical: 8,
                   horizontal: 16,
                 ),
-                child: Text(
-                  '${_currentPage.value} / ${_totalPages.value}',
-                  style: AppStyles.textRegular.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                    fontSize: AppStyles.fontSizeM,
-                  ),
-                ),
+                child: ValueListenableBuilder(
+                    valueListenable: _totalPages,
+                    builder: (context, totalPages, child) {
+                      return ValueListenableBuilder(
+                          valueListenable: _currentPage,
+                          builder: (context, currentPage, child) {
+                            return Text(
+                              '$currentPage/$totalPages',
+                              style: AppStyles.textRegular.copyWith(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                                fontSize: AppStyles.fontSizeM,
+                              ),
+                            );
+                          });
+                    }),
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  String _getFileName(String path) {
+    return path.split('/').last;
   }
 }

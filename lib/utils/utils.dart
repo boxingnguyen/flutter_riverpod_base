@@ -12,9 +12,7 @@ mixin Utils {
     bool fullscreenDialog = false,
   }) async {
     if (Platform.isIOS) {
-      return Navigator.of(
-        context,
-      ).push(
+      return Navigator.of(context, rootNavigator: true).push(
         CupertinoPageRoute<dynamic>(
           builder: (BuildContext context) => route,
           settings: settings,
