@@ -20,7 +20,6 @@ class PdfPreview extends HookWidget with Utils {
         Completer<PDFViewController>();
 
     return Scaffold(
-      appBar: getAppBar(context: context, title: _getFileName(path)),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Stack(

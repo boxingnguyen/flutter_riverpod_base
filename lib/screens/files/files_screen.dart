@@ -78,10 +78,12 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
               height: 10,
             ),
             HyperLinkText(
-                text: pdfPath,
-                press: () {
-                  push(context, PdfPreview(path: pdfPath));
-                }),
+              text: pdfPath,
+              press: () => push(
+                context,
+                FilesPreviewScreen(path: pdfPath),
+              ),
+            ),
             const SizedBox(
               height: AppStyles.verticalSpace,
             ),
