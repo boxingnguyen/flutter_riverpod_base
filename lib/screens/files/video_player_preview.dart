@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:video_player/video_player.dart';
 
-final playerProvider = StateProvider<bool>((ref) => false);
+// final playerProvider = StateProvider<bool>((ref) => false);
 
 class VideoPlayerPreview extends ConsumerStatefulWidget {
   const VideoPlayerPreview({
@@ -23,7 +23,7 @@ class VideoPlayerPreview extends ConsumerStatefulWidget {
 class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
   // TODO(mintt): investigate case error when open video preview from 2nd times
   late VideoPlayerController _videoPlayerController;
-  late ChewieController _chewieController;
+  ChewieController? _chewieController;
 
   @override
   void initState() {
@@ -34,13 +34,14 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
 
   @override
   Widget build(BuildContext context) {
-    final isPlayerInitialized = ref.watch(playerProvider) == true;
+    // final isPlayerInitialized = ref.watch(playerProvider) == true;
 
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: isPlayerInitialized
+      child: _chewieController != null &&
+              _chewieController!.videoPlayerController.value.isInitialized
           ? Chewie(
-              controller: _chewieController,
+              controller: _chewieController!,
             )
           : const CircularProgressIndicator(),
     );
@@ -50,7 +51,7 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
   void dispose() {
     super.dispose();
     _videoPlayerController.dispose();
-    _chewieController.dispose();
+    _chewieController!.dispose();
   }
 
   // Init video player
@@ -80,11 +81,12 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
       },
     );
 
-    // set state chewieController is initialized
-    ref.read(playerProvider.notifier).update((state) => true);
+    setState(() {});
 
-    _chewieController.addListener(() {
-      if (!_chewieController.isFullScreen) {
+    // ref.read(playerProvider.notifier).update((state) => true);
+
+    _chewieController?.addListener(() {
+      if (!_chewieController!.isFullScreen) {
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
           DeviceOrientation.portraitDown,

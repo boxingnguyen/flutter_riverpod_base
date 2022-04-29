@@ -3,7 +3,6 @@ import 'package:provider_base/common/common_view/hyperlink_text.dart';
 import 'package:provider_base/common/common_view/youtube_player.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/screens/files/files_preview_screen.dart';
-import 'package:provider_base/screens/files/pdf_preview.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class FilesScreen extends StatefulWidget with Utils {
@@ -15,12 +14,13 @@ class FilesScreen extends StatefulWidget with Utils {
 
 class _FilesScreenState extends State<FilesScreen> with Utils {
   // Used for test preview
-  final imagePath = 'assets/files_example/landscape.jpeg';
+  final imagePath =
+      'https://www.mickeyshannon.com/images/landscape-photography.jpg';
   final videoPath =
       'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4';
   final pdfPath = 'http://www.africau.edu/images/default/sample.pdf';
 
-  final youtubeUrl = 'https://www.youtube.com/watch?v=EgZpeFSspNw';
+  final youtubeUrl = 'https://www.youtube.com/watch?v=Py5ahdxl2ck';
 
   @override
   Widget build(BuildContext context) {
@@ -42,17 +42,12 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Preview Images',
-              style: AppStyles.textMedium.copyWith(
-                fontSize: AppStyles.fontSizeL,
-              ),
-            ),
+            _buildHeader('Preview Image'),
             const SizedBox(
               height: 10,
             ),
             InkWell(
-              child: Image.asset(
+              child: Image.network(
                 imagePath,
                 height: 200,
                 width: 200,
@@ -68,12 +63,7 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
             const SizedBox(
               height: AppStyles.verticalSpace,
             ),
-            Text(
-              'Preview PDF',
-              style: AppStyles.textMedium.copyWith(
-                fontSize: AppStyles.fontSizeL,
-              ),
-            ),
+            _buildHeader('Preview PDF'),
             const SizedBox(
               height: 10,
             ),
@@ -87,13 +77,7 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
             const SizedBox(
               height: AppStyles.verticalSpace,
             ),
-            // TODO(mintt): change to thumbnail view instead of go to screen 2
-            Text(
-              'Preview Video',
-              style: AppStyles.textMedium.copyWith(
-                fontSize: AppStyles.fontSizeL,
-              ),
-            ),
+            _buildHeader('Preview Video'),
             const SizedBox(
               height: 10,
             ),
@@ -106,20 +90,25 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
                 ),
               ),
             ),
-            // ThumbnailVideo(filePath: videoPath),
-            // TODO(mintt): add youtube player
             const SizedBox(
               height: AppStyles.verticalSpace,
             ),
-            Text(
-              'Youtube Player',
-              style: AppStyles.textMedium.copyWith(
-                fontSize: AppStyles.fontSizeL,
-              ),
+            _buildHeader('Youtube Player'),
+            const SizedBox(
+              height: 10,
             ),
             YoutubeViewer(youtubeUrl: youtubeUrl),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(String header) {
+    return Text(
+      header,
+      style: AppStyles.textMedium.copyWith(
+        fontSize: AppStyles.fontSizeL,
       ),
     );
   }

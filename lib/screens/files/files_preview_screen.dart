@@ -2,18 +2,19 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:mime/mime.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider_base/screens/files/pdf_preview.dart';
 import 'package:provider_base/screens/files/video_player_preview.dart';
 import 'package:provider_base/utils/utils.dart';
-import 'package:dio/dio.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:path/path.dart';
-import 'package:http/http.dart' as http;
 import 'package:share/share.dart';
 
 class FilesPreviewScreen extends StatelessWidget with Utils {
@@ -65,7 +66,7 @@ class FilesPreviewScreen extends StatelessWidget with Utils {
 
   Widget _buildImagePreview(BuildContext context, String path) {
     return PhotoView(
-      imageProvider: AssetImage(path),
+      imageProvider: NetworkImage(path),
     );
   }
 
@@ -90,16 +91,20 @@ class FilesPreviewScreen extends StatelessWidget with Utils {
   Future<void> _downloadFile(BuildContext context, String filePath) async {
     final fileDownloaded = await _saveFileToStorage(filePath);
 
+    if (fileDownloaded != null) {
+      OpenFile.open(fileDownloaded.path);
+    }
+
     await showOkAlertDialog(
       context: context,
       title: 'File Download',
-      message: fileDownloaded == true
+      message: fileDownloaded != null
           ? 'Download file successfully'
           : 'Download failed',
     );
   }
 
-  Future<bool> _saveFileToStorage(String url) async {
+  Future<File?> _saveFileToStorage(String url) async {
     final Dio dio = Dio();
     final fileName = basename(url);
     Directory directory;
@@ -123,13 +128,13 @@ class FilesPreviewScreen extends StatelessWidget with Utils {
           newPath = newPath + "/BaseApp";
           directory = Directory(newPath);
         } else {
-          return false;
+          return null;
         }
       } else {
         if (await _requestPermission(Permission.photos)) {
           directory = await getTemporaryDirectory();
         } else {
-          return false;
+          return null;
         }
       }
       File saveFile = File(directory.path + "/$fileName");
@@ -137,17 +142,20 @@ class FilesPreviewScreen extends StatelessWidget with Utils {
         await directory.create(recursive: true);
       }
       if (await directory.exists()) {
-        await dio.download(url, saveFile.path);
+        await dio.download(
+          url,
+          saveFile.path,
+        );
         if (Platform.isIOS) {
           await ImageGallerySaver.saveFile(saveFile.path,
               isReturnPathOfIOS: true);
         }
-        return true;
+        return saveFile;
       }
-      return false;
+      return null;
     } catch (e) {
       log(e.toString());
-      return false;
+      return null;
     }
   }
 
@@ -171,6 +179,7 @@ class FilesPreviewScreen extends StatelessWidget with Utils {
       if (result == PermissionStatus.granted) {
         return true;
       }
+      log('permission denied');
     }
     return false;
   }
