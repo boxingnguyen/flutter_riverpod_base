@@ -28,13 +28,15 @@ class FilesPreviewScreen extends StatelessWidget with Utils {
         context: context,
         title: basename(path),
         actions: [
-          GestureDetector(
-            onTap: () async => await _downloadFile(context, path),
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(Icons.download),
-            ),
-          ),
+          Platform.isAndroid
+              ? GestureDetector(
+                  onTap: () async => await _downloadFile(context, path),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(Icons.download),
+                  ),
+                )
+              : const SizedBox(),
           GestureDetector(
             onTap: () => _shareFile(path),
             child: const Padding(
@@ -93,6 +95,8 @@ class FilesPreviewScreen extends StatelessWidget with Utils {
 
     if (fileDownloaded != null) {
       OpenFile.open(fileDownloaded.path);
+    } else {
+      print('null');
     }
 
     await showOkAlertDialog(
