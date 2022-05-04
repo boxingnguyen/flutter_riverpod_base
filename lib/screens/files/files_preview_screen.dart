@@ -120,16 +120,16 @@ class FilesPreviewScreen extends StatelessWidget with Utils {
           directory = (await getExternalStorageDirectory())!;
           String newPath = '';
 
-          List<String> paths = directory.path.split("/");
+          List<String> paths = directory.path.split('/');
           for (int x = 1; x < paths.length; x++) {
             String folder = paths[x];
-            if (folder != "Android") {
-              newPath += "/" + folder;
+            if (folder != 'Android') {
+              newPath += '/' + folder;
             } else {
               break;
             }
           }
-          newPath = newPath + "/BaseApp";
+          newPath = newPath + '/BaseApp';
           directory = Directory(newPath);
         } else {
           return null;
@@ -141,7 +141,7 @@ class FilesPreviewScreen extends StatelessWidget with Utils {
           return null;
         }
       }
-      File saveFile = File(directory.path + "/$fileName");
+      File saveFile = File(directory.path + '/$fileName');
       if (!await directory.exists()) {
         await directory.create(recursive: true);
       }
