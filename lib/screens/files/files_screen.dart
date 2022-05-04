@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/common_view/hyperlink_text.dart';
+import 'package:provider_base/common/common_view/shimmer_widget.dart';
 import 'package:provider_base/common/common_view/youtube_player.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/screens/files/files_preview_screen.dart';
@@ -52,6 +53,14 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
                 height: 200,
                 width: 200,
                 fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const ShimmerWidget(
+                    height: 200,
+                    width: 200,
+                    shapeBorder: ContinuousRectangleBorder(),
+                  );
+                },
               ),
               onTap: () => push(
                 context,

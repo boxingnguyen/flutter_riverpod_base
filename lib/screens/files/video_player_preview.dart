@@ -6,8 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:video_player/video_player.dart';
 
-// final playerProvider = StateProvider<bool>((ref) => false);
-
 class VideoPlayerPreview extends ConsumerStatefulWidget {
   const VideoPlayerPreview({
     required this.path,
@@ -21,7 +19,6 @@ class VideoPlayerPreview extends ConsumerStatefulWidget {
 }
 
 class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
-  // TODO(mintt): investigate case error when open video preview from 2nd times
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
 
@@ -34,8 +31,6 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
 
   @override
   Widget build(BuildContext context) {
-    // final isPlayerInitialized = ref.watch(playerProvider) == true;
-
     return Padding(
       padding: const EdgeInsets.all(8),
       child: _chewieController != null &&
@@ -82,8 +77,6 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
     );
 
     setState(() {});
-
-    // ref.read(playerProvider.notifier).update((state) => true);
 
     _chewieController?.addListener(() {
       if (!_chewieController!.isFullScreen) {

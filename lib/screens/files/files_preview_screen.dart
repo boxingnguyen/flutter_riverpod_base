@@ -95,8 +95,6 @@ class FilesPreviewScreen extends StatelessWidget with Utils {
 
     if (fileDownloaded != null) {
       OpenFile.open(fileDownloaded.path);
-    } else {
-      print('null');
     }
 
     await showOkAlertDialog(
