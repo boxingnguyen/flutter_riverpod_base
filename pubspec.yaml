@@ -109,6 +109,7 @@ dev_dependencies:
   image_gallery_saver: ^1.7.1
   open_file: ^3.2.1
   shimmer: ^2.0.0
+  cached_network_image: ^3.2.0
 
   # web view
   webview_flutter: 2.0.12

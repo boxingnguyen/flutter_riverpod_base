@@ -24,8 +24,8 @@ class ShimmerWidget extends StatelessWidget {
           shape: shapeBorder,
         ),
       ),
-      baseColor: AppStyles.bgLightModeColor,
-      highlightColor: AppStyles.primaryColor,
+      baseColor: AppStyles.grey3,
+      highlightColor: AppStyles.white,
     );
   }
 }

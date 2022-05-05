@@ -5,7 +5,6 @@ import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/l10n/l10n.dart';
 import 'package:provider_base/main/app.dart';
 import 'package:provider_base/screens/dashboard/dashboard_screen.dart';
-import 'package:provider_base/screens/home/home_screen.dart';
 import 'package:provider_base/screens/login/login_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
@@ -17,7 +16,7 @@ class ModulesScreen extends HookConsumerWidget with Utils {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Map<String, String> listModules = {
-      'Common View': HomeScreen.routeName,
+      'Dashboard': DashboardScreen.routeName,
       'Authorization': LoginScreen.routeName,
       'Util': '/util',
       'Notification': '/notification',
@@ -26,7 +25,6 @@ class ModulesScreen extends HookConsumerWidget with Utils {
       'OTP/Capcha': '/otp_capcha',
       'QR Code': '/qr_code',
       'Play Video': '/play_video',
-      'Dashboard': DashboardScreen.routeName,
     };
 
     return Scaffold(

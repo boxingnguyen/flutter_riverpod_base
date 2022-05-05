@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider_base/common/common_view/error_indicator.dart';
 import 'package:provider_base/common/common_view/hyperlink_text.dart';
 import 'package:provider_base/common/common_view/shimmer_widget.dart';
 import 'package:provider_base/common/common_view/youtube_player.dart';
@@ -48,19 +50,21 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
               height: 10,
             ),
             InkWell(
-              child: Image.network(
-                imagePath,
+              child: CachedNetworkImage(
+                imageUrl: imagePath,
                 height: 200,
                 width: 200,
                 fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return const ShimmerWidget(
-                    height: 200,
-                    width: 200,
-                    shapeBorder: ContinuousRectangleBorder(),
-                  );
-                },
+                progressIndicatorBuilder: (context, url, progress) =>
+                    const ShimmerWidget(
+                  height: 200,
+                  width: 200,
+                  shapeBorder: ContinuousRectangleBorder(),
+                ),
+                errorWidget: (context, url, error) =>
+                    const CommonErrorIndicator(
+                  message: 'Image not found',
+                ),
               ),
               onTap: () => push(
                 context,
