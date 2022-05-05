@@ -21,20 +21,22 @@ class CommonErrorIndicator extends StatelessWidget {
             message ?? Constants.error,
             style: AppStyles.textRegular,
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: AppStyles.black,
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30))),
-            ),
-            child: Text(
-              Constants.retry,
-              style: AppStyles.textBold.copyWith(
-                color: AppStyles.white,
-              ),
-            ),
-            onPressed: onTapRetry,
-          ),
+          onTapRetry != null
+              ? ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: AppStyles.black,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30))),
+                  ),
+                  child: Text(
+                    Constants.retry,
+                    style: AppStyles.textBold.copyWith(
+                      color: AppStyles.white,
+                    ),
+                  ),
+                  onPressed: onTapRetry,
+                )
+              : const SizedBox.shrink(),
         ],
       ),
     );

@@ -4,6 +4,8 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/common/common_view/error_indicator.dart';
+import 'package:provider_base/common/common_view/loading_indicator.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerPreview extends ConsumerStatefulWidget {
@@ -24,29 +26,8 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
 
   @override
   void initState() {
-    super.initState();
-
     initializeVideoPlayer();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: _chewieController != null &&
-              _chewieController!.videoPlayerController.value.isInitialized
-          ? Chewie(
-              controller: _chewieController!,
-            )
-          : const CircularProgressIndicator(),
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _videoPlayerController.dispose();
-    _chewieController!.dispose();
+    super.initState();
   }
 
   // Init video player
@@ -57,7 +38,7 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
       _videoPlayerController = VideoPlayerController.file(File(widget.path));
     }
 
-    await Future.wait([_videoPlayerController.initialize()]);
+    await _videoPlayerController.initialize();
 
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
@@ -86,5 +67,32 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
         ]);
       }
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_chewieController == null) {
+      return const CommonErrorIndicator(
+        message: 'Load video failed!',
+      );
+    }
+
+    final _isInitialized =
+        _chewieController!.videoPlayerController.value.isInitialized;
+
+    return Padding(
+        padding: const EdgeInsets.all(8),
+        child: _isInitialized
+            ? Chewie(
+                controller: _chewieController!,
+              )
+            : const LoadingIndicator());
+  }
+
+  @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    _chewieController?.dispose();
+    super.dispose();
   }
 }
