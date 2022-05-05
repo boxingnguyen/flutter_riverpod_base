@@ -35,27 +35,26 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
   // Init video player
   Future<void> initializeVideoPlayer() async {
     // TODO(mintt): check valid URL, for example
-    // https://visitingmedia.com/tt8/?ttid=graduate-athens-2/#/3d-model/2/0
+    // 'https://visitingmedia.com/tt8/?ttid=graduate-athens-2/#/3d-model/2/0'
     if (Uri.parse(widget.path).isAbsolute) {
       _videoPlayerController = VideoPlayerController.network(widget.path);
     } else {
       _videoPlayerController = VideoPlayerController.file(File(widget.path));
     }
 
-    try {
-      await _initialChewie();
-    } on PlatformException catch (error) {
-      // in case invalid URL
-      log(error.message.toString());
-    }
-
-    setState(() {
-      _isLoading = false;
+    await _videoPlayerController
+        .initialize()
+        .whenComplete(() => setState(() {
+              _isLoading = false;
+            }))
+        .catchError((error) {
+      log(error.toString());
     });
+
+    _initialChewie();
   }
 
-  Future<void> _initialChewie() async {
-    await _videoPlayerController.initialize();
+  void _initialChewie() {
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
       aspectRatio: _videoPlayerController.value.aspectRatio,
@@ -89,7 +88,10 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
       return const LoadingIndicator();
     }
 
-    if (_chewieController == null) {
+    final isInitialized =
+        _chewieController?.videoPlayerController.value.isInitialized ?? false;
+
+    if (!isInitialized) {
       return const CommonErrorIndicator(
         message: 'Load video failed!',
       );
