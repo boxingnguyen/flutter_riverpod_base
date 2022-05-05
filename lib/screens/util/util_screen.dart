@@ -29,8 +29,8 @@ class _AppLifecycleReactorState extends State<AppLifecycleReactor>
 
   @override
   void initState() {
-    super.initState();
     WidgetsBinding.instance?.addObserver(this);
+    super.initState();
   }
 
   @override

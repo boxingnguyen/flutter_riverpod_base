@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider_base/common/core/app_style.dart';
-import 'package:provider_base/common/core/constants.dart';
 
 class ButtonLogin extends StatelessWidget {
   const ButtonLogin({
@@ -20,7 +19,7 @@ class ButtonLogin extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: AppStyles.white,
           borderRadius: BorderRadius.circular(30),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

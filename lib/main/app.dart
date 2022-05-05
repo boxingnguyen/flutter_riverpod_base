@@ -7,14 +7,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/core/routes.dart';
 import 'package:provider_base/common/core/theme/app_theme_state_notifier.dart';
 import 'package:provider_base/env/env_state.dart';
+import 'package:provider_base/l10n/l10n.dart';
+import 'package:provider_base/l10n/ln10_delegate.dart';
+import 'package:provider_base/screens/locale/locale_state_notifier.dart';
 import 'package:provider_base/screens/modules/modules_screen.dart';
-import 'package:provider_base/utils/analytics_util.dart';
-import 'package:provider_base/utils/navigator_util.dart';
+import 'package:provider_base/utils/analytics_utils.dart';
 import 'package:provider_base/utils/notification_util.dart';
 
 late final StateProvider envProvider;
 final analyticsUtilProvider = Provider((ref) => AnalyticsUtil());
-final navigatorUtilProvider = Provider((ref) => NavigatorUtil());
 
 Future<void> setupAndRunApp({required EnvState env}) async {
   envProvider = StateProvider((ref) => env);
@@ -33,6 +34,8 @@ class App extends HookConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final localeState = ref.watch(localeProvider);
+    // TODO(anhnq): setup locale and font for whole app
     final themeState = ref.watch(appThemeProvider);
     ref.read(analyticsUtilProvider).logEvent(AnalyticsEventType.appLaunched);
 
@@ -46,22 +49,22 @@ class App extends HookConsumerWidget {
         ),
       ),
       localizationsDelegates: const [
+        L10n.delegate,
+        L10nDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate, // This is required
+        GlobalCupertinoLocalizations.delegate,
       ],
+      supportedLocales: L10n.delegate.supportedLocales,
       title: 'Provider Base',
       debugShowCheckedModeBanner: false,
       theme: themeState.appTheme,
+      locale: localeState.locale,
       initialRoute: ModulesScreen.routeName,
       routes: routes,
-      navigatorKey: ref.read(navigatorUtilProvider).navigatorKey,
       navigatorObservers: [
         FirebaseAnalyticsObserver(
             analytics: ref.read(analyticsUtilProvider).analytics),
-      ],
-      supportedLocales: const [
-        Locale('en'),
       ],
       builder: (context, child) => GestureDetector(
         // dismiss keyboard when tap outside whole app

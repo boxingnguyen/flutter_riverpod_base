@@ -2,16 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:provider_base/common/common_view/simple_web_view.dart';
 import 'package:provider_base/screens/dashboard/dashboard_screen.dart';
-import 'package:provider_base/screens/dialog/dialog_screen.dart';
-import 'package:provider_base/screens/form/form_screen.dart';
-import 'package:provider_base/screens/home/home_screen.dart';
+import 'package:provider_base/screens/form_and_dialog/form_and_dialog_screen.dart';
 import 'package:provider_base/screens/todo/todo_screen.dart';
 
-void main(){
-  group('Dashboard UI tests', (){
-    testWidgets('Change tab', (tester) async{
+void main() {
+  group('Dashboard UI tests', () {
+    testWidgets('Change tab', (tester) async {
       await tester.pumpWidget(testingWidget());
 
       expect(find.byType(CupertinoTabBar), findsOneWidget);
@@ -19,7 +16,7 @@ void main(){
 
       await tester.tap(find.byIcon(Icons.text_fields));
       await tester.pumpAndSettle();
-      expect(find.byType(FormScreen), findsOneWidget);
+      expect(find.byType(FormAndDialogScreen), findsOneWidget);
 
       //cannot test display home screen when tap this icon because every http requests always return status 400
       // await tester.tap(find.byIcon(Icons.web));
@@ -28,13 +25,12 @@ void main(){
 
       await tester.tap(find.byIcon(Icons.window));
       await tester.pumpAndSettle();
-      expect(find.byType(DialogScreen), findsOneWidget);
+      expect(find.byType(FormAndDialogScreen), findsOneWidget);
 
       //cannot test display home screen when tap this icon because every http requests always return status 400
       // await tester.tap(find.byIcon(Icons.settings));
       // await tester.pumpAndSettle();
       // expect(find.byType(HomeScreen), findsOneWidget);
-
     });
   });
 }

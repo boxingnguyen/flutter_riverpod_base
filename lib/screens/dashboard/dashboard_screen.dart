@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/common_view/simple_web_view.dart';
 import 'package:provider_base/common/core/app_style.dart';
+import 'package:provider_base/l10n/l10n.dart';
 import 'package:provider_base/screens/dashboard/cupertino_tab_controller_hook.dart';
 import 'package:provider_base/screens/dashboard/dashboard_state_notifier.dart';
-import 'package:provider_base/screens/dialog/dialog_screen.dart';
-import 'package:provider_base/screens/form/form_screen.dart';
-import 'package:provider_base/screens/home/home_screen.dart';
+import 'package:provider_base/screens/files/files_screen.dart';
+import 'package:provider_base/screens/form_and_dialog/form_and_dialog_screen.dart';
+import 'package:provider_base/screens/settings/settings_screen.dart';
 import 'package:provider_base/screens/todo/todo_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class DashboardScreen extends HookConsumerWidget with Utils {
   const DashboardScreen({Key? key}) : super(key: key);
-  // TODO(Minnt): add button back to module screen
   static String routeName = '/dashboard';
 
   @override
@@ -37,17 +37,10 @@ class DashboardScreen extends HookConsumerWidget with Utils {
 
     const _pages = [
       TodoScreen(),
-      FormScreen(),
-      Scaffold(
-          body: SafeArea(
-        child:
-            SimpleWebView(url: 'https://pub.dev/packages/form_field_validator'),
-      )),
-      DialogScreen(),
-      // TODO(Minnt): add setting screen with change language
-      HomeScreen(
-        title: 'Home 5',
-      ),
+      FormAndDialogScreen(),
+      SimpleWebView(url: 'https://pub.dev/packages/form_field_validator'),
+      FilesScreen(),
+      SettingsScreen(),
     ];
 
     Widget _buttonIcon({IconData? icon, Color? color}) {
@@ -100,7 +93,7 @@ class DashboardScreen extends HookConsumerWidget with Utils {
             activeIcon: _buttonIcon(
               color: AppStyles.cardDarkModeColor,
             ),
-            label: 'Home',
+            label: L10n.of(context).msgap013,
           ),
           BottomNavigationBarItem(
             icon: Stack(
@@ -133,7 +126,7 @@ class DashboardScreen extends HookConsumerWidget with Utils {
                 ),
               ],
             ),
-            label: 'Form',
+            label: L10n.of(context).msgap014,
           ),
           BottomNavigationBarItem(
             icon: _buttonIcon(
@@ -144,14 +137,14 @@ class DashboardScreen extends HookConsumerWidget with Utils {
               icon: Icons.web,
               color: AppStyles.cardDarkModeColor,
             ),
-            label: 'Web',
+            label: L10n.of(context).msgap015,
           ),
           BottomNavigationBarItem(
             icon: _buttonIcon(
                 color: AppStyles.cardLightModeColor, icon: Icons.window),
             activeIcon: _buttonIcon(
                 color: AppStyles.cardDarkModeColor, icon: Icons.window),
-            label: 'Dialog',
+            label: L10n.of(context).msgap016,
           ),
           BottomNavigationBarItem(
             icon: Stack(
@@ -190,7 +183,7 @@ class DashboardScreen extends HookConsumerWidget with Utils {
                 ),
               ],
             ),
-            label: 'Setting',
+            label: L10n.of(context).msgap017,
           ),
         ],
         activeColor: AppStyles.cardDarkModeColor,

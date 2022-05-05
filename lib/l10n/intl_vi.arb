@@ -1,0 +1,20 @@
+{
+    "@@locale" : "vi",
+    "msgap001": "Danh sách modules", "@msgap001": {"type": "text", "placeholders": {}},
+    "msgap002": "Tiếng Anh", "@msgap002": {"type": "text", "placeholders": {}},
+    "msgap003": "Tiếng Việt", "@msgap003": {"type": "text", "placeholders": {}},
+    "msgap004": "Tiếng Nhật", "@msgap004": {"type": "text", "placeholders": {}},
+    "msgap005": "Anh", "@msgap005": {"type": "text", "placeholders": {}},
+    "msgap006": "Việt Nam", "@msgap006": {"type": "text", "placeholders": {}  },
+    "msgap007": "Nhật Bản", "@msgap007": {"type": "text", "placeholders": {}},
+    "msgap008": "Ngôn ngữ", "@msgap008": { "type": "text", "placeholders": {}},
+    "msgap009": "Chủ đề", "@msgap009": { "type": "text", "placeholders": {}},
+    "msgap010": "Cài đặt", "@msgap010": {"type": "text", "placeholders": {}},
+    "msgap011": "Cài đặt chung", "@msgap011": {"type": "text", "placeholders": {}},
+    "msgap013": "Trang chủ", "@msgap013": {"type": "text", "placeholders": {}},
+    "msgap014": "Mẫu đơn", "@msgap014": {"type": "text", "placeholders": {}},
+    "msgap015": "Web", "@msgap015": {"type": "text", "placeholders": {}},
+    "msgap016": "Tập tin", "@msgap016": {"type": "text", "placeholders": {}},
+    "msgap017": "Cài đặt", "@msgap017": {"type": "text", "placeholders": {}}
+}
+

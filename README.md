@@ -1,6 +1,6 @@
 # Base project for flutter
 
-# run to generated code with buiild_runner and freezed
+# Run to generated code with buiild_runner and freezed
 - You setup build environment for the first time.
 - You modified any code with the annotation `@freezed`.
 
@@ -8,8 +8,14 @@
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
-# Included modules:
+# Run to generate translated message code
 
+```
+flutter pub run intl_utils:generate
+```
+Now, you can get the localized text by `L10n.of(context).msgap001`.
+
+# Included modules:
 1. Common API: Http/ Dio
 2. Authorization
    - login/ logout/ change pass
@@ -46,7 +52,9 @@ flutter pub run build_runner build --delete-conflicting-outputs
 - This way is recommended by Firebase and works with almost plugin for example GG Analytics and Crashlytics.
 - But some plugin have issue and required manual installation such as google_sign_in.
 - See more: https://firebase.flutter.dev/docs/cli/#usage
+
 # CLI flutterfire to create app firebase
+
 ```shell script
 flutterfire config \
   --project=provider-base-dev \
@@ -67,6 +75,7 @@ flutterfire config \
   --ios-bundle-id=com.example.providerBase \
   --android-app-id=com.example.providerBase
 ```
+
 # How to run
 ### Debug
 
