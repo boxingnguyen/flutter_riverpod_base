@@ -25,9 +25,9 @@ class _SimpleWebViewState extends State<SimpleWebView> {
 
   @override
   void initState() {
-    super.initState();
     _controllerCompleter =
         widget.controllerCompleter ?? Completer<WebViewController>();
+    super.initState();
   }
 
   @override
