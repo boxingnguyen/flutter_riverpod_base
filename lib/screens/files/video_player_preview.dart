@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:chewie/chewie.dart';
@@ -23,6 +24,7 @@ class VideoPlayerPreview extends ConsumerStatefulWidget {
 class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -32,14 +34,28 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
 
   // Init video player
   Future<void> initializeVideoPlayer() async {
+    // TODO(mintt): check valid URL, for example
+    // https://visitingmedia.com/tt8/?ttid=graduate-athens-2/#/3d-model/2/0
     if (Uri.parse(widget.path).isAbsolute) {
       _videoPlayerController = VideoPlayerController.network(widget.path);
     } else {
       _videoPlayerController = VideoPlayerController.file(File(widget.path));
     }
 
-    await _videoPlayerController.initialize();
+    try {
+      await _initialChewie();
+    } on PlatformException catch (error) {
+      // in case invalid URL
+      log(error.message.toString());
+    }
 
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Future<void> _initialChewie() async {
+    await _videoPlayerController.initialize();
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
       aspectRatio: _videoPlayerController.value.aspectRatio,
@@ -57,8 +73,6 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
       },
     );
 
-    setState(() {});
-
     _chewieController?.addListener(() {
       if (!_chewieController!.isFullScreen) {
         SystemChrome.setPreferredOrientations([
@@ -71,22 +85,21 @@ class _VideoPlayerPreviewState extends ConsumerState<VideoPlayerPreview> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const LoadingIndicator();
+    }
+
     if (_chewieController == null) {
       return const CommonErrorIndicator(
         message: 'Load video failed!',
       );
     }
 
-    final _isInitialized =
-        _chewieController!.videoPlayerController.value.isInitialized;
-
     return Padding(
         padding: const EdgeInsets.all(8),
-        child: _isInitialized
-            ? Chewie(
-                controller: _chewieController!,
-              )
-            : const LoadingIndicator());
+        child: Chewie(
+          controller: _chewieController!,
+        ));
   }
 
   @override
