@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multiple_localization/multiple_localization.dart';
+import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/l10n/intl/messages_all.dart';
 import 'package:provider_base/l10n/l10n.dart';
 
@@ -8,7 +9,11 @@ class L10nDelegate extends LocalizationsDelegate<L10n> {
 
   @override
   bool isSupported(Locale locale) {
-    return ['en', 'vi', 'ja'].contains('${locale.languageCode}'
+    return [
+      Constants.enLanguageCode,
+      Constants.viLanguageCode,
+      Constants.jaLanguageJa
+    ].contains('${locale.languageCode}'
         '${locale.countryCode != null ? ('_${locale.countryCode}') : ''}');
   }
 

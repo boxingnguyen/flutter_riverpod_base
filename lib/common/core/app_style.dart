@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class AppStyles {
   AppStyles._();
 
+  // font
+  static const String notoSansJP = 'NotoSansJP';
   // color
   static const primaryColor = Color(0xff68A596);
   static final secondaryColor = Colors.grey[700];

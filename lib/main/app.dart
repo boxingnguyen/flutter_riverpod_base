@@ -35,7 +35,6 @@ class App extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localeState = ref.watch(localeProvider);
-    // TODO(anhnq): setup locale and font for whole app
     final themeState = ref.watch(appThemeProvider);
     ref.read(analyticsUtilProvider).logEvent(AnalyticsEventType.appLaunched);
 
@@ -43,11 +42,8 @@ class App extends HookConsumerWidget {
     NotificationUtil.initialize(context);
 
     return MaterialApp(
-      darkTheme: ThemeData(
-        cupertinoOverrideTheme: const CupertinoThemeData(
-          textTheme: CupertinoTextThemeData(), // This is required
-        ),
-      ),
+      themeMode: ThemeMode.system,
+      theme: themeState.appTheme,
       localizationsDelegates: const [
         L10n.delegate,
         L10nDelegate(),
@@ -58,7 +54,8 @@ class App extends HookConsumerWidget {
       supportedLocales: L10n.delegate.supportedLocales,
       title: 'Provider Base',
       debugShowCheckedModeBanner: false,
-      theme: themeState.appTheme,
+      // TODO(mintt): check default locale có lấy từ system ko? -> lấy từ system
+      // khi đã chọn locale -> lưu vào preferences.
       locale: localeState.locale,
       initialRoute: ModulesScreen.routeName,
       routes: routes,
