@@ -16,7 +16,7 @@ class AppTheme {
         enabledBorder: border,
         focusedBorder: border,
       ),
-      textTheme: _getTextThemeByLocale(locale),
+      textTheme: _getTextThemeByLocale(locale, isLightMode),
       brightness: isLightMode ? Brightness.light : Brightness.dark,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       scaffoldBackgroundColor:
@@ -45,16 +45,19 @@ class AppTheme {
   }
 
   // for example change text theme whole app by locale
-  TextTheme? _getTextThemeByLocale(Locale localeState) {
+  TextTheme? _getTextThemeByLocale(Locale localeState, bool isLightMode) {
     final languageCode = locale.languageCode;
+    final themeData =
+        ThemeData(brightness: isLightMode ? Brightness.light : Brightness.dark)
+            .textTheme;
 
     switch (languageCode) {
       case Constants.jaLanguageJa:
-        return GoogleFonts.notoSansTextTheme();
+        return GoogleFonts.notoSansTextTheme(themeData);
       case Constants.viLanguageCode:
-        return GoogleFonts.ubuntuTextTheme();
+        return GoogleFonts.ubuntuTextTheme(themeData);
       default:
-        return GoogleFonts.robotoTextTheme();
+        return GoogleFonts.robotoTextTheme(themeData);
     }
   }
 }
