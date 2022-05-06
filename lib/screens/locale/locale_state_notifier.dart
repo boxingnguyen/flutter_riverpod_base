@@ -15,23 +15,13 @@ class LocaleStateNotifier extends StateNotifier<LocaleState> {
     state = state.copyWith(locale: getLocale(languageType));
   }
 
-  SupportLanguageType getTypeFromRawValue(String languageCode) {
-    switch (languageCode) {
-      case 'vi':
-        return SupportLanguageType.vi;
-      case 'ja':
-        return SupportLanguageType.ja;
-      default:
-        return SupportLanguageType.en;
-    }
-  }
-
   Locale getLocale(SupportLanguageType languageType) {
     return Locale(languageType.name);
   }
 
   void changeLocale(BuildContext context, SupportLanguageType languageType) {
-    final currentLanguageType = getTypeFromRawValue(Intl.getCurrentLocale());
+    final currentLanguageType =
+        SupportLanguageType.values.byName(Intl.getCurrentLocale());
 
     if (currentLanguageType == languageType) {
       return;

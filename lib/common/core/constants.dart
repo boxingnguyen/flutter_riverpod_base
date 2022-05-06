@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Constants {
-  static const fontRoboto = 'Roboto';
+  static const jaLanguageJa = 'ja';
+  static const viLanguageCode = 'vi';
+  static const enLanguageCode = 'en';
 
   static const signUpWithFacebook = 'Sign up with Facebook';
   static const signUpWithApple = 'Sign up with Apple';
