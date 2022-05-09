@@ -6,9 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/models/user/user_detail.dart';
 import 'package:provider_base/screens/sign_up_email/sign_up_email_state.dart';
 
-final signUpEmailProvider =
-    StateNotifierProvider<SignUpEmailStateNotifier, SignUpEmailState>(
-        (_) => SignUpEmailStateNotifier());
+final signUpEmailProvider = StateNotifierProvider.autoDispose<
+    SignUpEmailStateNotifier,
+    SignUpEmailState>((_) => SignUpEmailStateNotifier());
 
 class SignUpEmailStateNotifier extends StateNotifier<SignUpEmailState> {
   SignUpEmailStateNotifier() : super(SignUpEmailState());

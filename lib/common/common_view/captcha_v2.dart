@@ -1,9 +1,8 @@
-// ignore_for_file: deprecated_member_use
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider_base/common/core/constants.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class RecaptchaV2 extends StatefulWidget {
@@ -11,9 +10,9 @@ class RecaptchaV2 extends StatefulWidget {
     Key? key,
     required this.apiKey,
     required this.apiSecret,
-    this.pluginURL = 'https://recaptcha-flutter-plugin.firebaseapp.com/',
+    this.pluginURL = Constants.pluginURL,
     this.visibleCancelBottom = false,
-    this.textCancelButtom = 'CANCEL CAPTCHA',
+    this.textCancelButtom = Constants.cancelCaptcha,
     this.onVerifiedSuccessfully,
     this.onVerifiedError,
     required this.controller,
@@ -48,7 +47,7 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
   }
 
   void verifyToken(String token) async {
-    String url = "https://www.google.com/recaptcha/api/siteverify";
+    String url = Constants.siteverify;
     http.Response response = await http.post(Uri.parse(url), body: {
       "secret": widget.apiSecret,
       "response": token,
@@ -63,9 +62,6 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
         widget.onVerifiedError!(json['error-codes'].toString());
       }
     }
-
-    // hide captcha
-    controller.hide();
   }
 
   @override
@@ -119,9 +115,8 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
                   },
                 ),
               ),
-              Visibility(
-                visible: widget.visibleCancelBottom,
-                child: Align(
+              if (widget.visibleCancelBottom)
+                Align(
                   alignment: Alignment.bottomCenter,
                   child: SizedBox(
                     height: 60,
@@ -140,10 +135,9 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
                     ),
                   ),
                 ),
-              ),
             ],
           )
-        : Container();
+        : const SizedBox();
   }
 }
 

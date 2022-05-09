@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/common_view/captcha_v2.dart';
+import 'package:provider_base/common/core/constants.dart';
 
 class CaptchaScreen extends StatefulWidget {
   const CaptchaScreen({
@@ -28,18 +29,17 @@ class _CaptchaScreenState extends State<CaptchaScreen> {
   @override
   Widget build(BuildContext context) {
     return RecaptchaV2(
-      apiKey: '6LdO8n8fAAAAAAFW6EMmqQ1YNz55dbyGoDX5tSWo',
-      apiSecret: '6LdO8n8fAAAAADx7b0yuhsZypI2wF1QHEOvaBaql',
+      apiKey: Constants.apiKey,
+      apiSecret: Constants.apiSecret,
       controller: recaptchaV2Controller,
       onVerifiedError: widget.onVerifiedError,
       onVerifiedSuccessfully: (success) {
-        setState(() {
-          if (success) {
-            widget.onVerifiedSuccessfully("You've been verified successfully.");
-          } else {
-            widget.onVerifiedError('Failed to verify.');
-          }
-        });
+        if (success) {
+          widget.onVerifiedSuccessfully(Constants.onVerifiedSuccessfully);
+          recaptchaV2Controller.show();
+          return;
+        }
+        widget.onVerifiedError(Constants.onVerifiedError);
       },
     );
   }

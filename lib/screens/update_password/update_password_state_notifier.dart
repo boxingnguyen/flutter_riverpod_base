@@ -3,9 +3,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/screens/update_password/update_password_state.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-final updatePasswordProvider =
-    StateNotifierProvider<UpdatePasswordStateNotifier, UpdatePasswordState>(
-        (_) => UpdatePasswordStateNotifier());
+final updatePasswordProvider = StateNotifierProvider.autoDispose<
+    UpdatePasswordStateNotifier,
+    UpdatePasswordState>((_) => UpdatePasswordStateNotifier());
 
 class UpdatePasswordStateNotifier extends StateNotifier<UpdatePasswordState>
     with LocatorMixin {

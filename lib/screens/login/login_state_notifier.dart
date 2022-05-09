@@ -20,8 +20,9 @@ enum LoginGoogleStatus {
   failed,
 }
 
-final loginProvider = StateNotifierProvider<LoginStateNotifier, LoginState>(
-    (_) => LoginStateNotifier());
+final loginProvider =
+    StateNotifierProvider.autoDispose<LoginStateNotifier, LoginState>(
+        (_) => LoginStateNotifier());
 
 class LoginStateNotifier extends StateNotifier<LoginState> {
   LoginStateNotifier() : super(LoginState());
@@ -146,7 +147,9 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       final _auth = FirebaseAuth.instance;
 
       await _auth.sendPasswordResetEmail(email: email);
-      state = state.copyWith(showLoadingIndicator: false, );
+      state = state.copyWith(
+        showLoadingIndicator: false,
+      );
       return '';
     } catch (e) {
       log(e.toString());

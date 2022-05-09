@@ -80,8 +80,15 @@ class Constants {
 
   // int
   static const otherFieldMaxLength100 = 100;
+  static const onVerifiedSuccessfully = "You've been verified successfully.";
+  static const onVerifiedError = 'Failed to verify.';
   static const charset =
       '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+  static const apiKey = '6LdO8n8fAAAAAAFW6EMmqQ1YNz55dbyGoDX5tSWo';
+  static const apiSecret = '6LdO8n8fAAAAADx7b0yuhsZypI2wF1QHEOvaBaql';
+  static const pluginURL = 'https://recaptcha-flutter-plugin.firebaseapp.com/';
+  static const cancelCaptcha = 'CANCEL CAPTCHA';
+  static const siteverify = 'https://www.google.com/recaptcha/api/siteverify';
 }
 
 class Asset {

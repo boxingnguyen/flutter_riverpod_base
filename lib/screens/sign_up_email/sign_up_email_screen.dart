@@ -100,7 +100,7 @@ class _Body extends HookConsumerWidget with Utils {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  state.numberShowCaptcha >= 5
+                  state.isCaptcha
                       ? CaptchaScreen(
                           onVerifiedError: (error) =>
                               snackBar(context, error, AppStyles.errorColor),
@@ -110,7 +110,7 @@ class _Body extends HookConsumerWidget with Utils {
                           },
                         )
                       : const SizedBox(),
-                  SizedBox(height: state.numberShowCaptcha >= 5 ? 20 : 0),
+                  SizedBox(height: state.isCaptcha ? 20 : 0),
                   ButtonUpload(
                     label: Constants.signUp,
                     onTap: () => _onSignUp(
@@ -145,13 +145,14 @@ class _Body extends HookConsumerWidget with Utils {
     unFocusScope(context);
     final validate = formKey.currentState?.validate() ?? false;
 
-    if (state.isCaptcha || !validate) {
-      return;
-    }
     final isSignUp = await stateNotifier.onSignUp(
       emailController.text,
       passwordController.text,
     );
+
+    if (state.isCaptcha || !validate) {
+      return;
+    }
 
     if (isSignUp.isNotEmpty) {
       snackBar(context, isSignUp, AppStyles.errorColor);
