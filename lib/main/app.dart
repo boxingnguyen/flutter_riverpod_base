@@ -57,8 +57,8 @@ class App extends HookConsumerWidget {
       // TODO(mintt): check default locale có lấy từ system ko? -> lấy từ system
       // khi đã chọn locale -> lưu vào preferences.
       locale: localeState.locale,
-      initialRoute: ModulesScreen.routeName,
-      routes: routes,
+      initialRoute: Routes.modulesScreen,
+      routes: Routes.routes,
       navigatorObservers: [
         FirebaseAnalyticsObserver(
             analytics: ref.read(analyticsUtilProvider).analytics),

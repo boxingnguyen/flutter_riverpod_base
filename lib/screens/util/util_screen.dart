@@ -6,7 +6,6 @@ import 'package:provider_base/utils/utils.dart';
 
 class UtilScreen extends StatelessWidget {
   const UtilScreen({Key? key}) : super(key: key);
-  static String routeName = '/util';
 
   @override
   Widget build(BuildContext context) {

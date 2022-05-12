@@ -9,7 +9,6 @@ import 'package:provider_base/utils/utils.dart';
 class LocaleScreen extends StatelessWidget with Utils {
   const LocaleScreen({Key? key}) : super(key: key);
 
-  static String routeName = '/change_language';
 
   @override
   Widget build(BuildContext context) {
