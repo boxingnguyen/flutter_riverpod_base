@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/core/app_style.dart';
+import 'package:provider_base/common/core/routes.dart';
 import 'package:provider_base/l10n/l10n.dart';
 import 'package:provider_base/screens/locale/locale_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class SettingsScreen extends StatelessWidget with Utils {
   const SettingsScreen({Key? key}) : super(key: key);
-
-  static String routeName = '/settings';
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,7 @@ class SettingsScreen extends StatelessWidget with Utils {
                 context,
                 const LocaleScreen(),
                 settings: RouteSettings(
-                  name: LocaleScreen.routeName,
+                  name: Routes.localeScreen,
                 ),
               ),
             ),

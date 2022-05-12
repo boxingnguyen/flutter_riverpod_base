@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/common_view/switch_theme_button.dart';
 import 'package:provider_base/common/core/app_style.dart';
+import 'package:provider_base/common/core/routes.dart';
 import 'package:provider_base/l10n/l10n.dart';
 import 'package:provider_base/main/app.dart';
 import 'package:provider_base/screens/dashboard/dashboard_screen.dart';
@@ -16,9 +17,9 @@ class ModulesScreen extends HookConsumerWidget with Utils {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Map<String, String> listModules = {
-      'Dashboard': DashboardScreen.routeName,
-      'Authorization': LoginScreen.routeName,
-      'Util': '/util',
+      'Dashboard': Routes.dashboardScreen,
+      'Authorization': Routes.loginScreen,
+      'Util': Routes.utilScreen,
       'Notification': '/notification',
       'Take Picture': '/take_picture',
       'Google\n Analysis': '/google_analysis',

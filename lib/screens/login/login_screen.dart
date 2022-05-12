@@ -13,7 +13,7 @@ import 'package:provider_base/utils/utils.dart';
 
 class LoginScreen extends HookConsumerWidget with Utils {
   const LoginScreen({Key? key}) : super(key: key);
-  static const routeName = '/login_screen';
+
   /* TODO(:tupa1) Refactor code
     - change branch to rs/feat/social_media_authourize
     - name variable correctly 

@@ -14,7 +14,6 @@ import 'package:provider_base/utils/utils.dart';
 
 class DashboardScreen extends HookConsumerWidget with Utils {
   const DashboardScreen({Key? key}) : super(key: key);
-  static String routeName = '/dashboard';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
