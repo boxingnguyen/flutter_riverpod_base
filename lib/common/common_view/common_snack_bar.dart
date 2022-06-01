@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/core/app_style.dart';
-import 'package:provider_base/common/core/constants.dart';
 
 class CommonSnackBar extends StatelessWidget {
   const CommonSnackBar({Key? key, required this.message}) : super(key: key);
@@ -12,10 +11,10 @@ class CommonSnackBar extends StatelessWidget {
       content: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        color: AppColors.blackBg,
+        color: AppStyles.bgDarkModeColor,
         child: Text(
           message,
-          style: AppStyles.textMedium.copyWith(color: AppColors.green),
+          style: AppStyles.textMedium.copyWith(color: AppStyles.green),
         ),
       ),
     );

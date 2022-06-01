@@ -6,7 +6,6 @@ import 'package:provider_base/utils/utils.dart';
 
 class UtilScreen extends StatelessWidget {
   const UtilScreen({Key? key}) : super(key: key);
-  static String routeName = '/util';
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +28,8 @@ class _AppLifecycleReactorState extends State<AppLifecycleReactor>
 
   @override
   void initState() {
-    super.initState();
     WidgetsBinding.instance?.addObserver(this);
+    super.initState();
   }
 
   @override

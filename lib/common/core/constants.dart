@@ -1,24 +1,9 @@
 import 'package:flutter/material.dart';
 
-class AppColors {
-  // black
-  static const Color black = Color(0xFF111111);
-  static const Color blackBg = Color(0xFF161616);
-  static const Color blackCard = Color(0xFF171717);
-
-  // white
-  static const Color white = Color(0xFFFFFFFF);
-
-  // grey
-  static const Color grey3 = Color(0xFFE0E0E0);
-  static const Color grey6 = Color(0xFF757575);
-
-  // green
-  static const Color green = Colors.green;
-}
-
 class Constants {
-  static const fontRoboto = 'Roboto';
+  static const jaLanguageJa = 'ja';
+  static const viLanguageCode = 'vi';
+  static const enLanguageCode = 'en';
 
   static const signUpWithFacebook = 'Sign up with Facebook';
   static const signInWithFacebook = 'Sign in with Facebook';
@@ -106,6 +91,7 @@ class Asset {
   static const imageDefault = 'https://picsum.photos/250?image=9';
 }
 
+// TODO(tupa1): remove this class -> use app styles and theme
 class ColorApp {
   // green
   static const green0 = Color(0xFFAFCEB3);

@@ -43,7 +43,7 @@ class TextFieldLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: AppColors.black)),
+        border: Border(bottom: BorderSide(color: AppStyles.black)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: TextField(
@@ -73,7 +73,7 @@ class TextFieldLogin extends StatelessWidget {
       labelText: labelText,
       hintText: hinText,
       hintStyle: AppStyles.textRegular.copyWith(
-        color: AppColors.grey6,
+        color: AppStyles.grey6,
       ),
       errorText: errorText,
       suffixIcon: suffixIcon ?? const SizedBox(),

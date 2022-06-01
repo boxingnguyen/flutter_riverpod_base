@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider_base/screens/form/form_state.dart';
+import 'package:provider_base/screens/form_and_dialog/form_state.dart';
 
 final formNotifierProvider =
-StateNotifierProvider<FormStateNotifier, FormState>((ref) {
+    StateNotifierProvider<FormStateNotifier, FormState>((ref) {
   return FormStateNotifier();
 });
 

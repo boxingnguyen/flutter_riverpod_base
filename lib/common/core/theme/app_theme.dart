@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
 
 class AppTheme {
-  AppTheme._();
+  Locale locale;
+  get lightTheme => _themeData();
+  get darkTheme => _themeData(isLightMode: false);
 
-  static final lightTheme = _themeData();
-  static final darkTheme = _themeData(isLightMode: false);
+  AppTheme({required this.locale}) : super();
 
-  static ThemeData _themeData({bool isLightMode = true}) {
+  ThemeData _themeData({bool isLightMode = true}) {
     return ThemeData(
       inputDecorationTheme: InputDecorationTheme(
         enabledBorder: border,
         focusedBorder: border,
       ),
-      fontFamily: Constants.fontRoboto,
+      textTheme: _getTextThemeByLocale(locale, isLightMode),
       brightness: isLightMode ? Brightness.light : Brightness.dark,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       scaffoldBackgroundColor:
@@ -36,15 +38,31 @@ class AppTheme {
       appBarTheme: AppBarTheme(
         backgroundColor:
             isLightMode ? AppStyles.primaryColor : AppStyles.secondaryColor,
-        titleTextStyle: AppStyles.textBold.copyWith(
-          fontSize: AppStyles.fontSizeH,
-        ),
+        titleTextStyle:
+            AppStyles.textBold.copyWith(fontSize: AppStyles.fontSizeH),
       ),
     );
   }
+
+  // for example change text theme whole app by locale
+  TextTheme? _getTextThemeByLocale(Locale localeState, bool isLightMode) {
+    final languageCode = locale.languageCode;
+    final themeData =
+        ThemeData(brightness: isLightMode ? Brightness.light : Brightness.dark)
+            .textTheme;
+
+    switch (languageCode) {
+      case Constants.jaLanguageJa:
+        return GoogleFonts.notoSansTextTheme(themeData);
+      case Constants.viLanguageCode:
+        return GoogleFonts.ubuntuTextTheme(themeData);
+      default:
+        return GoogleFonts.robotoTextTheme(themeData);
+    }
+  }
 }
 
-var border = OutlineInputBorder(
+final border = OutlineInputBorder(
   borderSide: const BorderSide(color: AppStyles.bgDarkModeColor),
   borderRadius: BorderRadius.circular(15),
 );

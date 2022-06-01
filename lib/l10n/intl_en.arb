@@ -1,0 +1,20 @@
+{
+    "@@locale" : "en",
+    "msgap001": "Modules List", "@msgap001": {"type": "text", "placeholders": {}},
+    "msgap002": "English", "@msgap002": {"type": "text", "placeholders": {}},
+    "msgap003": "Vietnamese", "@msgap003": {"type": "text", "placeholders": {}},
+    "msgap004": "Japanese", "@msgap004": {"type": "text", "placeholders": {}},
+    "msgap005": "England", "@msgap005": {"type": "text", "placeholders": {}},
+    "msgap006": "Viet Nam", "@msgap006": {"type": "text", "placeholders": {}  },
+    "msgap007": "Japan", "@msgap007": {"type": "text", "placeholders": {}},
+    "msgap008": "Languages", "@msgap008": { "type": "text", "placeholders": {}},
+    "msgap009": "Theme", "@msgap009": { "type": "text", "placeholders": {}},
+    "msgap010": "Settings", "@msgap010": {"type": "text", "placeholders": {}},
+    "msgap011": "General", "@msgap011": {"type": "text", "placeholders": {}},
+    "msgap012": "Languages", "@msgap012": {"type": "text", "placeholders": {}},
+    "msgap013": "Home", "@msgap013": {"type": "text", "placeholders": {}},
+    "msgap014": "Form", "@msgap014": {"type": "text", "placeholders": {}},
+    "msgap015": "Web", "@msgap015": {"type": "text", "placeholders": {}},
+    "msgap016": "Files", "@msgap016": {"type": "text", "placeholders": {}},
+    "msgap017": "Settings", "@msgap017": {"type": "text", "placeholders": {}}
+}

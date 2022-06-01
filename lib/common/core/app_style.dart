@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class AppStyles {
   AppStyles._();
 
+  // font
+  static const String notoSansJP = 'NotoSansJP';
   // color
   static const primaryColor = Color(0xff68A596);
   static final secondaryColor = Colors.grey[700];
@@ -18,6 +20,12 @@ class AppStyles {
   static const cardDarkModeColor = Color(0xFF171717);
   static const shadowLightModeColor = Color(0xFF757575);
   static const shadowDarkModeColor = Colors.black;
+
+  static const Color black = Color(0xFF111111);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color grey3 = Color(0xFFE0E0E0);
+  static const Color grey6 = Color(0xFF757575);
+  static const Color green = Colors.green;
 
   // font size
   static const double fontSizeS = 11;
