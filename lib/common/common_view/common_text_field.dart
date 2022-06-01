@@ -41,6 +41,9 @@ class TextFormFieldCustom extends StatelessWidget {
         // use prefixIcon for showing always.
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
+        errorText: '',
+        errorBorder: const UnderlineInputBorder(),
+        focusedErrorBorder: const UnderlineInputBorder(),
       ),
       onChanged: onChanged,
       onEditingComplete: onEditingComplete,

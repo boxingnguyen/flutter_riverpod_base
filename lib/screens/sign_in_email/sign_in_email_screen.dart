@@ -108,7 +108,7 @@ class _Body extends HookConsumerWidget with Utils {
                       child: Text(
                         Constants.forgotPassword,
                         style: AppStyles.textMedium.copyWith(
-                          color: ColorApp.red0,
+                          color: ColorApp.black0,
                         ),
                       ),
                     ),
