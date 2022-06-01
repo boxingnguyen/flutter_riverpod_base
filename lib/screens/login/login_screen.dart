@@ -9,7 +9,6 @@ import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/screens/home/home_screen.dart';
 import 'package:provider_base/screens/login/components/account_created_screen.dart';
-import 'package:provider_base/screens/login/components/forgot_password_screen.dart';
 import 'package:provider_base/screens/login/login_state_notifier.dart';
 import 'package:provider_base/screens/sign_in_email/sign_in_email_screen.dart';
 import 'package:provider_base/screens/sign_up_email/sign_up_email_screen.dart';
@@ -61,15 +60,6 @@ class LoginScreen extends HookConsumerWidget with Utils {
                 onTap: () =>
                     _signUpWithFacebook(context, ref, isSignUp: isSignUp),
               ),
-              ButtonLogin(
-                urlSvg: Asset.gmailLogo,
-                message: isSignUp
-                    ? Constants.signUpWithEmail
-                    : Constants.signInWithEmail,
-                onTap: isSignUp
-                    ? () => push(context, const SignUpEmailScreen())
-                    : () => push(context, const SignInEmailScreen()),
-              ),
               Platform.isIOS
                   ? ButtonLogin(
                       urlSvg: Asset.appleLogo,
@@ -79,6 +69,16 @@ class LoginScreen extends HookConsumerWidget with Utils {
                       onTap: () => _signInWithApple(context, ref),
                     )
                   : const SizedBox(),
+              ButtonLogin(
+                urlSvg: Asset.gmailLogo,
+                isEmail: true,
+                message: isSignUp
+                    ? Constants.signUpWithEmail
+                    : Constants.signInWithEmail,
+                onTap: isSignUp
+                    ? () => push(context, const SignUpEmailScreen())
+                    : () => push(context, const SignInEmailScreen()),
+              ),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -103,21 +103,6 @@ class LoginScreen extends HookConsumerWidget with Utils {
                   ),
                 ],
               ),
-              isSignUp
-                  ? const SizedBox()
-                  : GestureDetector(
-                      onTap: () => push(context, const ForgotPasswordScreen()),
-                      child: Container(
-                        padding: const EdgeInsets.only(top: 5),
-                        color: Colors.transparent,
-                        child: Text(
-                          Constants.forgotPassword,
-                          style: AppStyles.textMedium.copyWith(
-                            color: ColorApp.red0,
-                          ),
-                        ),
-                      ),
-                    ),
               const Spacer(),
               Text(
                 Constants.byCreatingAnAccountAcceptMedium,
@@ -161,7 +146,6 @@ class LoginScreen extends HookConsumerWidget with Utils {
   }
 
   // email đã được tạo từ provider khác thì sẽ không login được bằng facebook
-
   Future<void> _signUpWithFacebook(
     BuildContext context,
     WidgetRef ref, {

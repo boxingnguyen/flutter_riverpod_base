@@ -8,6 +8,7 @@ import 'package:provider_base/common/common_view/common_text_field.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/screens/home/home_screen.dart';
+import 'package:provider_base/screens/login/components/forgot_password_screen.dart';
 import 'package:provider_base/screens/sign_in_email/sign_in_email_state.dart';
 import 'package:provider_base/screens/sign_in_email/sign_in_email_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
@@ -96,6 +97,20 @@ class _Body extends HookConsumerWidget with Utils {
                           validator: Validate.passwordValidator,
                         ),
                       ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () => push(context, const ForgotPasswordScreen()),
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 5),
+                      color: Colors.transparent,
+                      child: Text(
+                        Constants.forgotPassword,
+                        style: AppStyles.textMedium.copyWith(
+                          color: ColorApp.red0,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),

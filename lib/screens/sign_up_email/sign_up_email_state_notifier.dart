@@ -32,7 +32,7 @@ class SignUpEmailStateNotifier extends StateNotifier<SignUpEmailState> {
     }
 
     if (mounted) {
-      state = state.copyWith(isEmptyInput: true);
+      state = state.copyWith(isEmptyInput: true, isSignUp: true);
     }
   }
 
