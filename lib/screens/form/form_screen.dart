@@ -4,7 +4,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/common_view/common_text_field.dart';
 import 'package:provider_base/common/core/app_style.dart';
-import 'package:provider_base/screens/form/form_state_notifier.dart';
+import 'package:provider_base/screens/form_and_dialog/form_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class FormScreen extends StatelessWidget with Utils {

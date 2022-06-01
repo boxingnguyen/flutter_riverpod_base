@@ -86,7 +86,7 @@ class _Body extends HookConsumerWidget with Utils {
                               state.isShowPassword
                                   ? Icons.visibility
                                   : Icons.visibility_off,
-                              color: AppColors.grey6,
+                              color: AppStyles.grey6,
                             ),
                             onPressed: stateNotifier.isShowPassword,
                           ),
@@ -122,7 +122,7 @@ class _Body extends HookConsumerWidget with Utils {
                       stateNotifier: stateNotifier,
                     ),
                     colorButton:
-                        state.isEmptyInput ? AppColors.green : AppColors.grey6,
+                        state.isEmptyInput ? AppStyles.green : AppStyles.grey6,
                   )
                 ],
               ),

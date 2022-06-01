@@ -51,7 +51,7 @@ class ForgotPasswordScreen extends HookConsumerWidget with Utils {
                       email: emailController.text,
                       ref: ref,
                     ),
-                    colorButton: AppColors.green,
+                    colorButton: AppStyles.green,
                   )
                 ],
               ),

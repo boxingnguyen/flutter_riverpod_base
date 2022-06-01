@@ -135,7 +135,7 @@ class _Body extends HookConsumerWidget with Utils {
                       stateNotifier: stateNotifier,
                     ),
                     colorButton:
-                        state.isSignUp ? AppColors.green : AppColors.grey6,
+                        state.isSignUp ? AppStyles.green : AppStyles.grey6,
                   )
                 ],
               ),
