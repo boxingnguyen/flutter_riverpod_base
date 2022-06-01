@@ -74,7 +74,7 @@ void main() {
 Widget testingWidget() {
   return const ProviderScope(
     child: MaterialApp(
-      home: HomeScreen(title: 'home'),
+      home: HomeScreen(),
     ),
   );
 }

@@ -13,8 +13,16 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import 'login_state.dart';
 
-final loginProvider = StateNotifierProvider<LoginStateNotifier, LoginState>(
-    (_) => LoginStateNotifier());
+enum LoginGoogleStatus {
+  success,
+  cancel,
+  created,
+  failed,
+}
+
+final loginProvider =
+    StateNotifierProvider.autoDispose<LoginStateNotifier, LoginState>(
+        (_) => LoginStateNotifier());
 
 class LoginStateNotifier extends StateNotifier<LoginState> {
   LoginStateNotifier() : super(LoginState());
@@ -24,69 +32,75 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
     scopes: ['email'],
   );
 
-  GoogleSignInAccount? googleSignInAccount;
   UserDetail? userDetail;
   Map? userData;
   bool loginDone = false;
   User? currentUser;
+  bool isNewUser = false;
+  String? errorLogin;
 
-  Future<void> signInWithGoogle() async {
-    try {
-      googleSignInAccount = await googleSignIn.signIn();
-      final FirebaseAuth _auth = FirebaseAuth.instance;
-      final GoogleSignInAuthentication? googleSignInAuthentication =
-          await googleSignInAccount?.authentication;
+  Future<LoginGoogleStatus> signInWithGoogle(bool isSignUp) async {
+    final googleSignInAccount = await googleSignIn.signIn();
+    final _auth = FirebaseAuth.instance;
+    final googleSignInAuthentication =
+        await googleSignInAccount?.authentication;
 
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication?.accessToken,
-        idToken: googleSignInAuthentication?.idToken,
-      );
-
-      final authResult = await _auth.signInWithCredential(credential);
-
-      final User? user = authResult.user;
-      assert(!(user?.isAnonymous ?? true));
-      assert(await user?.getIdToken() != null);
-
-      currentUser = _auth.currentUser;
-      assert(user?.uid == currentUser?.uid);
-      userDetail = UserDetail(
-        displayName: user?.displayName,
-        email: user?.email,
-        photoUrl: user?.photoURL,
-      );
-      state = LoginState(userDetail: userDetail);
-    } catch (e) {
-      log(e.toString());
-    }
-  }
-
-  Future<void> signInWithFacebook() async {
-    final result = await FacebookAuth.i.login(
-      permissions: ['public_profile', 'email'],
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication?.accessToken,
+      idToken: googleSignInAuthentication?.idToken,
     );
 
-    if (result.status == LoginStatus.success) {
-      final requestData = await FacebookAuth.i.getUserData(
-        fields: 'email, name, picture',
-      );
-      userData = requestData;
-      final newUser = UserDetail(
-        displayName: requestData['name'],
-        email: requestData['email'],
-        photoUrl: requestData['picture']['data']['url'],
-      );
-      state = state.copyWith(userDetail: newUser);
-    } else {
-      log(result.status.name);
+    if (googleSignInAuthentication?.accessToken == null ||
+        googleSignInAuthentication?.idToken == null) {
+      return LoginGoogleStatus.cancel;
     }
+    final authResult = await _auth.signInWithCredential(credential);
+    isNewUser = authResult.additionalUserInfo?.isNewUser ?? false;
+    currentUser = authResult.user;
+    final userDetail = UserDetail(
+      displayName: currentUser?.displayName,
+      email: currentUser?.email,
+      photoUrl: currentUser?.photoURL,
+    );
+    state = state.copyWith(userDetail: userDetail);
 
-    if (result.accessToken == null) {
-      return;
+    if (currentUser == null) {
+      return LoginGoogleStatus.failed;
     }
-    final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(result.accessToken!.token);
-    await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+    return LoginGoogleStatus.success;
+  }
+
+  Future<LoginStatus> signUpWithFacebook(bool isSignUp) async {
+    final result = await FacebookAuth.instance.login(
+      permissions: ['public_profile', 'email'],
+    );
+    try {
+      if (result.status == LoginStatus.success) {
+        final accessToken = await FacebookAuth.instance.accessToken;
+        if (accessToken == null) {
+          return LoginStatus.failed;
+        }
+        final facebookAuthCredential =
+            FacebookAuthProvider.credential(accessToken.token);
+        final loginValue = await FirebaseAuth.instance
+            .signInWithCredential(facebookAuthCredential);
+        currentUser = loginValue.user;
+        isNewUser = loginValue.additionalUserInfo?.isNewUser ?? false;
+        errorLogin = null;
+        final userDetail = UserDetail(
+          displayName: currentUser?.displayName,
+          email: currentUser?.email,
+          photoUrl: currentUser?.photoURL,
+        );
+        state = state.copyWith(userDetail: userDetail);
+      }
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        errorLogin = e.message;
+      }
+      return result.status;
+    }
+    return result.status;
   }
 
   String sha256ofString(String input) {
@@ -127,92 +141,31 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
     }
   }
 
-  Future<String> onSignUp(
-    String emailControllerText,
-    String passwordControllerText,
-  ) async {
+  Future<String> forgotPassword(String email) async {
     state = state.copyWith(showLoadingIndicator: true);
     try {
       final _auth = FirebaseAuth.instance;
-      final result = await _auth.createUserWithEmailAndPassword(
-        email: emailControllerText,
-        password: passwordControllerText,
-      );
-      final user = result.user;
-      assert(!(user?.isAnonymous ?? true));
-      assert(await user?.getIdToken() != null);
 
-      currentUser = _auth.currentUser;
-      assert(user?.uid == currentUser?.uid);
-      userDetail = UserDetail(
-        displayName: user?.displayName,
-        email: user?.email,
-        photoUrl: user?.photoURL,
-      );
-      state = LoginState(userDetail: userDetail);
-      state = state.copyWith(showLoadingIndicator: false);
-      return '';
-    } catch (e) {
-      log('$e');
-      state = state.copyWith(showLoadingIndicator: false);
-      return e.toString().split(']').last;
-    }
-  }
-
-  Future<String> onSignIn(
-    String emailControllerText,
-    String passwordControllerText,
-  ) async {
-    state = state.copyWith(showLoadingIndicator: true);
-    try {
-      final _auth = FirebaseAuth.instance;
-      final result = await _auth.signInWithEmailAndPassword(
-        email: emailControllerText,
-        password: passwordControllerText,
-      );
-
-      final user = result.user;
-      assert(!(user?.isAnonymous ?? true));
-      assert(await user?.getIdToken() != null);
-
-      currentUser = _auth.currentUser;
-      assert(user?.uid == currentUser?.uid);
-      userDetail = UserDetail(
-        displayName: user?.displayName,
-        email: user?.email,
-        photoUrl: user?.photoURL,
-      );
-      state = LoginState(userDetail: userDetail);
-      state = state.copyWith(showLoadingIndicator: false);
-      return '';
-    } catch (e) {
-      log('$e');
-      state = state.copyWith(showLoadingIndicator: false);
-      return e.toString().split(']').last;
-    }
-  }
-
-  void onTextFieldChange(
-      String emailControllerText, String passwordControllerText) {
-    if (emailControllerText.isEmpty || passwordControllerText.isEmpty) {
-      if (mounted) {
-        state = state.copyWith(
-          isSignUp: false,
-        );
-      }
-      return;
-    }
-    if (mounted) {
+      await _auth.sendPasswordResetEmail(email: email);
       state = state.copyWith(
-        isSignUp: true,
+        showLoadingIndicator: false,
       );
+      return '';
+    } catch (e) {
+      log(e.toString());
+      state = state.copyWith(showLoadingIndicator: false);
+      return e.toString().split('] ').last;
     }
   }
 
   Future<void> logOut() async {
-    googleSignInAccount = await googleSignIn.signOut();
+    await googleSignIn.signOut();
     await FacebookAuth.i.logOut();
     userData = null;
     state = state.copyWith(userDetail: null);
+  }
+
+  void changeToSign() {
+    state = state.copyWith(isSignUp: !state.isSignUp);
   }
 }

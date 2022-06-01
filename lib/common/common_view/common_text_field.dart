@@ -13,6 +13,7 @@ class TextFormFieldCustom extends StatelessWidget {
     this.obscureText = false,
     this.hintText,
     this.validator,
+    this.onChanged,
   }) : super(key: key);
   final TextEditingController? controller;
   final TextInputAction? textInputAction;
@@ -23,6 +24,7 @@ class TextFormFieldCustom extends StatelessWidget {
   final bool obscureText;
   final String? hintText;
   final FormFieldValidator<String>? validator;
+  final ValueChanged? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,11 @@ class TextFormFieldCustom extends StatelessWidget {
         // use prefixIcon for showing always.
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
+        errorText: '',
+        errorBorder: const UnderlineInputBorder(),
+        focusedErrorBorder: const UnderlineInputBorder(),
       ),
+      onChanged: onChanged,
       onEditingComplete: onEditingComplete,
       obscureText: obscureText,
     );

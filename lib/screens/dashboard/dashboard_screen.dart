@@ -8,7 +8,7 @@ import 'package:provider_base/screens/dashboard/cupertino_tab_controller_hook.da
 import 'package:provider_base/screens/dashboard/dashboard_state_notifier.dart';
 import 'package:provider_base/screens/files/files_screen.dart';
 import 'package:provider_base/screens/form_and_dialog/form_and_dialog_screen.dart';
-import 'package:provider_base/screens/settings/settings_screen.dart';
+import 'package:provider_base/screens/home/home_screen.dart';
 import 'package:provider_base/screens/todo/todo_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
@@ -39,7 +39,7 @@ class DashboardScreen extends HookConsumerWidget with Utils {
       FormAndDialogScreen(),
       SimpleWebView(url: 'https://pub.dev/packages/form_field_validator'),
       FilesScreen(),
-      SettingsScreen(),
+      HomeScreen(),
     ];
 
     Widget _buttonIcon({IconData? icon, Color? color}) {
