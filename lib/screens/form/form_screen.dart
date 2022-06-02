@@ -4,7 +4,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/common_view/common_text_field.dart';
 import 'package:provider_base/common/core/app_style.dart';
-import 'package:provider_base/screens/form/form_state_notifier.dart';
+import 'package:provider_base/screens/form_and_dialog/form_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class FormScreen extends StatelessWidget with Utils {
@@ -16,7 +16,9 @@ class FormScreen extends StatelessWidget with Utils {
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         appBar: getAppBar(context: context, title: 'Form Screen'),
-        body: FormBody(formKey: _formKey,),
+        body: FormBody(
+          formKey: _formKey,
+        ),
       ),
     );
   }
@@ -59,10 +61,11 @@ class FormBody extends HookConsumerWidget with Utils {
               height: 20,
             ),
             TextFormFieldCustom(
-                suffixIcon: const Icon(Icons.email_outlined),
-                controller: emailController,
-                hintText: 'Email',
-                validator: emailValidator),
+              suffixIcon: const Icon(Icons.email_outlined),
+              controller: emailController,
+              hintText: 'Email',
+              validator: emailValidator,
+            ),
             const SizedBox(
               height: 20,
             ),

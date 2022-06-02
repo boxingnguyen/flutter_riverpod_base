@@ -76,7 +76,7 @@ class UpdatePhone extends HookConsumerWidget with Utils {
                       }
                     },
                     colorButton:
-                        state.updatePhone ? AppColors.green : AppColors.grey6,
+                        state.updatePhone ? AppStyles.green : AppStyles.grey6,
                   )
                 ],
               ),
@@ -99,7 +99,7 @@ class UpdatePhone extends HookConsumerWidget with Utils {
         margin: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: AppColors.blackCard)),
+            border: Border.all(color: AppStyles.black)),
         child: Text(
           Constants.getCode,
           style: AppStyles.textBold,

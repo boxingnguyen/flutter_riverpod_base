@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider_base/common/core/constants.dart';
+import 'package:provider_base/common/core/app_style.dart';
 
 class CommonEmptyIndicator extends StatelessWidget {
   const CommonEmptyIndicator({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class CommonEmptyIndicator extends StatelessWidget {
         color: Colors.transparent,
         child: const Center(
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(AppColors.black),
+            valueColor: AlwaysStoppedAnimation<Color>(AppStyles.black),
           ),
         ),
       ),

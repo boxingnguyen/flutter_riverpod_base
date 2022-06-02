@@ -1,33 +1,22 @@
 import 'package:flutter/material.dart';
 
-class AppColors {
-  // black
-  static const Color black = Color(0xFF111111);
-  static const Color blackBg = Color(0xFF161616);
-  static const Color blackCard = Color(0xFF171717);
-
-  // white
-  static const Color white = Color(0xFFFFFFFF);
-
-  // grey
-  static const Color grey3 = Color(0xFFE0E0E0);
-  static const Color grey6 = Color(0xFF757575);
-
-  // green
-  static const Color green = Colors.green;
-}
-
 class Constants {
-  static const fontRoboto = 'Roboto';
+  static const jaLanguageJa = 'ja';
+  static const viLanguageCode = 'vi';
+  static const enLanguageCode = 'en';
 
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   static GlobalKey<ScaffoldMessengerState> snackbarKey =
       GlobalKey<ScaffoldMessengerState>();
 
   static const signUpWithFacebook = 'Sign up with Facebook';
+  static const signInWithFacebook = 'Sign in with Facebook';
   static const signUpWithApple = 'Sign up with Apple';
+  static const signInWithApple = 'Sign in with Apple';
   static const signUpWithEmail = 'Sign up with Email';
+  static const signInWithEmail = 'Sign in with Email';
   static const signUpWithGoogle = 'Sign up with Google';
+  static const signInWithGoogle = 'Sign in with Google';
   static const counterExample = 'Counter example';
   static const getNumberNum = 'Get random num: ';
   static const getRandom = 'Get Random';
@@ -40,14 +29,15 @@ class Constants {
   static const signIn = 'Sign in.';
   static const loginFailed = 'Login Failed';
   static const loginSuccessful = 'Login Successful';
-  static const medium = 'Medium';
+  static const medium = 'Flutter Base Code';
   static const or = 'Or';
   static const base = 'Base';
   static const qrScanner = 'QR Scanner';
-  static const termsOfService = 'Terms of Service';
+  static const termsOfService = 'Privacy - Terms of Service';
   static const byCreatingAnAccountAcceptMedium =
       'By creating an account. I accept Medium\'s';
   static const alreadyHaveAnAccount = 'Already have an account? ';
+  static const notAccount = "Don't have an account? ";
   static const flutterBSD = 'Flutter BSD';
   static const smartStoriesForCuriousPeople =
       'Smart stories for \n curious people.';
@@ -55,9 +45,9 @@ class Constants {
   static const retry = 'Retry';
   static const email = 'Email';
   static const password = 'Password';
+  static const rePassword = 'Re Password';
   static const signUp = 'Sign Up';
   static const signInUp = 'Sign In';
-  static const signInWithEmail = 'Sign in with Email';
   static const updatePhoneNumber = 'Update phone number';
   static const phone = 'Phone';
   static const code = 'Code';
@@ -65,11 +55,30 @@ class Constants {
   static const updatePhoneNumberFailed = 'Update phone number failed';
   static const updatePhoneNumberSuccessful = 'Update phone number successful';
   static const sessionExpired = 'Session expired, push to login';
+  static const updatePasswordForYourAccount =
+      'Update password for your account';
+  static const updatePassword = 'Update Password';
+  static const reEnterPassword = 'Re-enter wrong password';
+  static const reLoginToUpdate = 'Re login to update';
+  static const updatePasswordSuccess = 'Update password success';
+  static const forgotPassword = 'Forgot Password';
+  static const findPassword = 'Find Password';
+  static const findPasswordSuccess =
+      'Password reset link has been sent to your email, please check your email';
+  static const emailToFindYourPassword =
+      'Enter your email to find your password';
 
   // int
   static const otherFieldMaxLength100 = 100;
+  static const onVerifiedSuccessfully = "You've been verified successfully.";
+  static const onVerifiedError = 'Failed to verify.';
   static const charset =
       '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+  static const apiKey = '6LdO8n8fAAAAAAFW6EMmqQ1YNz55dbyGoDX5tSWo';
+  static const apiSecret = '6LdO8n8fAAAAADx7b0yuhsZypI2wF1QHEOvaBaql';
+  static const pluginURL = 'https://recaptcha-flutter-plugin.firebaseapp.com/';
+  static const cancelCaptcha = 'CANCEL CAPTCHA';
+  static const siteverify = 'https://www.google.com/recaptcha/api/siteverify';
 }
 
 class Asset {
@@ -87,8 +96,7 @@ class Asset {
   static const imageDefault = 'https://picsum.photos/250?image=9';
 }
 
-// TODO(tupa1): remove class, use theme color & AppStyles,
-// default color like black0 don't need to initialize
+// TODO(tupa1): remove this class -> use app styles and theme
 class ColorApp {
   // green
   static const green0 = Color(0xFFAFCEB3);

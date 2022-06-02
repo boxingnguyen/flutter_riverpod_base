@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/common/common_view/switch_theme_button.dart';
 import 'package:provider_base/common/core/app_style.dart';
-import 'package:provider_base/screens/dashboard/dashboard_screen.dart';
+import 'package:provider_base/common/core/routes.dart';
+import 'package:provider_base/l10n/l10n.dart';
 import 'package:provider_base/main/app.dart';
-import 'package:provider_base/screens/home/home_screen.dart';
+import 'package:provider_base/screens/dashboard/dashboard_screen.dart';
 import 'package:provider_base/screens/login/login_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
@@ -16,23 +17,22 @@ class ModulesScreen extends HookConsumerWidget with Utils {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Map<String, String> listModules = {
-      'Common View': HomeScreen.routeName,
-      'Authorization': LoginScreen.routeName,
-      'Util': '/util',
+      'Dashboard': Routes.dashboardScreen,
+      'Authorization': Routes.loginScreen,
+      'Util': Routes.utilScreen,
       'Notification': '/notification',
       'Take Picture': '/take_picture',
       'Google\n Analysis': '/google_analysis',
       'OTP/Capcha': '/otp_capcha',
       'QR Code': '/qr_code',
       'Play Video': '/play_video',
-      'Dashboard': DashboardScreen.routeName,
     };
 
     return Scaffold(
       appBar: getAppBar(
           context: context,
           centerTitle: false,
-          title: 'Modules List',
+          title: L10n.of(context).msgap001,
           actions: const [SwitchThemebutton()]),
       body: Center(
         child: Padding(
@@ -72,8 +72,7 @@ class ModulesScreen extends HookConsumerWidget with Utils {
         ref
             .read(analyticsUtilProvider)
             .setUserProperty(name: 'age', value: '29');
-        //  return pushName(context, routeName);
-        return pushNameWithoutContext(routeName);
+        return pushName(context, routeName);
       },
       child: Container(
         alignment: Alignment.center,

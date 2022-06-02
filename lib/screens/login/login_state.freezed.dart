@@ -21,10 +21,12 @@ class _$LoginStateTearOff {
   _LoginState call(
       {UserDetail? userDetail,
       bool isSignUp = false,
+      bool forgotPasswordSuccess = false,
       bool showLoadingIndicator = false}) {
     return _LoginState(
       userDetail: userDetail,
       isSignUp: isSignUp,
+      forgotPasswordSuccess: forgotPasswordSuccess,
       showLoadingIndicator: showLoadingIndicator,
     );
   }
@@ -37,6 +39,7 @@ const $LoginState = _$LoginStateTearOff();
 mixin _$LoginState {
   UserDetail? get userDetail => throw _privateConstructorUsedError;
   bool get isSignUp => throw _privateConstructorUsedError;
+  bool get forgotPasswordSuccess => throw _privateConstructorUsedError;
   bool get showLoadingIndicator => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -49,7 +52,11 @@ abstract class $LoginStateCopyWith<$Res> {
   factory $LoginStateCopyWith(
           LoginState value, $Res Function(LoginState) then) =
       _$LoginStateCopyWithImpl<$Res>;
-  $Res call({UserDetail? userDetail, bool isSignUp, bool showLoadingIndicator});
+  $Res call(
+      {UserDetail? userDetail,
+      bool isSignUp,
+      bool forgotPasswordSuccess,
+      bool showLoadingIndicator});
 }
 
 /// @nodoc
@@ -64,6 +71,7 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
   $Res call({
     Object? userDetail = freezed,
     Object? isSignUp = freezed,
+    Object? forgotPasswordSuccess = freezed,
     Object? showLoadingIndicator = freezed,
   }) {
     return _then(_value.copyWith(
@@ -74,6 +82,10 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
       isSignUp: isSignUp == freezed
           ? _value.isSignUp
           : isSignUp // ignore: cast_nullable_to_non_nullable
+              as bool,
+      forgotPasswordSuccess: forgotPasswordSuccess == freezed
+          ? _value.forgotPasswordSuccess
+          : forgotPasswordSuccess // ignore: cast_nullable_to_non_nullable
               as bool,
       showLoadingIndicator: showLoadingIndicator == freezed
           ? _value.showLoadingIndicator
@@ -89,7 +101,11 @@ abstract class _$LoginStateCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
           _LoginState value, $Res Function(_LoginState) then) =
       __$LoginStateCopyWithImpl<$Res>;
   @override
-  $Res call({UserDetail? userDetail, bool isSignUp, bool showLoadingIndicator});
+  $Res call(
+      {UserDetail? userDetail,
+      bool isSignUp,
+      bool forgotPasswordSuccess,
+      bool showLoadingIndicator});
 }
 
 /// @nodoc
@@ -106,6 +122,7 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
   $Res call({
     Object? userDetail = freezed,
     Object? isSignUp = freezed,
+    Object? forgotPasswordSuccess = freezed,
     Object? showLoadingIndicator = freezed,
   }) {
     return _then(_LoginState(
@@ -116,6 +133,10 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
       isSignUp: isSignUp == freezed
           ? _value.isSignUp
           : isSignUp // ignore: cast_nullable_to_non_nullable
+              as bool,
+      forgotPasswordSuccess: forgotPasswordSuccess == freezed
+          ? _value.forgotPasswordSuccess
+          : forgotPasswordSuccess // ignore: cast_nullable_to_non_nullable
               as bool,
       showLoadingIndicator: showLoadingIndicator == freezed
           ? _value.showLoadingIndicator
@@ -131,6 +152,7 @@ class _$_LoginState implements _LoginState {
   _$_LoginState(
       {this.userDetail,
       this.isSignUp = false,
+      this.forgotPasswordSuccess = false,
       this.showLoadingIndicator = false});
 
   @override
@@ -140,11 +162,14 @@ class _$_LoginState implements _LoginState {
   final bool isSignUp;
   @JsonKey()
   @override
+  final bool forgotPasswordSuccess;
+  @JsonKey()
+  @override
   final bool showLoadingIndicator;
 
   @override
   String toString() {
-    return 'LoginState(userDetail: $userDetail, isSignUp: $isSignUp, showLoadingIndicator: $showLoadingIndicator)';
+    return 'LoginState(userDetail: $userDetail, isSignUp: $isSignUp, forgotPasswordSuccess: $forgotPasswordSuccess, showLoadingIndicator: $showLoadingIndicator)';
   }
 
   @override
@@ -156,6 +181,8 @@ class _$_LoginState implements _LoginState {
                 .equals(other.userDetail, userDetail) &&
             const DeepCollectionEquality().equals(other.isSignUp, isSignUp) &&
             const DeepCollectionEquality()
+                .equals(other.forgotPasswordSuccess, forgotPasswordSuccess) &&
+            const DeepCollectionEquality()
                 .equals(other.showLoadingIndicator, showLoadingIndicator));
   }
 
@@ -164,6 +191,7 @@ class _$_LoginState implements _LoginState {
       runtimeType,
       const DeepCollectionEquality().hash(userDetail),
       const DeepCollectionEquality().hash(isSignUp),
+      const DeepCollectionEquality().hash(forgotPasswordSuccess),
       const DeepCollectionEquality().hash(showLoadingIndicator));
 
   @JsonKey(ignore: true)
@@ -176,12 +204,15 @@ abstract class _LoginState implements LoginState {
   factory _LoginState(
       {UserDetail? userDetail,
       bool isSignUp,
+      bool forgotPasswordSuccess,
       bool showLoadingIndicator}) = _$_LoginState;
 
   @override
   UserDetail? get userDetail;
   @override
   bool get isSignUp;
+  @override
+  bool get forgotPasswordSuccess;
   @override
   bool get showLoadingIndicator;
   @override
