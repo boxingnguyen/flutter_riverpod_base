@@ -24,7 +24,7 @@ class ModulesScreen extends HookConsumerWidget with Utils {
       'Take Picture': '/take_picture',
       'Google\n Analysis': '/google_analysis',
       'OTP/Capcha': '/otp_capcha',
-      'QR Code': '/qr_code',
+      'QR Code': Routes.qrCodeScreen,
       'Play Video': '/play_video',
     };
 
