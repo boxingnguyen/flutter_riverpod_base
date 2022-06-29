@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider_base/screens/qr_code/qr_code_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
@@ -12,8 +13,6 @@ class QrCodeScreen extends HookConsumerWidget with Utils {
   Widget build(BuildContext context, WidgetRef ref) {
     // Variable for notifier of QR Code
     final qrCodeNotifier = ref.read(qrCodeProvider.notifier);
-    // Variable for state of QR Code
-    final qrCodeState = ref.read(qrCodeProvider).dataQrCode;
     // Variable for mobile scanner controller
     final cameraController = MobileScannerController();
 
@@ -26,9 +25,13 @@ class QrCodeScreen extends HookConsumerWidget with Utils {
           MobileScanner(
             allowDuplicates: false,
             controller: cameraController,
-            onDetect: (barcode, args) {
+            onDetect: (barcode, args) async {
               qrCodeNotifier.getQrCode(barcode.rawValue);
-              debugPrint(qrCodeState);
+              await showOkAlertDialog(
+                context: context,
+                title: 'QR Code',
+                message: barcode.rawValue,
+              );
             },
           ),
           // Build button turn on/off flash and switch front/rear camera
@@ -44,11 +47,15 @@ class QrCodeScreen extends HookConsumerWidget with Utils {
                     builder: (context, state, child) {
                       switch (state as TorchState) {
                         case TorchState.off:
-                          return const Icon(Icons.flash_off,
-                              color: Colors.grey);
+                          return const Icon(
+                            Icons.flash_off,
+                            color: Colors.grey,
+                          );
                         case TorchState.on:
-                          return const Icon(Icons.flash_on,
-                              color: Colors.yellow);
+                          return const Icon(
+                            Icons.flash_on,
+                            color: Colors.yellow,
+                          );
                       }
                     },
                   ),
