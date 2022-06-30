@@ -10,10 +10,10 @@ final dashboardNotifierProvider =
 
 enum TabItem {
   home,
-  message,
-  workflow,
-  document,
-  otherMenu,
+  form,
+  webview,
+  files,
+  setting,
 }
 
 typedef RefreshListener = Future<void> Function();
