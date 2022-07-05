@@ -1,9 +1,14 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/common/common_view/button_upload.dart';
+import 'package:provider_base/common/core/app_style.dart';
+import 'package:provider_base/common/core/constants.dart';
+import 'package:provider_base/screens/qr_code/components/create_qr_code_screen.dart';
+import 'package:provider_base/screens/qr_code/components/qr_scan_screen.dart';
+import 'package:provider_base/screens/qr_code/qr_code_state.dart';
 import 'package:provider_base/screens/qr_code/qr_code_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 
 class QrCodeScreen extends HookConsumerWidget with Utils {
   const QrCodeScreen({Key? key}) : super(key: key);
@@ -13,70 +18,36 @@ class QrCodeScreen extends HookConsumerWidget with Utils {
   Widget build(BuildContext context, WidgetRef ref) {
     // Variable for notifier of QR Code
     final qrCodeNotifier = ref.read(qrCodeProvider.notifier);
-    // Variable for mobile scanner controller
-    final cameraController = MobileScannerController();
+    final qrCodeState = ref.read(qrCodeProvider);
 
     return Scaffold(
-      appBar: getAppBar(context: context, title: 'Scanner QR Code Screen'),
+      appBar: getAppBar(context: context, title: Constants.qrCode),
       body: Stack(
-        alignment: Alignment.bottomCenter,
         children: [
-          // Build scanner view
-          MobileScanner(
-            allowDuplicates: false,
-            controller: cameraController,
-            onDetect: (barcode, args) async {
-              qrCodeNotifier.getQrCode(barcode.rawValue);
-              await showOkAlertDialog(
-                context: context,
-                title: 'QR Code',
-                message: barcode.rawValue,
-              );
-            },
-          ),
-          // Build button turn on/off flash and switch front/rear camera
           Padding(
-            padding: const EdgeInsets.only(bottom: 32),
-            child: Row(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Button turn on/off flash
-                _buildButtonScannerQrCode(
-                  icon: ValueListenableBuilder(
-                    valueListenable: cameraController.torchState,
-                    builder: (context, state, child) {
-                      switch (state as TorchState) {
-                        case TorchState.off:
-                          return const Icon(
-                            Icons.flash_off,
-                            color: Colors.grey,
-                          );
-                        case TorchState.on:
-                          return const Icon(
-                            Icons.flash_on,
-                            color: Colors.yellow,
-                          );
-                      }
-                    },
-                  ),
-                  onPressed: () => cameraController.toggleTorch(),
+                ButtonUpload(
+                  colorButton: AppStyles.primaryColor,
+                  label: Constants.selectFromFile,
+                  onTap: () =>
+                      _scanQRFromFile(context, qrCodeState, qrCodeNotifier),
                 ),
-                const SizedBox(width: 24),
-                // Button switch front/rear camera
-                _buildButtonScannerQrCode(
-                  icon: ValueListenableBuilder(
-                    valueListenable: cameraController.cameraFacingState,
-                    builder: (context, state, child) {
-                      switch (state as CameraFacing) {
-                        case CameraFacing.front:
-                          return const Icon(Icons.camera_front);
-                        case CameraFacing.back:
-                          return const Icon(Icons.camera_rear);
-                      }
-                    },
-                  ),
-                  onPressed: () => cameraController.switchCamera(),
+                const SizedBox(height: 15),
+                ButtonUpload(
+                  colorButton: AppStyles.primaryColor,
+                  label: Constants.cameraScan,
+                  onTap: () => push(context, const QrCodeScanScreen()),
                 ),
+                const SizedBox(height: 15),
+                ButtonUpload(
+                  colorButton: AppStyles.primaryColor,
+                  label: Constants.createQRCode,
+                  onTap: () => push(context, const CreateQRCodeScreen()),
+                ),
+                const SizedBox(height: 15),
               ],
             ),
           ),
@@ -85,22 +56,20 @@ class QrCodeScreen extends HookConsumerWidget with Utils {
     );
   }
 
-  // Function to build button turn on/off flash and switch front/rear camera
-  Widget _buildButtonScannerQrCode({
-    required Widget icon,
-    required void Function()? onPressed,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.2),
-        shape: BoxShape.circle,
-      ),
-      child: IconButton(
-        color: Colors.white,
-        icon: icon,
-        iconSize: 32.0,
-        onPressed: onPressed,
-      ),
+  Future<void> _scanQRFromFile(
+    BuildContext context,
+    QrCodeState qrCodeState,
+    QrCodeStateNotifier qrCodeNotifier,
+  ) async {
+    final scanValue = await qrCodeNotifier.scanQRCodeFromFile();
+
+    if (scanValue == null) {
+      return;
+    }
+    await showOkAlertDialog(
+      context: context,
+      title: Constants.qrCode,
+      message: scanValue.isEmpty ? Constants.scanQRFailed : scanValue,
     );
   }
 }
