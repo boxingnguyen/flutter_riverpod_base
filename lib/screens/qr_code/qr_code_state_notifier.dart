@@ -1,5 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider_base/screens/qr_code/qr_code_state.dart';
+import 'package:scan/scan.dart';
 
 final qrCodeProvider = StateNotifierProvider<QrCodeStateNotifier, QrCodeState>(
     (_) => QrCodeStateNotifier());
@@ -15,5 +18,31 @@ class QrCodeStateNotifier extends StateNotifier<QrCodeState> {
     }
 
     state = state.copyWith(dataQrCode: dataQrCode);
+  }
+
+  Future<String?> scanQRCodeFromFile() async {
+    var status = await Permission.storage.status;
+
+    if (!status.isGranted) {
+      await Permission.storage.request();
+    }
+
+    final imageScan =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (imageScan != null) {
+      final scan = await Scan.parse(imageScan.path);
+
+      if (scan != null) {
+        // scan Success
+        return scan;
+      }
+
+      // scan failed
+      return '';
+    }
+
+    // no scan
+    return null;
   }
 }

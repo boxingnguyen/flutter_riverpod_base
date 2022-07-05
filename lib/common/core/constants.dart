@@ -67,6 +67,17 @@ class Constants {
       'Password reset link has been sent to your email, please check your email';
   static const emailToFindYourPassword =
       'Enter your email to find your password';
+  static const qrCode = 'QR Code';
+  static const selectFromFile = 'Select from File';
+  static const cameraScan = 'Camera Scan';
+  static const createQRCode = 'Create QR Code';
+  static const scanQRFailed = 'Scan QR Failed';
+  static const inputDataQR = 'Input data QR';
+  static const saveToLibrary = 'Save To Library';
+  static const saveQRCode = 'Save QR Code';
+  static const saveSuccess = 'Save Success';
+  static const saveFailed = 'Save Failed';
+  static const scanQRCode = 'Scanner QR Code Screen';
 
   // int
   static const otherFieldMaxLength100 = 100;
