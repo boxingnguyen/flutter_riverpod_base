@@ -1,7 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider_base/common/common_view/button_upload.dart';
 import 'package:provider_base/common/common_view/text_field_login.dart';
@@ -20,7 +23,7 @@ class CreateQRCodeScreen extends StatefulWidget {
 
 class _CreateQRCodeScreenState extends State<CreateQRCodeScreen> with Utils {
   final qrDataController = TextEditingController();
-  final screenshotController = ScreenshotController();
+  final _screenshotController = ScreenshotController();
 
   @override
   void dispose() {
@@ -39,7 +42,7 @@ class _CreateQRCodeScreenState extends State<CreateQRCodeScreen> with Utils {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Screenshot(
-                controller: screenshotController,
+                controller: _screenshotController,
                 child: QrImage(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
@@ -71,37 +74,33 @@ class _CreateQRCodeScreenState extends State<CreateQRCodeScreen> with Utils {
   }
 
   Future<void> _saveQR() async {
-    String path;
+    await _screenshotController
+        .capture(delay: const Duration(milliseconds: 10))
+        .then((Uint8List? image) async {
+      if (image != null) {
+        final fileName = "Qr_${DateTime.now().microsecondsSinceEpoch}.png";
+        final directory = await getApplicationDocumentsDirectory();
+        final imagePath = await File('${directory.path}/$fileName').create();
+        await imagePath.writeAsBytes(image);
 
-    /* get path device:
-    - nếu device là ios thì path là ở ứng dụng Tệp
-    - nếu device là android thì path là ở trong 
-    bộ nhớ trong của ứng dụng => thư mực files,
-    nếu không sẽ là bộ nhớ trong => thư mục Download
-    */
+        try {
+          // save to gallery
+          await ImageGallerySaver.saveFile(imagePath.path);
+          imagePath.exists().then((value) => log('file ton tai $value'));
 
-    if (Platform.isIOS) {
-      path = (await getApplicationDocumentsDirectory()).path;
-    } else {
-      path = (await getExternalStorageDirectory())?.path ??
-          '/storage/emulated/0/Download/';
-    }
-    String fileName = "QR_Code_${DateTime.now().microsecondsSinceEpoch}.jpg";
-
-    await screenshotController
-        .captureAndSave(path, fileName: fileName)
-        .whenComplete(() {
-      showOkAlertDialog(
-        context: context,
-        title: Constants.saveQRCode,
-        message: Constants.saveSuccess,
-      );
-    }).catchError((e) {
-      showOkAlertDialog(
-        context: context,
-        title: Constants.saveQRCode,
-        message: Constants.saveFailed,
-      );
+          showOkAlertDialog(
+            context: context,
+            title: Constants.saveQRCode,
+            message: Constants.saveSuccess,
+          );
+        } catch (e) {
+          showOkAlertDialog(
+            context: context,
+            title: Constants.saveFailed,
+            message: '$e',
+          );
+        }
+      }
     });
   }
 }
