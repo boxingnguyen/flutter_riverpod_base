@@ -20,29 +20,20 @@ class QrCodeStateNotifier extends StateNotifier<QrCodeState> {
     state = state.copyWith(dataQrCode: dataQrCode);
   }
 
-  Future<String?> scanQRCodeFromFile() async {
+  Future<String> scanQRCodeFromFile() async {
     var status = await Permission.storage.status;
 
     if (!status.isGranted) {
       await Permission.storage.request();
     }
+    final ImagePicker _picker = ImagePicker();
+    final imageScan = await _picker.pickImage(source: ImageSource.gallery);
 
-    final imageScan =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    if (imageScan != null) {
-      final scan = await Scan.parse(imageScan.path);
-
-      if (scan != null) {
-        // scan Success
-        return scan;
-      }
-
-      // scan failed
+    if (imageScan == null) {
       return '';
     }
+    final qrData = await Scan.parse(imageScan.path);
 
-    // no scan
-    return null;
+    return qrData ?? '';
   }
 }

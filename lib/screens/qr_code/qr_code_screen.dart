@@ -66,6 +66,7 @@ class QrCodeScreen extends HookConsumerWidget with Utils {
     if (scanValue == null) {
       return;
     }
+
     await showOkAlertDialog(
       context: context,
       title: Constants.qrCode,
