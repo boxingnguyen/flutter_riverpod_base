@@ -4,6 +4,7 @@ import 'package:provider_base/screens/home/home_screen.dart';
 import 'package:provider_base/screens/locale/locale_screen.dart';
 import 'package:provider_base/screens/login/login_screen.dart';
 import 'package:provider_base/screens/modules/modules_screen.dart';
+import 'package:provider_base/screens/qr_code/qr_code_screen.dart';
 import 'package:provider_base/screens/settings/settings_screen.dart';
 import 'package:provider_base/screens/util/util_screen.dart';
 
@@ -16,6 +17,7 @@ class Routes {
   static String dashboardScreen = '/dashboard';
   static String todoScreen = '/todo';
   static String homeScreen = '/home_screen';
+  static String qrCodeScreen = '/qr_code_screen';
 
   static final Map<String, WidgetBuilder> routes = {
     modulesScreen: (context) => const ModulesScreen(),
@@ -25,5 +27,6 @@ class Routes {
     loginScreen: (context) => const LoginScreen(),
     dashboardScreen: (context) => const DashboardScreen(),
     homeScreen: (context) => const HomeScreen(),
+    qrCodeScreen: (context) => const QrCodeScreen(),
   };
 }

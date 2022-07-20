@@ -1,6 +1,5 @@
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,7 +9,6 @@ import 'package:provider_base/env/env_state.dart';
 import 'package:provider_base/l10n/l10n.dart';
 import 'package:provider_base/l10n/ln10_delegate.dart';
 import 'package:provider_base/screens/locale/locale_state_notifier.dart';
-import 'package:provider_base/screens/modules/modules_screen.dart';
 import 'package:provider_base/utils/analytics_utils.dart';
 import 'package:provider_base/utils/notification_util.dart';
 
