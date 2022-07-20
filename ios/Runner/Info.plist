@@ -97,8 +97,6 @@
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>App needs location permission to work</string>
-	<key>io.flutter.embedded_views_preview</key>
-	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs camera access to scan QR codes</string>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
