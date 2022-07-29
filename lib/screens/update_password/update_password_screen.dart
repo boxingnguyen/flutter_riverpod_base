@@ -119,7 +119,7 @@ class Body extends HookConsumerWidget with Utils {
                     passwordController: passwordController,
                     rePasswordController: rePasswordController,
                   ),
-                  colorButton: AppStyles.green,
+                  colorButton: AppStyles.primaryColor,
                 )
               ],
             ),
@@ -156,7 +156,7 @@ class Body extends HookConsumerWidget with Utils {
         snackBar(
           context,
           Constants.reLoginToUpdate,
-          AppStyles.green,
+          AppStyles.primaryColor,
         );
         return;
       }
@@ -164,7 +164,7 @@ class Body extends HookConsumerWidget with Utils {
       snackBar(
         context,
         Constants.updatePasswordSuccess,
-        AppStyles.green,
+        AppStyles.primaryColor,
       );
     }
     updatePasswordStateNotifier.hideLoading();

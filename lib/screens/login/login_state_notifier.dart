@@ -4,16 +4,13 @@ import 'dart:math' as math;
 
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/models/user/user_detail.dart';
-import 'package:provider_base/utils/utils.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-import 'login_screen.dart';
 import 'login_state.dart';
 
 enum LoginGoogleStatus {
@@ -27,9 +24,9 @@ final loginProvider =
     StateNotifierProvider.autoDispose<LoginStateNotifier, LoginState>(
         (_) => LoginStateNotifier());
 
-class LoginStateNotifier extends StateNotifier<LoginState> with Utils {
+class LoginStateNotifier extends StateNotifier<LoginState> {
   LoginStateNotifier() : super(LoginState());
-  // TODO(anyone): Save session after login successfully
+
   // TODO(tupa1) add Google Analytics when catch exeption
   final GoogleSignIn googleSignIn = GoogleSignIn(
     scopes: ['email'],
@@ -60,7 +57,6 @@ class LoginStateNotifier extends StateNotifier<LoginState> with Utils {
     final authResult = await _auth.signInWithCredential(credential);
     isNewUser = authResult.additionalUserInfo?.isNewUser ?? false;
     currentUser = authResult.user;
-
     final userDetail = UserDetail(
       displayName: currentUser?.displayName,
       email: currentUser?.email,
@@ -78,11 +74,9 @@ class LoginStateNotifier extends StateNotifier<LoginState> with Utils {
     final result = await FacebookAuth.instance.login(
       permissions: ['public_profile', 'email'],
     );
-
     try {
       if (result.status == LoginStatus.success) {
         final accessToken = await FacebookAuth.instance.accessToken;
-
         if (accessToken == null) {
           return LoginStatus.failed;
         }
@@ -93,7 +87,6 @@ class LoginStateNotifier extends StateNotifier<LoginState> with Utils {
         currentUser = loginValue.user;
         isNewUser = loginValue.additionalUserInfo?.isNewUser ?? false;
         errorLogin = null;
-
         final userDetail = UserDetail(
           displayName: currentUser?.displayName,
           email: currentUser?.email,
@@ -169,9 +162,6 @@ class LoginStateNotifier extends StateNotifier<LoginState> with Utils {
     await googleSignIn.signOut();
     await FacebookAuth.i.logOut();
     userData = null;
-
-    snackBarWithoutContext(Constants.logOut, Colors.green);
-    pushAndRemoveUntilWithoutContext(const LoginScreen());
     state = state.copyWith(userDetail: null);
   }
 

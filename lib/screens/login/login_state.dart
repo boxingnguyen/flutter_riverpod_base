@@ -10,5 +10,7 @@ class LoginState with _$LoginState {
     @Default(false) bool isSignUp,
     @Default(false) bool forgotPasswordSuccess,
     @Default(false) bool showLoadingIndicator,
+    @Default(0) int numberShowCaptcha,
+    @Default(false) bool isCaptcha,
   }) = _LoginState;
 }
