@@ -15,7 +15,7 @@ class FormScreen extends StatelessWidget with Utils {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
-        appBar: getAppBar(context: context, title: 'Form Screen'),
+        appBar: getAppBar(title: 'Form Screen'),
         body: FormBody(
           formKey: _formKey,
         ),

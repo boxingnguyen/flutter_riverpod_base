@@ -5,6 +5,10 @@ class Constants {
   static const viLanguageCode = 'vi';
   static const enLanguageCode = 'en';
 
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  static GlobalKey<ScaffoldMessengerState> snackbarKey =
+      GlobalKey<ScaffoldMessengerState>();
+
   static const signUpWithFacebook = 'Sign up with Facebook';
   static const signInWithFacebook = 'Sign in with Facebook';
   static const signUpWithApple = 'Sign up with Apple';
@@ -50,6 +54,7 @@ class Constants {
   static const getCode = 'Get code';
   static const updatePhoneNumberFailed = 'Update phone number failed';
   static const updatePhoneNumberSuccessful = 'Update phone number successful';
+  static const sessionExpired = 'Session expired, push to login';
   static const updatePasswordForYourAccount =
       'Update password for your account';
   static const updatePassword = 'Update Password';

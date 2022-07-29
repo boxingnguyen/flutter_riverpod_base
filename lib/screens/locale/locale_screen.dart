@@ -9,14 +9,10 @@ import 'package:provider_base/utils/utils.dart';
 class LocaleScreen extends StatelessWidget with Utils {
   const LocaleScreen({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar(
-        context: context,
-        title: L10n.of(context).msgap008,
-      ),
+      appBar: getAppBar(title: L10n.of(context).msgap008),
       body: const _Body(),
     );
   }

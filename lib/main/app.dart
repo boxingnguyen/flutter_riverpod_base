@@ -3,6 +3,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/common/core/routes.dart';
 import 'package:provider_base/common/core/theme/app_theme_state_notifier.dart';
 import 'package:provider_base/env/env_state.dart';
@@ -40,6 +41,8 @@ class App extends HookConsumerWidget {
     NotificationUtil.initialize(context);
 
     return MaterialApp(
+      navigatorKey: Constants.navigatorKey,
+      scaffoldMessengerKey: Constants.snackbarKey,
       themeMode: ThemeMode.system,
       theme: themeState.appTheme,
       localizationsDelegates: const [

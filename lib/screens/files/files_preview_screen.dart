@@ -25,7 +25,6 @@ class FilesPreviewScreen extends StatelessWidget with Utils {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(
-        context: context,
         title: basename(path),
         actions: [
           Platform.isAndroid

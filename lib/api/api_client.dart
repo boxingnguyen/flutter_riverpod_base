@@ -5,14 +5,17 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:provider_base/api/api_exceptions.dart';
+import 'package:provider_base/common/core/data/dummy_data.dart';
 import 'package:provider_base/common/core/data/local_storage.dart';
 import 'package:provider_base/common/core/data/secure_storage.dart';
+import 'package:provider_base/utils/utils.dart';
 
 import 'api_endpoints.dart';
 
 class ApiClient {
   // TODO(anyone): change baseUrl by env state
   // TODO(anyone): use network state
+  // TODO(anyone): call logout and clear session after call authorized api when session expired
   static String baseUrl = 'https://jsonplaceholder.typicode.com';
   static Future<String?> get accessToken async => LocalStorage.getAccessToken();
   static Map<String, String> get headers =>
@@ -47,6 +50,13 @@ class ApiClient {
     final result = http
         .post(uri,
             headers: isAuthorized ? headers : {}, body: json.encode(params))
+        .then(_handleResponse)
+        .catchError(_handleError);
+    return result;
+  }
+
+  static Future<dynamic> postDummyDataRequest() async {
+    final result = DummyData.handleCheckExpired()
         .then(_handleResponse)
         .catchError(_handleError);
 
@@ -120,6 +130,8 @@ class ApiClient {
       case 400:
         throw BadRequestException(response.body, url);
       case 401:
+        Utils.handleUnauthorizedError();
+        break;
       case 403:
         throw UnAuthorizedException(response.body, url);
       case 500:

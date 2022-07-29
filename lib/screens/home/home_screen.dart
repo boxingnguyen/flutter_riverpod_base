@@ -4,7 +4,6 @@ import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/screens/home/components/update_phone.dart';
 import 'package:provider_base/screens/home/home_state_notifier.dart';
-import 'package:provider_base/screens/login/login_screen.dart';
 import 'package:provider_base/screens/login/login_state_notifier.dart';
 import 'package:provider_base/screens/post/post_screen.dart';
 import 'package:provider_base/utils/utils.dart';
@@ -73,7 +72,8 @@ class HomeScreen extends HookConsumerWidget with Utils {
             style: AppStyles.textRegular,
           ),
           ElevatedButton(
-              onPressed: () => push(context, const PostScreen()),
+              onPressed: () => pushWithoutContext(const PostScreen()),
+              // onPressed: () => push(context, const PostScreen()),
               child: const Text(
                 Constants.postList,
                 style: AppStyles.textRegular,
@@ -113,24 +113,21 @@ class HomeScreen extends HookConsumerWidget with Utils {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.phone),
-            title: const Text(
-              Constants.updatePhoneNumber,
-              style: AppStyles.textRegular,
-            ),
-            onTap: () => push(context, const UpdatePhone()),
-          ),
+              leading: const Icon(Icons.phone),
+              title: const Text(
+                Constants.updatePhoneNumber,
+                style: AppStyles.textRegular,
+              ),
+              onTap: () => pushWithoutContext(const UpdatePhone())
+              //push(context, const UpdatePhone()),
+              ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),
             title: const Text(
               Constants.logOut,
               style: AppStyles.textRegular,
             ),
-            onTap: () {
-              ref.read(loginProvider.notifier).logOut();
-              snackBar(context, Constants.logOut, Colors.green);
-              pushAndRemoveUntil(context, const LoginScreen());
-            },
+            onTap: () => ref.read(loginProvider.notifier).logOut(),
           ),
         ],
       ),

@@ -1,16 +1,40 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/common/common_view/common_button.dart';
 import 'package:provider_base/common/core/app_style.dart';
+import 'package:provider_base/screens/util/util_state_notifier.dart';
 import 'package:provider_base/utils/utils.dart';
 
-class UtilScreen extends StatelessWidget {
+class UtilScreen extends HookConsumerWidget with Utils {
   const UtilScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: AppLifecycleReactor(),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final utilState = ref.watch(utilNotifierProvider);
+    final utilStateNotifier = ref.read(utilNotifierProvider.notifier);
+
+    return Scaffold(
+      appBar: getAppBar(title: 'Utilities Screen'),
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          CommonButton.submitBtn(
+            'Test session expired - Login',
+            () async => await utilStateNotifier.fetchData(),
+          ),
+          Text(
+            utilState.status,
+            style: const TextStyle(
+              color: Colors.red,
+              fontSize: AppStyles.fontSizeH,
+            ),
+          ),
+          const AppLifecycleReactor()
+        ],
+      ),
     );
   }
 }
@@ -50,13 +74,12 @@ class _AppLifecycleReactorState extends State<AppLifecycleReactor>
   @override
   Widget build(BuildContext context) {
     log(isPortrait(context) ? 'Portrait' : 'Landscape');
-    return Scaffold(
-      appBar: getAppBar(context: context, title: 'Utilities Screen'),
-      body: Center(
-          child: Text(
+
+    return Center(
+      child: Text(
         'Last App status: $_appStatus',
         style: AppStyles.textRegular,
-      )),
+      ),
     );
   }
 }

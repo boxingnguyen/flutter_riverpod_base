@@ -14,7 +14,6 @@ class TodoScreen extends StatelessWidget with Utils {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(
-        context: context,
         title: 'List Todo',
         pressBack: () => Navigator.of(
           context,
@@ -34,14 +33,13 @@ class TodoBody extends HookConsumerWidget with Utils {
     final todoState = ref.watch(todoNotifierProvider);
     final todoStateNotifier = ref.read(todoNotifierProvider.notifier);
     final dashboardStateNotifier = ref.read(dashboardNotifierProvider.notifier);
-
     final listTodo = todoState.listTodo;
-
     final scrollController = useScrollController();
 
     void scrollListener() {
       if (scrollController.position.atEdge) {
         final isTop = scrollController.position.pixels == 0;
+
         if (!isTop) {
           // load 10 items
           todoStateNotifier.fetchData(limit: 10);
@@ -53,9 +51,9 @@ class TodoBody extends HookConsumerWidget with Utils {
       dashboardStateNotifier.addRefreshListener(
           TabItem.home, todoStateNotifier.refreshList);
       scrollController.addListener(scrollListener);
+
       return () {
         scrollController.removeListener(scrollListener);
-        //dashboardStateNotifier.removeRefreshListener(TabItem.home);
       };
     }, [scrollController, dashboardStateNotifier]);
 
@@ -77,13 +75,16 @@ class TodoBody extends HookConsumerWidget with Utils {
               itemCount: listTodo.length + 1,
               itemBuilder: (context, index) {
                 if (index == listTodo.length) {
-                  return listTodo.isNotEmpty ? const Center(
-                    child: CircularProgressIndicator(
-                      color: AppStyles.primaryColor,
-                    ),
-                  ) : const SizedBox();
+                  return listTodo.isNotEmpty
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: AppStyles.primaryColor,
+                          ),
+                        )
+                      : const SizedBox();
                 } else {
                   final item = listTodo.elementAt(index);
+
                   return ListTile(
                     title: Text(item.title ?? ''),
                     subtitle: Text(item.id.toString()),

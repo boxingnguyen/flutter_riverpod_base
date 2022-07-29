@@ -21,18 +21,12 @@ typedef RefreshListener = Future<void> Function();
 class DashboardStateNotifier extends StateNotifier<void> with LocatorMixin {
   DashboardStateNotifier() : super(null);
 
-  //late StreamSubscription<String>? _fcmTokenStreamSubscription;
-
   Map<TabItem, RefreshListener> listeners = {};
   bool isUpdatingFcmToken = false;
   bool inProgress = false;
 
   void addRefreshListener(TabItem item, RefreshListener listener) {
     listeners[item] = listener;
-  }
-
-  void removeRefreshListener(TabItem item) {
-    listeners.remove(item);
   }
 
   void notifyRefresh(TabItem item) {

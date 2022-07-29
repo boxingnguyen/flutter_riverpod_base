@@ -12,7 +12,6 @@ class SettingsScreen extends StatelessWidget with Utils {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(
-        context: context,
         title: L10n.of(context).msgap010,
         pressBack: () => Navigator.of(
           context,
@@ -40,9 +39,7 @@ class SettingsScreen extends StatelessWidget with Utils {
               press: () async => await push(
                 context,
                 const LocaleScreen(),
-                settings: RouteSettings(
-                  name: Routes.localeScreen,
-                ),
+                settings: const RouteSettings(name: Routes.localeScreen),
               ),
             ),
           ],

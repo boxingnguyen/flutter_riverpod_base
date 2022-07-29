@@ -34,7 +34,7 @@ class _CreateQRCodeScreenState extends State<CreateQRCodeScreen> with Utils {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar(context: context, title: Constants.createQRCode),
+      appBar: getAppBar(title: Constants.createQRCode),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
         child: SingleChildScrollView(
