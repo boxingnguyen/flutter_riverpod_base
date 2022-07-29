@@ -6,15 +6,16 @@ import 'package:provider_base/common/core/data/local_storage.dart';
 class DummyData {
   static Future<Response> handleCheckExpired() async {
     int? expiredAt = await LocalStorage.getExpiredAt();
-    if (expiredAt != null) {
-      if (DateTime.now().millisecondsSinceEpoch <= expiredAt) {
-        return Response(json.encode(loginSuccessful), 200);
-      } else {
-        return Response(json.encode(unauthorizedError), 401);
-      }
-    }
 
-    return Response(json.encode(loginSuccessful), 200);
+    if (expiredAt == null) {
+      return Response(json.encode(loginSuccessful), 200);
+    }
+    final now = DateTime.now().millisecondsSinceEpoch;
+
+    if (now <= expiredAt) {
+      return Response(json.encode(loginSuccessful), 200);
+    }
+    return Response(json.encode(unauthorizedError), 401);
   }
 
   static Map<String, dynamic> loginSuccessful = {

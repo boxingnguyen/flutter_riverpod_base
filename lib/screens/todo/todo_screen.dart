@@ -14,7 +14,6 @@ class TodoScreen extends StatelessWidget with Utils {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(
-        context: context,
         title: 'List Todo',
         pressBack: () => Navigator.of(
           context,

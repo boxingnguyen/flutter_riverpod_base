@@ -29,7 +29,7 @@ class LocalStorage {
     prefs.setInt(_keyExpiredAt, expiredAt);
   }
 
-  static Future<void> clearAll() async {
+  static Future<void> clearSession() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();
   }

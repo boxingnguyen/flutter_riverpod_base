@@ -29,7 +29,6 @@ class _FilesScreenState extends State<FilesScreen> with Utils {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(
-        context: context,
         title: 'Files',
         centerTitle: true,
         pressBack: () => Navigator.of(

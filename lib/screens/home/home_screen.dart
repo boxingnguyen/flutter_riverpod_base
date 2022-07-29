@@ -4,7 +4,6 @@ import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/screens/home/components/update_phone.dart';
 import 'package:provider_base/screens/home/home_state_notifier.dart';
-import 'package:provider_base/screens/login/login_screen.dart';
 import 'package:provider_base/screens/login/login_state_notifier.dart';
 import 'package:provider_base/screens/post/post_screen.dart';
 import 'package:provider_base/utils/utils.dart';
@@ -128,13 +127,7 @@ class HomeScreen extends HookConsumerWidget with Utils {
               Constants.logOut,
               style: AppStyles.textRegular,
             ),
-            onTap: () {
-              ref.read(loginProvider.notifier).logOut();
-              // snackBar(context, Constants.logOut, Colors.green);
-              // pushAndRemoveUntil(context, const LoginScreen());
-              snackBarWithoutContext(Constants.logOut, Colors.green);
-              pushAndRemoveUntilWithoutContext(const LoginScreen());
-            },
+            onTap: () => ref.read(loginProvider.notifier).logOut(),
           ),
         ],
       ),

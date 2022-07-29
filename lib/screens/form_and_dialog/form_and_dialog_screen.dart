@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider_base/common/common_view/common_button.dart';
 import 'package:provider_base/common/common_view/common_text_field.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/screens/form_and_dialog/form_state_notifier.dart';
@@ -17,7 +18,6 @@ class FormAndDialogScreen extends StatelessWidget with Utils {
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         appBar: getAppBar(
-          context: context,
           title: 'Form screen',
           centerTitle: true,
           pressBack: () => Navigator.of(
@@ -96,18 +96,16 @@ class FormBody extends HookConsumerWidget with Utils {
                 const SizedBox(
                   height: 50,
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      // Validate returns true if the form is valid, or false otherwise.
-                      if (formKey.currentState!.validate()) {
-                        // If the form is valid, display a snackbar. In the real world,
-                        // you'd often call a server or save the information in a database.
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing Data')),
-                        );
-                      }
-                    },
-                    child: const Text('Submit'))
+                CommonButton.submitBtn('Submit', () {
+                  // Validate returns true if the form is valid, or false otherwise.
+                  if (formKey.currentState!.validate()) {
+                    // If the form is valid, display a snackbar. In the real world,
+                    // you'd often call a server or save the information in a database.
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Processing Data')),
+                    );
+                  }
+                }),
               ],
             ),
           ),

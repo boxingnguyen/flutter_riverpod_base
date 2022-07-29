@@ -8,14 +8,14 @@ import 'package:provider_base/screens/settings/settings_screen.dart';
 import 'package:provider_base/screens/util/util_screen.dart';
 
 class Routes {
-  static String modulesScreen = '/list_modules';
-  static String utilScreen = '/util';
+  static const modulesScreen = '/list_modules';
+  static const utilScreen = '/util';
   static const loginScreen = '/login_screen';
-  static String settingsScreen = '/settings';
-  static String localeScreen = '/change_language';
-  static String dashboardScreen = '/dashboard';
-  static String todoScreen = '/todo';
-  static String homeScreen = '/home_screen';
+  static const settingsScreen = '/settings';
+  static const localeScreen = '/change_language';
+  static const dashboardScreen = '/dashboard';
+  static const todoScreen = '/todo';
+  static const homeScreen = '/home_screen';
 
   static final Map<String, WidgetBuilder> routes = {
     modulesScreen: (context) => const ModulesScreen(),

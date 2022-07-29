@@ -5,8 +5,6 @@ import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/routes.dart';
 import 'package:provider_base/l10n/l10n.dart';
 import 'package:provider_base/main/app.dart';
-import 'package:provider_base/screens/dashboard/dashboard_screen.dart';
-import 'package:provider_base/screens/login/login_screen.dart';
 import 'package:provider_base/utils/utils.dart';
 
 class ModulesScreen extends HookConsumerWidget with Utils {
@@ -30,7 +28,6 @@ class ModulesScreen extends HookConsumerWidget with Utils {
 
     return Scaffold(
       appBar: getAppBar(
-          context: context,
           centerTitle: false,
           title: L10n.of(context).msgap001,
           actions: const [SwitchThemebutton()]),

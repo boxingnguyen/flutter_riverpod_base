@@ -5,25 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/common/core/data/local_storage.dart';
-import 'package:provider_base/screens/login/login_screen.dart';
+import 'package:provider_base/common/core/routes.dart';
 
 mixin Utils {
-  void popWithoutContext() {
-    Constants.navigatorKey.currentState?.pop();
+  static final navigatorState = Constants.navigatorKey.currentState;
+
+  void popWithoutContext([dynamic value]) {
+    navigatorState?.pop(value);
   }
 
   Future<dynamic>? pushReplacementNamedWithoutContext(
     String routeName, {
     Object? arguments,
   }) {
-    return Constants.navigatorKey.currentState?.pushReplacementNamed(
+    return navigatorState?.pushReplacementNamed(
       routeName,
       arguments: arguments,
     );
   }
 
   Future<dynamic>? pushReplacementWithoutContext(Widget routerName) {
-    return Constants.navigatorKey.currentState?.pushReplacement(
+    return navigatorState?.pushReplacement(
         MaterialPageRoute<dynamic>(builder: (_) => routerName));
   }
 
@@ -32,7 +34,7 @@ mixin Utils {
     bool Function(Route route) predicate, {
     Object? arguments,
   }) {
-    return Constants.navigatorKey.currentState?.pushNamedAndRemoveUntil(
+    return navigatorState?.pushNamedAndRemoveUntil(
       routeName,
       predicate,
       arguments: arguments,
@@ -54,7 +56,7 @@ mixin Utils {
     String routeName, {
     Object? arguments,
   }) {
-    Constants.navigatorKey.currentState?.pushNamed(
+    navigatorState?.pushNamed(
       routeName,
       arguments: arguments,
     );
@@ -65,7 +67,7 @@ mixin Utils {
     RouteSettings? settings,
     bool fullscreenDialog = false,
   }) async {
-    return Constants.navigatorKey.currentState?.push<dynamic>(
+    return navigatorState?.push<dynamic>(
       MaterialPageRoute<dynamic>(
         builder: (_) => route,
         fullscreenDialog: fullscreenDialog,
@@ -75,7 +77,7 @@ mixin Utils {
   }
 
   Future<dynamic>? pushAndRemoveUntilWithoutContext(Widget routerName) {
-    return Constants.navigatorKey.currentState?.pushAndRemoveUntil(
+    return navigatorState?.pushAndRemoveUntil(
         MaterialPageRoute(builder: (_) => routerName), (route) => false);
   }
 
@@ -153,7 +155,6 @@ mixin Utils {
   }
 
   AppBar getAppBar({
-    required BuildContext context,
     String? title,
     bool centerTitle = true,
     double elevation = 0,
@@ -184,7 +185,7 @@ mixin Utils {
     final _actions = <Widget>[];
 
     if (hasClose) {
-      _actions.add(_closeBtn(context, popValue));
+      _actions.add(_closeBtn(popValue));
     }
 
     return AppBar(
@@ -192,14 +193,13 @@ mixin Utils {
       backgroundColor: bgColor,
       title: _title,
       centerTitle: centerTitle,
-      leading: _leading(context, leading, logoUrl, pressBack, popValue),
+      leading: _leading(leading, logoUrl, pressBack, popValue),
       actions: actions ?? _actions,
       bottom: widget,
     );
   }
 
   static Widget? _leading(
-    BuildContext context,
     Widget? leading,
     String? logoUrl,
     VoidCallback? pressBack,
@@ -210,8 +210,8 @@ mixin Utils {
     if (logoUrl != null) {
       _leading = _logo(logoUrl);
     } else {
-      _leading = leading ??
-          (pressBack != null ? _backBtn(context, pressBack, popValue) : null);
+      _leading =
+          leading ?? (pressBack != null ? _backBtn(pressBack, popValue) : null);
     }
 
     return _leading;
@@ -235,13 +235,9 @@ mixin Utils {
     );
   }
 
-  static Widget _backBtn(
-      BuildContext context, VoidCallback? pressBack, dynamic popValue) {
+  static Widget _backBtn(VoidCallback? pressBack, dynamic popValue) {
     return InkWell(
-      onTap: pressBack ?? () => Constants.navigatorKey.currentState?.pop(),
-      // {
-      //   Navigator.of(context).pop(popValue);
-      // },
+      onTap: pressBack ?? () => navigatorState?.pop(popValue),
       child: const Icon(
         Icons.arrow_back_ios,
         color: Colors.white,
@@ -250,10 +246,9 @@ mixin Utils {
     );
   }
 
-  static Widget _closeBtn(BuildContext context, dynamic popValue) {
+  static Widget _closeBtn(dynamic popValue) {
     return InkWell(
-      onTap: () => Constants.navigatorKey.currentState?.pop(),
-      //Navigator.of(context).pop(popValue),
+      onTap: () => navigatorState?.pop(popValue),
       child: Container(
         margin: const EdgeInsets.only(right: 10),
         padding: const EdgeInsets.all(6),
@@ -268,15 +263,21 @@ mixin Utils {
 
   // push to login when unauthorized -> force logout and push to login
   static void handleUnauthorizedError() async {
-    // TOD(Dieptt): remove unused code
-    Constants.snackbarKey.currentState?.showSnackBar(SnackBar(
+    _showSnackBar();
+
+    await LocalStorage.clearSession();
+    navigatorState?.pushNamedAndRemoveUntil(
+        Routes.loginScreen, (route) => false);
+  }
+
+  static void _showSnackBar() {
+    Constants.snackbarKey.currentState?.showSnackBar(
+      SnackBar(
         content: Text(
-      Constants.sessionExpired,
-      style: AppStyles.textMedium.copyWith(color: AppStyles.errorColor),
-    )));
-    await LocalStorage.clearAll();
-    // TOD(Dieptt): push to login need push and replacement, use name route
-    Constants.navigatorKey.currentState?.pushReplacementNamed(LoginScreen.routeName);
-  
+          Constants.sessionExpired,
+          style: AppStyles.textMedium.copyWith(color: AppStyles.errorColor),
+        ),
+      ),
+    );
   }
 }

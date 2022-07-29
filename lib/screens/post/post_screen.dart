@@ -15,7 +15,7 @@ class PostScreen extends HookConsumerWidget with Utils {
     final postState = ref.watch(futureProvider);
 
     return Scaffold(
-      appBar: getAppBar(context: context, title: Constants.listPost),
+      appBar: getAppBar(title: Constants.listPost),
       body: Center(
         // way2
         child: postState.map(

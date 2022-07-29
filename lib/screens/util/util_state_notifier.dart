@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider_base/api/api_client.dart';
 import 'package:provider_base/common/core/data/local_storage.dart';
@@ -17,10 +15,10 @@ class UtilStateNotifier extends StateNotifier<UtilState> {
     state = state.copyWith(showLoadingIndicator: true);
     final response = await ApiClient.postDummyDataRequest();
 
-
     if (response is Map) {
       await LocalStorage.saveAccessToken(response['token']);
       await LocalStorage.saveExpiredAt(response['expired_at']);
+
       state = state.copyWith(
         status: 'Successful',
         showLoadingIndicator: false,
