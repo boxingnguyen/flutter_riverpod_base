@@ -18,7 +18,7 @@ class QrCodeScanScreen extends HookConsumerWidget with Utils {
     final cameraController = MobileScannerController();
 
     return Scaffold(
-      appBar: getAppBar(context: context, title: Constants.scanQRCode),
+      appBar: getAppBar(title: Constants.scanQRCode),
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [

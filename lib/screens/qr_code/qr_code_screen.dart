@@ -21,7 +21,7 @@ class QrCodeScreen extends HookConsumerWidget with Utils {
     final qrCodeState = ref.read(qrCodeProvider);
 
     return Scaffold(
-      appBar: getAppBar(context: context, title: Constants.qrCode),
+      appBar: getAppBar(title: Constants.qrCode),
       body: Stack(
         children: [
           Padding(

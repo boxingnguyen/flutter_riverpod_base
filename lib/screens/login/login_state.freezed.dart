@@ -22,12 +22,16 @@ class _$LoginStateTearOff {
       {UserDetail? userDetail,
       bool isSignUp = false,
       bool forgotPasswordSuccess = false,
-      bool showLoadingIndicator = false}) {
+      bool showLoadingIndicator = false,
+      int numberShowCaptcha = 0,
+      bool isCaptcha = false}) {
     return _LoginState(
       userDetail: userDetail,
       isSignUp: isSignUp,
       forgotPasswordSuccess: forgotPasswordSuccess,
       showLoadingIndicator: showLoadingIndicator,
+      numberShowCaptcha: numberShowCaptcha,
+      isCaptcha: isCaptcha,
     );
   }
 }
@@ -41,6 +45,8 @@ mixin _$LoginState {
   bool get isSignUp => throw _privateConstructorUsedError;
   bool get forgotPasswordSuccess => throw _privateConstructorUsedError;
   bool get showLoadingIndicator => throw _privateConstructorUsedError;
+  int get numberShowCaptcha => throw _privateConstructorUsedError;
+  bool get isCaptcha => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LoginStateCopyWith<LoginState> get copyWith =>
@@ -56,7 +62,9 @@ abstract class $LoginStateCopyWith<$Res> {
       {UserDetail? userDetail,
       bool isSignUp,
       bool forgotPasswordSuccess,
-      bool showLoadingIndicator});
+      bool showLoadingIndicator,
+      int numberShowCaptcha,
+      bool isCaptcha});
 }
 
 /// @nodoc
@@ -73,6 +81,8 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
     Object? isSignUp = freezed,
     Object? forgotPasswordSuccess = freezed,
     Object? showLoadingIndicator = freezed,
+    Object? numberShowCaptcha = freezed,
+    Object? isCaptcha = freezed,
   }) {
     return _then(_value.copyWith(
       userDetail: userDetail == freezed
@@ -91,6 +101,14 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
           ? _value.showLoadingIndicator
           : showLoadingIndicator // ignore: cast_nullable_to_non_nullable
               as bool,
+      numberShowCaptcha: numberShowCaptcha == freezed
+          ? _value.numberShowCaptcha
+          : numberShowCaptcha // ignore: cast_nullable_to_non_nullable
+              as int,
+      isCaptcha: isCaptcha == freezed
+          ? _value.isCaptcha
+          : isCaptcha // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -105,7 +123,9 @@ abstract class _$LoginStateCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
       {UserDetail? userDetail,
       bool isSignUp,
       bool forgotPasswordSuccess,
-      bool showLoadingIndicator});
+      bool showLoadingIndicator,
+      int numberShowCaptcha,
+      bool isCaptcha});
 }
 
 /// @nodoc
@@ -124,6 +144,8 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
     Object? isSignUp = freezed,
     Object? forgotPasswordSuccess = freezed,
     Object? showLoadingIndicator = freezed,
+    Object? numberShowCaptcha = freezed,
+    Object? isCaptcha = freezed,
   }) {
     return _then(_LoginState(
       userDetail: userDetail == freezed
@@ -142,6 +164,14 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
           ? _value.showLoadingIndicator
           : showLoadingIndicator // ignore: cast_nullable_to_non_nullable
               as bool,
+      numberShowCaptcha: numberShowCaptcha == freezed
+          ? _value.numberShowCaptcha
+          : numberShowCaptcha // ignore: cast_nullable_to_non_nullable
+              as int,
+      isCaptcha: isCaptcha == freezed
+          ? _value.isCaptcha
+          : isCaptcha // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -153,7 +183,9 @@ class _$_LoginState implements _LoginState {
       {this.userDetail,
       this.isSignUp = false,
       this.forgotPasswordSuccess = false,
-      this.showLoadingIndicator = false});
+      this.showLoadingIndicator = false,
+      this.numberShowCaptcha = 0,
+      this.isCaptcha = false});
 
   @override
   final UserDetail? userDetail;
@@ -166,10 +198,16 @@ class _$_LoginState implements _LoginState {
   @JsonKey()
   @override
   final bool showLoadingIndicator;
+  @JsonKey()
+  @override
+  final int numberShowCaptcha;
+  @JsonKey()
+  @override
+  final bool isCaptcha;
 
   @override
   String toString() {
-    return 'LoginState(userDetail: $userDetail, isSignUp: $isSignUp, forgotPasswordSuccess: $forgotPasswordSuccess, showLoadingIndicator: $showLoadingIndicator)';
+    return 'LoginState(userDetail: $userDetail, isSignUp: $isSignUp, forgotPasswordSuccess: $forgotPasswordSuccess, showLoadingIndicator: $showLoadingIndicator, numberShowCaptcha: $numberShowCaptcha, isCaptcha: $isCaptcha)';
   }
 
   @override
@@ -183,7 +221,10 @@ class _$_LoginState implements _LoginState {
             const DeepCollectionEquality()
                 .equals(other.forgotPasswordSuccess, forgotPasswordSuccess) &&
             const DeepCollectionEquality()
-                .equals(other.showLoadingIndicator, showLoadingIndicator));
+                .equals(other.showLoadingIndicator, showLoadingIndicator) &&
+            const DeepCollectionEquality()
+                .equals(other.numberShowCaptcha, numberShowCaptcha) &&
+            const DeepCollectionEquality().equals(other.isCaptcha, isCaptcha));
   }
 
   @override
@@ -192,7 +233,9 @@ class _$_LoginState implements _LoginState {
       const DeepCollectionEquality().hash(userDetail),
       const DeepCollectionEquality().hash(isSignUp),
       const DeepCollectionEquality().hash(forgotPasswordSuccess),
-      const DeepCollectionEquality().hash(showLoadingIndicator));
+      const DeepCollectionEquality().hash(showLoadingIndicator),
+      const DeepCollectionEquality().hash(numberShowCaptcha),
+      const DeepCollectionEquality().hash(isCaptcha));
 
   @JsonKey(ignore: true)
   @override
@@ -205,7 +248,9 @@ abstract class _LoginState implements LoginState {
       {UserDetail? userDetail,
       bool isSignUp,
       bool forgotPasswordSuccess,
-      bool showLoadingIndicator}) = _$_LoginState;
+      bool showLoadingIndicator,
+      int numberShowCaptcha,
+      bool isCaptcha}) = _$_LoginState;
 
   @override
   UserDetail? get userDetail;
@@ -215,6 +260,10 @@ abstract class _LoginState implements LoginState {
   bool get forgotPasswordSuccess;
   @override
   bool get showLoadingIndicator;
+  @override
+  int get numberShowCaptcha;
+  @override
+  bool get isCaptcha;
   @override
   @JsonKey(ignore: true)
   _$LoginStateCopyWith<_LoginState> get copyWith =>
