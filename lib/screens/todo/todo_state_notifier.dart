@@ -3,16 +3,19 @@ import 'package:provider_base/api/api_client.dart';
 import 'package:provider_base/api/api_endpoints.dart';
 import 'package:provider_base/models/todo_model/todo.dart';
 import 'package:provider_base/screens/todo/todo_state.dart';
+import 'package:provider_base/utils/utils.dart';
 
 final todoNotifierProvider =
     StateNotifierProvider<TodoStateNotifier, TodoState>((ref) {
-  return TodoStateNotifier();
+  return TodoStateNotifier(ref);
 });
 
-class TodoStateNotifier extends StateNotifier<TodoState> {
-  TodoStateNotifier() : super(TodoState()) {
+class TodoStateNotifier extends StateNotifier<TodoState> with Utils{
+  TodoStateNotifier(this.ref) : super(TodoState()) {
     refreshList();
   }
+  
+  Ref ref;
 
   static const initialItem = 15;
 
@@ -29,7 +32,7 @@ class TodoStateNotifier extends StateNotifier<TodoState> {
     }
 
     final listTodoResponse =
-        await ApiClient.getRequest(ApiEndpoints.todos + request);
+        await apiClient(ref).getRequest(ApiEndpoints.todos + request);
 
     var listTodo = state.listTodo;
     if (listTodoResponse is List) {

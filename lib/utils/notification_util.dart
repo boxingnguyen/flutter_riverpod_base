@@ -1,15 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:math' as math;
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:provider_base/common/core/app_style.dart';
-import 'package:provider_base/common/core/data/local_storage.dart';
 
-// TODO(anyone): xin provision certificate từ Linhlc test ios notification env release
 // For Ios: be sure add capabilities by Xcode, please add: Push notification
 // and ackground modes choose Background fetch and Remote notifications
 
@@ -32,7 +32,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 // TODO(anyone): integrate firebase with APNs apple
 // see: https://firebase.flutter.dev/docs/messaging/apple-integration/
 class NotificationUtil {
-  NotificationUtil._();
+  // NotificationUtil._();
 
   static const channelId = 'channelId';
   static const channelName = 'channelName';
@@ -41,7 +41,7 @@ class NotificationUtil {
 
   // Initalize the [FlutterLocalNotificationsPlugin] package.
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  FlutterLocalNotificationsPlugin();
 
   static Future<void> initialize(BuildContext context) async {
     final token = await messaging.getToken();
@@ -58,13 +58,14 @@ class NotificationUtil {
       _showScreensByMessage(context, message, onLaunch: true);
     });
 
-    await _initializeLocalNotification(context);
+    await initializeLocalNotification(context);
   }
 
-  static Future<void> _initializeLocalNotification(BuildContext context) async {
+  static Future<void> initializeLocalNotification(BuildContext context) async {
     // initialise the plugin. ic_notification needs to be a added as a drawable resource to the Android head project
     // see more: https://developer.android.com/studio/write/image-asset-studio#create-notification
-    const settingsAndroid = AndroidInitializationSettings('ic_notification');
+    const settingsAndroid =
+    AndroidInitializationSettings('@mipmap/ic_launcher');
 
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
@@ -78,7 +79,7 @@ class NotificationUtil {
     // then call the requestPermissions method with desired permissions
     // at the appropriate point in your application
     // see https://pub.dev/packages/flutter_local_notifications#ios-all-supported-versions-and-macos-1014-requesting-notification-permissions
-    const settingsIOS = IOSInitializationSettings();
+    const settingsIOS = DarwinInitializationSettings();
 
     const initializationSettings = InitializationSettings(
       android: settingsAndroid,
@@ -87,13 +88,13 @@ class NotificationUtil {
 
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onSelectNotification: (payloadString) async {
+      onDidReceiveNotificationResponse: (payloadString) async {
         try {
           final payload =
-              jsonDecode(payloadString ?? '') as Map<String, dynamic>;
+          jsonDecode(payloadString.payload ?? '') as Map<String, dynamic>;
           await _showScreens(context, payload);
-        } on Exception catch (e, trace) {
-          await FirebaseCrashlytics.instance.recordError(e, trace);
+        } on Exception catch (e) {
+          log(e.toString());
         }
 
         return;
@@ -120,13 +121,13 @@ class NotificationUtil {
       channelId,
       channelName,
       importance:
-          Importance.high, // Required to display a heads up notification
-      ledColor: AppStyles.primaryColor,
+      Importance.high, // Required to display a heads up notification
+      ledColor: Colors.grey,
     );
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+        AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
 
     // handle when has new notification
@@ -158,44 +159,67 @@ class NotificationUtil {
     });
   }
 
-  // you need update device token if use amazon SNS
-  // when platform endpoint is deactivated
-  static Future<void> updateFcmTokenIfRequired({
-    String? fcmToken,
-  }) async {
-    final newFcmToken = fcmToken ?? await messaging.getToken();
-    final userInfo = await LocalStorage.loadUserInfo();
-    final currentFcmToken = userInfo.fcmToken;
+  /// Used to create a notification channel.
+  final AndroidNotificationDetails _androidNotificationDetails =
+  const AndroidNotificationDetails(
+    'channel ID',
+    'channel name',
+    playSound: true,
+    priority: Priority.high,
+    importance: Importance.high,
+  );
 
-    if (newFcmToken == currentFcmToken) {
-      return;
-    }
-
-    if (newFcmToken == null) {
-      return;
-    }
-
-    // call API update device token to amazone SNS
+  // TODO(Phonght): Test Show Local Notifications
+  Future<void> showNotifications() async {
+    var rng = math.Random();
+    await flutterLocalNotificationsPlugin.show(
+      rng.nextInt(100),
+      "Haluu...",
+      "NOTICE ${rng.nextInt(20)} GG",
+      NotificationDetails(android: _androidNotificationDetails),
+      payload: 'ALOOOOOO.....',
+    );
   }
 
+  // you need update device token if use amazon SNS
+  // when platform endpoint is deactivated
+  // TODO(Phonght): updateFcmTokenIfRequired
+  // static Future<void> updateFcmTokenIfRequired({
+  //   String? fcmToken,
+  // }) async {
+  //   final newFcmToken = fcmToken ?? await messaging.getToken();
+  //   final userInfo = await LocalStorage.loadUserInfo();
+  //   final currentFcmToken = userInfo.fcmToken;
+
+  //   if (newFcmToken == currentFcmToken) {
+  //     return;
+  //   }
+
+  //   if (newFcmToken == null) {
+  //     return;
+  //   }
+
+  //   // call API update device token to amazone SNS
+  // }
+
   static Future<void> _showScreensByMessage(
-    BuildContext context,
-    RemoteMessage message, {
-    bool onLaunch = false,
-  }) async {
+      BuildContext context,
+      RemoteMessage message, {
+        bool onLaunch = false,
+      }) async {
     try {
       final data = message.data;
       await _showScreens(context, data, onLaunch: onLaunch);
-    } on Exception catch (e, trace) {
-      await FirebaseCrashlytics.instance.recordError(e, trace);
+    } on Exception catch (e) {
+      log(e.toString());
     }
   }
 
   static Future<void> _showScreens(
-    BuildContext context,
-    Map<String, dynamic> payload, {
-    bool onLaunch = false,
-  }) async {
+      BuildContext context,
+      Map<String, dynamic> payload, {
+        bool onLaunch = false,
+      }) async {
     const topicKey = 'topic_id';
     const noticeKey = 'topic_id';
 

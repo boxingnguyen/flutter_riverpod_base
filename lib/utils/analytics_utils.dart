@@ -51,7 +51,7 @@ extension AnalyticsEventTypeExtension on AnalyticsEventType {
 }
 
 class AnalyticsUtil {
-  final FirebaseAnalytics analytics = FirebaseAnalytics();
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   Future<void> logEvent(
     AnalyticsEventType type, {
@@ -77,7 +77,7 @@ class AnalyticsUtil {
   }
 
   Future<void> setUserId(String? userId) {
-    return analytics.setUserId(userId);
+    return analytics.setUserId(id: userId);
   }
 
   Future<void> setUserProperty({

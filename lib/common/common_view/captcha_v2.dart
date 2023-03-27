@@ -124,9 +124,9 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         Expanded(
-                          child: RaisedButton(
+                          child:InkWell(
                             child: Text(widget.textCancelButtom),
-                            onPressed: () {
+                            onTap: () {
                               controller.hide();
                             },
                           ),

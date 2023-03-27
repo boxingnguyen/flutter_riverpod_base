@@ -24,14 +24,14 @@ class QrCodeScanScreen extends HookConsumerWidget with Utils {
         children: [
           // Build scanner view
           MobileScanner(
-            allowDuplicates: false,
+          //  allowDuplicates: false,
             controller: cameraController,
-            onDetect: (barcode, args) async {
-              qrCodeNotifier.getQrCode(barcode.rawValue);
+            onDetect: (barcode) async {
+              qrCodeNotifier.getQrCode(barcode.raw);
               await showOkAlertDialog(
                 context: context,
                 title: Constants.qrCode,
-                message: barcode.rawValue,
+                message: barcode.raw,
               );
             },
           ),

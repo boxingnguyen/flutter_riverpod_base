@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'network_state.dart';
 
@@ -12,31 +12,7 @@ part of 'network_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$NetworkStateTearOff {
-  const _$NetworkStateTearOff();
-
-  _Data<T> call<T>(T? data) {
-    return _Data<T>(
-      data,
-    );
-  }
-
-  _Loading<T> loading<T>() {
-    return _Loading<T>();
-  }
-
-  _ErrorDetails<T> error<T>(dynamic errors) {
-    return _ErrorDetails<T>(
-      errors,
-    );
-  }
-}
-
-/// @nodoc
-const $NetworkState = _$NetworkStateTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$NetworkState<T> {
@@ -49,9 +25,9 @@ mixin _$NetworkState<T> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(T? data)? $default, {
-    TResult Function()? loading,
-    TResult Function(dynamic errors)? error,
+    TResult? Function(T? data)? $default, {
+    TResult? Function()? loading,
+    TResult? Function(dynamic errors)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -71,9 +47,9 @@ mixin _$NetworkState<T> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(_Data<T> value)? $default, {
-    TResult Function(_Loading<T> value)? loading,
-    TResult Function(_ErrorDetails<T> value)? error,
+    TResult? Function(_Data<T> value)? $default, {
+    TResult? Function(_Loading<T> value)? loading,
+    TResult? Function(_ErrorDetails<T> value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -90,41 +66,42 @@ mixin _$NetworkState<T> {
 abstract class $NetworkStateCopyWith<T, $Res> {
   factory $NetworkStateCopyWith(
           NetworkState<T> value, $Res Function(NetworkState<T>) then) =
-      _$NetworkStateCopyWithImpl<T, $Res>;
+      _$NetworkStateCopyWithImpl<T, $Res, NetworkState<T>>;
 }
 
 /// @nodoc
-class _$NetworkStateCopyWithImpl<T, $Res>
+class _$NetworkStateCopyWithImpl<T, $Res, $Val extends NetworkState<T>>
     implements $NetworkStateCopyWith<T, $Res> {
   _$NetworkStateCopyWithImpl(this._value, this._then);
 
-  final NetworkState<T> _value;
   // ignore: unused_field
-  final $Res Function(NetworkState<T>) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class _$DataCopyWith<T, $Res> {
-  factory _$DataCopyWith(_Data<T> value, $Res Function(_Data<T>) then) =
-      __$DataCopyWithImpl<T, $Res>;
+abstract class _$$_DataCopyWith<T, $Res> {
+  factory _$$_DataCopyWith(_$_Data<T> value, $Res Function(_$_Data<T>) then) =
+      __$$_DataCopyWithImpl<T, $Res>;
+  @useResult
   $Res call({T? data});
 }
 
 /// @nodoc
-class __$DataCopyWithImpl<T, $Res> extends _$NetworkStateCopyWithImpl<T, $Res>
-    implements _$DataCopyWith<T, $Res> {
-  __$DataCopyWithImpl(_Data<T> _value, $Res Function(_Data<T>) _then)
-      : super(_value, (v) => _then(v as _Data<T>));
+class __$$_DataCopyWithImpl<T, $Res>
+    extends _$NetworkStateCopyWithImpl<T, $Res, _$_Data<T>>
+    implements _$$_DataCopyWith<T, $Res> {
+  __$$_DataCopyWithImpl(_$_Data<T> _value, $Res Function(_$_Data<T>) _then)
+      : super(_value, _then);
 
-  @override
-  _Data<T> get _value => super._value as _Data<T>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? data = freezed,
   }) {
-    return _then(_Data<T>(
-      data == freezed
+    return _then(_$_Data<T>(
+      freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as T?,
@@ -149,7 +126,7 @@ class _$_Data<T> implements _Data<T> {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Data<T> &&
+            other is _$_Data<T> &&
             const DeepCollectionEquality().equals(other.data, data));
   }
 
@@ -159,8 +136,9 @@ class _$_Data<T> implements _Data<T> {
 
   @JsonKey(ignore: true)
   @override
-  _$DataCopyWith<T, _Data<T>> get copyWith =>
-      __$DataCopyWithImpl<T, _Data<T>>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$_DataCopyWith<T, _$_Data<T>> get copyWith =>
+      __$$_DataCopyWithImpl<T, _$_Data<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -175,9 +153,9 @@ class _$_Data<T> implements _Data<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(T? data)? $default, {
-    TResult Function()? loading,
-    TResult Function(dynamic errors)? error,
+    TResult? Function(T? data)? $default, {
+    TResult? Function()? loading,
+    TResult? Function(dynamic errors)? error,
   }) {
     return $default?.call(data);
   }
@@ -209,9 +187,9 @@ class _$_Data<T> implements _Data<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(_Data<T> value)? $default, {
-    TResult Function(_Loading<T> value)? loading,
-    TResult Function(_ErrorDetails<T> value)? error,
+    TResult? Function(_Data<T> value)? $default, {
+    TResult? Function(_Loading<T> value)? loading,
+    TResult? Function(_ErrorDetails<T> value)? error,
   }) {
     return $default?.call(this);
   }
@@ -232,30 +210,28 @@ class _$_Data<T> implements _Data<T> {
 }
 
 abstract class _Data<T> implements NetworkState<T> {
-  const factory _Data(T? data) = _$_Data<T>;
+  const factory _Data(final T? data) = _$_Data<T>;
 
   T? get data;
   @JsonKey(ignore: true)
-  _$DataCopyWith<T, _Data<T>> get copyWith =>
+  _$$_DataCopyWith<T, _$_Data<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$LoadingCopyWith<T, $Res> {
-  factory _$LoadingCopyWith(
-          _Loading<T> value, $Res Function(_Loading<T>) then) =
-      __$LoadingCopyWithImpl<T, $Res>;
+abstract class _$$_LoadingCopyWith<T, $Res> {
+  factory _$$_LoadingCopyWith(
+          _$_Loading<T> value, $Res Function(_$_Loading<T>) then) =
+      __$$_LoadingCopyWithImpl<T, $Res>;
 }
 
 /// @nodoc
-class __$LoadingCopyWithImpl<T, $Res>
-    extends _$NetworkStateCopyWithImpl<T, $Res>
-    implements _$LoadingCopyWith<T, $Res> {
-  __$LoadingCopyWithImpl(_Loading<T> _value, $Res Function(_Loading<T>) _then)
-      : super(_value, (v) => _then(v as _Loading<T>));
-
-  @override
-  _Loading<T> get _value => super._value as _Loading<T>;
+class __$$_LoadingCopyWithImpl<T, $Res>
+    extends _$NetworkStateCopyWithImpl<T, $Res, _$_Loading<T>>
+    implements _$$_LoadingCopyWith<T, $Res> {
+  __$$_LoadingCopyWithImpl(
+      _$_Loading<T> _value, $Res Function(_$_Loading<T>) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -271,7 +247,7 @@ class _$_Loading<T> implements _Loading<T> {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Loading<T>);
+        (other.runtimeType == runtimeType && other is _$_Loading<T>);
   }
 
   @override
@@ -290,9 +266,9 @@ class _$_Loading<T> implements _Loading<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(T? data)? $default, {
-    TResult Function()? loading,
-    TResult Function(dynamic errors)? error,
+    TResult? Function(T? data)? $default, {
+    TResult? Function()? loading,
+    TResult? Function(dynamic errors)? error,
   }) {
     return loading?.call();
   }
@@ -324,9 +300,9 @@ class _$_Loading<T> implements _Loading<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(_Data<T> value)? $default, {
-    TResult Function(_Loading<T> value)? loading,
-    TResult Function(_ErrorDetails<T> value)? error,
+    TResult? Function(_Data<T> value)? $default, {
+    TResult? Function(_Loading<T> value)? loading,
+    TResult? Function(_ErrorDetails<T> value)? error,
   }) {
     return loading?.call(this);
   }
@@ -351,30 +327,29 @@ abstract class _Loading<T> implements NetworkState<T> {
 }
 
 /// @nodoc
-abstract class _$ErrorDetailsCopyWith<T, $Res> {
-  factory _$ErrorDetailsCopyWith(
-          _ErrorDetails<T> value, $Res Function(_ErrorDetails<T>) then) =
-      __$ErrorDetailsCopyWithImpl<T, $Res>;
+abstract class _$$_ErrorDetailsCopyWith<T, $Res> {
+  factory _$$_ErrorDetailsCopyWith(
+          _$_ErrorDetails<T> value, $Res Function(_$_ErrorDetails<T>) then) =
+      __$$_ErrorDetailsCopyWithImpl<T, $Res>;
+  @useResult
   $Res call({dynamic errors});
 }
 
 /// @nodoc
-class __$ErrorDetailsCopyWithImpl<T, $Res>
-    extends _$NetworkStateCopyWithImpl<T, $Res>
-    implements _$ErrorDetailsCopyWith<T, $Res> {
-  __$ErrorDetailsCopyWithImpl(
-      _ErrorDetails<T> _value, $Res Function(_ErrorDetails<T>) _then)
-      : super(_value, (v) => _then(v as _ErrorDetails<T>));
+class __$$_ErrorDetailsCopyWithImpl<T, $Res>
+    extends _$NetworkStateCopyWithImpl<T, $Res, _$_ErrorDetails<T>>
+    implements _$$_ErrorDetailsCopyWith<T, $Res> {
+  __$$_ErrorDetailsCopyWithImpl(
+      _$_ErrorDetails<T> _value, $Res Function(_$_ErrorDetails<T>) _then)
+      : super(_value, _then);
 
-  @override
-  _ErrorDetails<T> get _value => super._value as _ErrorDetails<T>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? errors = freezed,
   }) {
-    return _then(_ErrorDetails<T>(
-      errors == freezed
+    return _then(_$_ErrorDetails<T>(
+      freezed == errors
           ? _value.errors
           : errors // ignore: cast_nullable_to_non_nullable
               as dynamic,
@@ -399,7 +374,7 @@ class _$_ErrorDetails<T> implements _ErrorDetails<T> {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ErrorDetails<T> &&
+            other is _$_ErrorDetails<T> &&
             const DeepCollectionEquality().equals(other.errors, errors));
   }
 
@@ -409,8 +384,9 @@ class _$_ErrorDetails<T> implements _ErrorDetails<T> {
 
   @JsonKey(ignore: true)
   @override
-  _$ErrorDetailsCopyWith<T, _ErrorDetails<T>> get copyWith =>
-      __$ErrorDetailsCopyWithImpl<T, _ErrorDetails<T>>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$_ErrorDetailsCopyWith<T, _$_ErrorDetails<T>> get copyWith =>
+      __$$_ErrorDetailsCopyWithImpl<T, _$_ErrorDetails<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -425,9 +401,9 @@ class _$_ErrorDetails<T> implements _ErrorDetails<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(T? data)? $default, {
-    TResult Function()? loading,
-    TResult Function(dynamic errors)? error,
+    TResult? Function(T? data)? $default, {
+    TResult? Function()? loading,
+    TResult? Function(dynamic errors)? error,
   }) {
     return error?.call(errors);
   }
@@ -459,9 +435,9 @@ class _$_ErrorDetails<T> implements _ErrorDetails<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(_Data<T> value)? $default, {
-    TResult Function(_Loading<T> value)? loading,
-    TResult Function(_ErrorDetails<T> value)? error,
+    TResult? Function(_Data<T> value)? $default, {
+    TResult? Function(_Loading<T> value)? loading,
+    TResult? Function(_ErrorDetails<T> value)? error,
   }) {
     return error?.call(this);
   }
@@ -482,10 +458,10 @@ class _$_ErrorDetails<T> implements _ErrorDetails<T> {
 }
 
 abstract class _ErrorDetails<T> implements NetworkState<T> {
-  const factory _ErrorDetails(dynamic errors) = _$_ErrorDetails<T>;
+  const factory _ErrorDetails(final dynamic errors) = _$_ErrorDetails<T>;
 
   dynamic get errors;
   @JsonKey(ignore: true)
-  _$ErrorDetailsCopyWith<T, _ErrorDetails<T>> get copyWith =>
+  _$$_ErrorDetailsCopyWith<T, _$_ErrorDetails<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
