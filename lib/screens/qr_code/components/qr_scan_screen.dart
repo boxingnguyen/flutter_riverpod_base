@@ -24,7 +24,6 @@ class QrCodeScanScreen extends HookConsumerWidget with Utils {
         children: [
           // Build scanner view
           MobileScanner(
-          //  allowDuplicates: false,
             controller: cameraController,
             onDetect: (barcode) async {
               qrCodeNotifier.getQrCode(barcode.raw);
@@ -46,7 +45,7 @@ class QrCodeScanScreen extends HookConsumerWidget with Utils {
                   icon: ValueListenableBuilder(
                     valueListenable: cameraController.torchState,
                     builder: (context, state, child) {
-                      switch (state as TorchState) {
+                      switch (state) {
                         case TorchState.off:
                           return const Icon(
                             Icons.flash_off,
@@ -68,7 +67,7 @@ class QrCodeScanScreen extends HookConsumerWidget with Utils {
                   icon: ValueListenableBuilder(
                     valueListenable: cameraController.cameraFacingState,
                     builder: (context, state, child) {
-                      switch (state as CameraFacing) {
+                      switch (state) {
                         case CameraFacing.front:
                           return const Icon(Icons.camera_front);
                         case CameraFacing.back:

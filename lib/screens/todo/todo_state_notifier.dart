@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider_base/api/api_client.dart';
 import 'package:provider_base/api/api_endpoints.dart';
 import 'package:provider_base/models/todo_model/todo.dart';
 import 'package:provider_base/screens/todo/todo_state.dart';
@@ -10,11 +9,11 @@ final todoNotifierProvider =
   return TodoStateNotifier(ref);
 });
 
-class TodoStateNotifier extends StateNotifier<TodoState> with Utils{
+class TodoStateNotifier extends StateNotifier<TodoState> with Utils {
   TodoStateNotifier(this.ref) : super(TodoState()) {
-    refreshList();
+    Future(() async => await refreshList());
   }
-  
+
   Ref ref;
 
   static const initialItem = 15;

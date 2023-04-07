@@ -70,28 +70,29 @@ class TodoBody extends HookConsumerWidget with Utils {
         RefreshIndicator(
           onRefresh: () => todoStateNotifier.refreshList(),
           child: ListView.builder(
-              controller: scrollController,
-              physics: const BouncingScrollPhysics(),
-              itemCount: listTodo.length + 1,
-              itemBuilder: (context, index) {
-                if (index == listTodo.length) {
-                  return listTodo.isNotEmpty
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                            color: AppStyles.primaryColor,
-                          ),
-                        )
-                      : const SizedBox();
-                } else {
-                  final item = listTodo.elementAt(index);
+            controller: scrollController,
+            physics: const BouncingScrollPhysics(),
+            itemCount: listTodo.length + 1,
+            itemBuilder: (context, index) {
+              if (index == listTodo.length) {
+                return listTodo.isNotEmpty
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: AppStyles.primaryColor,
+                        ),
+                      )
+                    : const SizedBox();
+              } else {
+                final item = listTodo.elementAt(index);
 
-                  return ListTile(
-                    title: Text(item.title ?? ''),
-                    subtitle: Text(item.id.toString()),
-                    leading: const Icon(Icons.watch),
-                  );
-                }
-              }),
+                return ListTile(
+                  title: Text(item.title ?? ''),
+                  subtitle: Text(item.id.toString()),
+                  leading: const Icon(Icons.watch),
+                );
+              }
+            },
+          ),
         )
       ],
     );
