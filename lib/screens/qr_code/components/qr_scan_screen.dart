@@ -15,7 +15,8 @@ class QrCodeScanScreen extends HookConsumerWidget with Utils {
     // Variable for notifier of QR Code
     final qrCodeNotifier = ref.read(qrCodeProvider.notifier);
     // Variable for mobile scanner controller
-    final cameraController = MobileScannerController();
+    final cameraController =
+        MobileScannerController(detectionSpeed: DetectionSpeed.noDuplicates);
 
     return Scaffold(
       appBar: getAppBar(title: Constants.scanQRCode),
@@ -26,11 +27,16 @@ class QrCodeScanScreen extends HookConsumerWidget with Utils {
           MobileScanner(
             controller: cameraController,
             onDetect: (barcode) async {
-              qrCodeNotifier.getQrCode(barcode.raw);
+              final List<Barcode> barcodes = barcode.barcodes;
+              String message = '';
+              for (final barcode in barcodes) {
+                message += barcode.displayValue ?? '';
+              }
+              qrCodeNotifier.getQrCode(barcode.barcodes.toString());
               await showOkAlertDialog(
                 context: context,
                 title: Constants.qrCode,
-                message: barcode.raw,
+                message: message,
               );
             },
           ),
