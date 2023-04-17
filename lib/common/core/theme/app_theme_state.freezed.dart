@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'app_theme_state.dart';
 
@@ -12,22 +12,7 @@ part of 'app_theme_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$AppThemeStateTearOff {
-  const _$AppThemeStateTearOff();
-
-  _AppThemeState call({bool onDarkMode = false, ThemeData? appTheme}) {
-    return _AppThemeState(
-      onDarkMode: onDarkMode,
-      appTheme: appTheme,
-    );
-  }
-}
-
-/// @nodoc
-const $AppThemeState = _$AppThemeStateTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$AppThemeState {
@@ -43,69 +28,71 @@ mixin _$AppThemeState {
 abstract class $AppThemeStateCopyWith<$Res> {
   factory $AppThemeStateCopyWith(
           AppThemeState value, $Res Function(AppThemeState) then) =
-      _$AppThemeStateCopyWithImpl<$Res>;
+      _$AppThemeStateCopyWithImpl<$Res, AppThemeState>;
+  @useResult
   $Res call({bool onDarkMode, ThemeData? appTheme});
 }
 
 /// @nodoc
-class _$AppThemeStateCopyWithImpl<$Res>
+class _$AppThemeStateCopyWithImpl<$Res, $Val extends AppThemeState>
     implements $AppThemeStateCopyWith<$Res> {
   _$AppThemeStateCopyWithImpl(this._value, this._then);
 
-  final AppThemeState _value;
   // ignore: unused_field
-  final $Res Function(AppThemeState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? onDarkMode = freezed,
+    Object? onDarkMode = null,
     Object? appTheme = freezed,
   }) {
     return _then(_value.copyWith(
-      onDarkMode: onDarkMode == freezed
+      onDarkMode: null == onDarkMode
           ? _value.onDarkMode
           : onDarkMode // ignore: cast_nullable_to_non_nullable
               as bool,
-      appTheme: appTheme == freezed
+      appTheme: freezed == appTheme
           ? _value.appTheme
           : appTheme // ignore: cast_nullable_to_non_nullable
               as ThemeData?,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$AppThemeStateCopyWith<$Res>
+abstract class _$$_AppThemeStateCopyWith<$Res>
     implements $AppThemeStateCopyWith<$Res> {
-  factory _$AppThemeStateCopyWith(
-          _AppThemeState value, $Res Function(_AppThemeState) then) =
-      __$AppThemeStateCopyWithImpl<$Res>;
+  factory _$$_AppThemeStateCopyWith(
+          _$_AppThemeState value, $Res Function(_$_AppThemeState) then) =
+      __$$_AppThemeStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({bool onDarkMode, ThemeData? appTheme});
 }
 
 /// @nodoc
-class __$AppThemeStateCopyWithImpl<$Res>
-    extends _$AppThemeStateCopyWithImpl<$Res>
-    implements _$AppThemeStateCopyWith<$Res> {
-  __$AppThemeStateCopyWithImpl(
-      _AppThemeState _value, $Res Function(_AppThemeState) _then)
-      : super(_value, (v) => _then(v as _AppThemeState));
+class __$$_AppThemeStateCopyWithImpl<$Res>
+    extends _$AppThemeStateCopyWithImpl<$Res, _$_AppThemeState>
+    implements _$$_AppThemeStateCopyWith<$Res> {
+  __$$_AppThemeStateCopyWithImpl(
+      _$_AppThemeState _value, $Res Function(_$_AppThemeState) _then)
+      : super(_value, _then);
 
-  @override
-  _AppThemeState get _value => super._value as _AppThemeState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? onDarkMode = freezed,
+    Object? onDarkMode = null,
     Object? appTheme = freezed,
   }) {
-    return _then(_AppThemeState(
-      onDarkMode: onDarkMode == freezed
+    return _then(_$_AppThemeState(
+      onDarkMode: null == onDarkMode
           ? _value.onDarkMode
           : onDarkMode // ignore: cast_nullable_to_non_nullable
               as bool,
-      appTheme: appTheme == freezed
+      appTheme: freezed == appTheme
           ? _value.appTheme
           : appTheme // ignore: cast_nullable_to_non_nullable
               as ThemeData?,
@@ -118,8 +105,8 @@ class __$AppThemeStateCopyWithImpl<$Res>
 class _$_AppThemeState implements _AppThemeState {
   _$_AppThemeState({this.onDarkMode = false, this.appTheme});
 
-  @JsonKey()
   @override
+  @JsonKey()
   final bool onDarkMode;
   @override
   final ThemeData? appTheme;
@@ -133,26 +120,25 @@ class _$_AppThemeState implements _AppThemeState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _AppThemeState &&
-            const DeepCollectionEquality()
-                .equals(other.onDarkMode, onDarkMode) &&
-            const DeepCollectionEquality().equals(other.appTheme, appTheme));
+            other is _$_AppThemeState &&
+            (identical(other.onDarkMode, onDarkMode) ||
+                other.onDarkMode == onDarkMode) &&
+            (identical(other.appTheme, appTheme) ||
+                other.appTheme == appTheme));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(onDarkMode),
-      const DeepCollectionEquality().hash(appTheme));
+  int get hashCode => Object.hash(runtimeType, onDarkMode, appTheme);
 
   @JsonKey(ignore: true)
   @override
-  _$AppThemeStateCopyWith<_AppThemeState> get copyWith =>
-      __$AppThemeStateCopyWithImpl<_AppThemeState>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$_AppThemeStateCopyWith<_$_AppThemeState> get copyWith =>
+      __$$_AppThemeStateCopyWithImpl<_$_AppThemeState>(this, _$identity);
 }
 
 abstract class _AppThemeState implements AppThemeState {
-  factory _AppThemeState({bool onDarkMode, ThemeData? appTheme}) =
+  factory _AppThemeState({final bool onDarkMode, final ThemeData? appTheme}) =
       _$_AppThemeState;
 
   @override
@@ -161,6 +147,6 @@ abstract class _AppThemeState implements AppThemeState {
   ThemeData? get appTheme;
   @override
   @JsonKey(ignore: true)
-  _$AppThemeStateCopyWith<_AppThemeState> get copyWith =>
+  _$$_AppThemeStateCopyWith<_$_AppThemeState> get copyWith =>
       throw _privateConstructorUsedError;
 }

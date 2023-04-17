@@ -106,15 +106,3 @@ class Asset {
   // image network
   static const imageDefault = 'https://picsum.photos/250?image=9';
 }
-
-// TODO(tupa1): remove this class -> use app styles and theme
-class ColorApp {
-  // green
-  static const green0 = Color(0xFFAFCEB3);
-
-  // black
-  static const black0 = Colors.black;
-
-  // red
-  static const red0 = Colors.red;
-}

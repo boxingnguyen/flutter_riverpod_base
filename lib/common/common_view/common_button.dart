@@ -61,7 +61,7 @@ class CommonButton with Utils {
   static Widget submitBtn(String title, void Function()? onPressed) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: AppStyles.primaryColor,
+        backgroundColor: AppStyles.primaryColor,
         padding: const EdgeInsets.all(20),
         textStyle: const TextStyle(
           fontSize: AppStyles.fontSizeL,

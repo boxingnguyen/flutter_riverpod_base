@@ -23,7 +23,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
     final isSignUp = ref.watch(loginProvider).isSignUp;
 
     return Scaffold(
-      backgroundColor: ColorApp.green0,
+      backgroundColor: Colors.green,
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -95,7 +95,7 @@ class LoginScreen extends HookConsumerWidget with Utils {
                       child: Text(
                         isSignUp ? Constants.signIn : Constants.signUp,
                         style: AppStyles.textMedium.copyWith(
-                          color: ColorApp.red0,
+                          color: Colors.red,
                         ),
                       ),
                     ),

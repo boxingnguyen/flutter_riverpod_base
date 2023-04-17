@@ -48,9 +48,9 @@ class _Body extends HookConsumerWidget with Utils {
         GestureDetector(
           onTap: () => unFocusScope(context),
           child: Scaffold(
-            backgroundColor: ColorApp.green0,
+            backgroundColor: Colors.green,
             appBar: AppBar(
-              backgroundColor: ColorApp.green0,
+              backgroundColor: Colors.green,
               elevation: 0,
             ),
             body: SingleChildScrollView(

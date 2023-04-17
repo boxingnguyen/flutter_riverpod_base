@@ -23,9 +23,9 @@ class ForgotPasswordScreen extends HookConsumerWidget with Utils {
         GestureDetector(
           onTap: () => unFocusScope(context),
           child: Scaffold(
-            backgroundColor: ColorApp.green0,
+            backgroundColor: Colors.green,
             appBar: AppBar(
-              backgroundColor: ColorApp.green0,
+              backgroundColor: Colors.green,
               elevation: 0,
             ),
             body: SingleChildScrollView(
@@ -65,19 +65,19 @@ class ForgotPasswordScreen extends HookConsumerWidget with Utils {
     );
   }
 
-  Future<void> _onFindPassword({
+  void _onFindPassword({
     required BuildContext context,
     required String email,
     required WidgetRef ref,
-  }) async {
-    final statusFind =
-        await ref.read(loginProvider.notifier).forgotPassword(email);
+  }) {
+    ref.read(loginProvider.notifier).forgotPassword(email).then((statusFind) {
+      if (statusFind.isNotEmpty) {
+        snackBar(context, statusFind, Colors.red);
+        return;
+      }
 
-    if (statusFind.isEmpty) {
       Navigator.of(context).pop();
-      snackBar(context, Constants.findPasswordSuccess, ColorApp.green0);
-      return;
-    }
-    snackBar(context, statusFind, ColorApp.red0);
+      snackBar(context, Constants.findPasswordSuccess, Colors.green);
+    });
   }
 }

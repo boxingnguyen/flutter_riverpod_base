@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:provider_base/api/api_response.dart';
 import 'package:provider_base/common/core/app_style.dart';
-import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/common/core/data/dummy_data.dart';
 import 'package:provider_base/common/core/logger.dart';
 import 'package:provider_base/env/env_state.dart';
@@ -135,6 +134,7 @@ class ApiClient extends StateNotifier<EnvState> with Utils {
     required Map<String, dynamic>? params,
     bool isAuthorized = false,
     bool isLoading = true,
+    bool enableLoading = false,
     required List<String> paths,
     required String key,
   }) async {
@@ -170,14 +170,11 @@ class ApiClient extends StateNotifier<EnvState> with Utils {
         request.fields[key] = value.toString();
       });
     }
-    await request.send().then((value) async {
-      final body = await value.stream.bytesToString();
-
-      logger.v(
-        json.decode(body),
-        'Response │ Status: ${value.statusCode}\n${value.request?.url}',
-      );
-    });
+    request
+        .send()
+        .then((value) => _handleResponse(null, value))
+        .catchError(_handleError)
+        .whenComplete(() => hideLoading(ref, enableLoading));
   }
 
   Future<dynamic> putRequest(
@@ -239,10 +236,18 @@ class ApiClient extends StateNotifier<EnvState> with Utils {
     return accessToken;
   }
 
-  dynamic _handleResponse(http.Response httpResponse) {
-    final statusCode = httpResponse.statusCode;
-    final url = httpResponse.request?.url.toString();
-    final body = httpResponse.body;
+  dynamic _handleResponse(http.Response? httpResponse,
+      [http.StreamedResponse? streamResponse]) async {
+    final response = httpResponse ?? streamResponse;
+    final statusCode = response?.statusCode;
+    final url = response?.request?.url.toString();
+    var body = '';
+
+    if (response is http.Response) {
+      body = response.body;
+    } else if (response is http.StreamedResponse) {
+      body = await response.stream.bytesToString();
+    }
 
     logger.v(
       json.decode(body),
@@ -272,12 +277,10 @@ class ApiClient extends StateNotifier<EnvState> with Utils {
 
         return response;
       case 400:
-        throw BadRequestException(httpResponse.body, url);
+        throw BadRequestException(body, url);
       case 401:
-        handleUnauthorizedError();
-        break;
       case 403:
-        throw UnAuthorizedException(httpResponse.body, url);
+        throw UnAuthorizedException(body, url);
       case 500:
       default:
         throw OtherException('Error occured with code:  $statusCode', url);
@@ -288,73 +291,57 @@ class ApiClient extends StateNotifier<EnvState> with Utils {
     final context = Utils.navigatorState?.context;
     var errMsg = 'Server is not available, please try later!';
 
+    displaySnackbar([String? exceptionMsg]) {
+      if (context == null) {
+        return;
+      }
+
+      snackBar(
+        context,
+        exceptionMsg ?? errMsg,
+        AppStyles.errorColor,
+      );
+    }
+
     if (onError is TimeoutException) {
       // Retry or something
       errMsg = 'Server took too long to response, please try again!';
       log('Timeout error: ${onError.message}');
     } else if (onError is SocketException) {
-      // loss internet connection, show snackbar or something
-      if (context != null) {
-        errMsg = 'error';
-      }
+      // loss internet connection
+      errMsg = 'Loss connection, check your internet please!';
       log('Socket error: Please check your internet connection and try again!');
     } else if (onError is OtherException) {
-      // Server 500
+      // Server die, error code 500
       log('Unhandled error: ${onError.message}');
     } else if (onError is CustomeApiException) {
       log('err message: ${onError.message}');
       log('err data: ${onError.data}');
 
       switch (onError.code) {
-        // The login id has already been taken
+        // For example: Register error due to login id has already been taken
         case 422:
-          if (context != null) {
-            String error = onError.validateErrorMsg();
-
-            //// TODO(anyone): add l10n
-            snackBar(context, error, AppStyles.errorColor);
-          }
-          break;
-
-        //no content
-        case 204:
-          // if (Utils.navigatorState != null) {
-          //   final context = Utils.navigatorState!.context;
-          //   //// TODO(anyone): add l10n
-          //   Utils.showSnackBar(context, L10n.of(context).msgap030);
-          // }
+          String errFromJson = onError.getErrorFromJson();
+          displaySnackbar(errFromJson);
           break;
 
         // Unauthorized
         case 401:
-          Constants.navigatorKey.currentState?.pushNamedAndRemoveUntil(
-            Routes.loginScreen,
-            (route) => false,
-          );
-          if (context != null) {
-            snackBar(context, onError.message ?? 'Api has something wrong!',
-                AppStyles.errorColor);
-          }
+          displaySnackbar(onError.message);
+          handleUnauthorizedError();
           break;
 
         default:
-          if (context != null) {
-            snackBar(context, onError.message ?? 'Api has something wrong!',
-                AppStyles.errorColor);
-          }
+          displaySnackbar(onError.message);
           break;
       }
       return onError.data;
     }
-    if (context != null) {
-      snackBar(context, errMsg, AppStyles.errorColor);
-    }
+
+    displaySnackbar();
   }
 
   static void handleUnauthorizedError() async {
-    //// TODO(anyone): handle show snackbar
-    //Utils.showSnackBar();
-
     await LocalStorage.clearSession();
     Utils.navigatorState
         ?.pushNamedAndRemoveUntil(Routes.loginScreen, (route) => false);
@@ -374,11 +361,4 @@ class ApiClient extends StateNotifier<EnvState> with Utils {
       ..i(headers, 'Headers')
       ..i(params, 'Request Parameters');
   }
-
-  // void setEnvState(String privacyUrl, String termOfServiceUrl) {
-  //   state = state.copyWith(
-  //     privacyUrl: privacyUrl,
-  //     termsOfServiceUrl: termOfServiceUrl,
-  //   );
-  // }
 }

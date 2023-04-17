@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/common_view/loading_indicator.dart';
@@ -15,6 +16,7 @@ class SimpleWebView extends StatefulWidget {
   final Completer<WebViewController>? controllerCompleter;
 
   @override
+  // ignore: library_private_types_in_public_api
   _SimpleWebViewState createState() => _SimpleWebViewState();
 }
 
@@ -25,6 +27,10 @@ class _SimpleWebViewState extends State<SimpleWebView> {
 
   @override
   void initState() {
+    if (Platform.isAndroid) {
+      WebView.platform = SurfaceAndroidWebView();
+    }
+
     _controllerCompleter =
         widget.controllerCompleter ?? Completer<WebViewController>();
     super.initState();
@@ -67,8 +73,8 @@ class _SimpleWebViewState extends State<SimpleWebView> {
                 isFinished = true;
               });
             },
-            onWebViewCreated: (_controller) {
-              _controllerCompleter!.complete(_controller);
+            onWebViewCreated: (webViewCtrl) {
+              _controllerCompleter!.complete(webViewCtrl);
             },
           ),
           isFinished ? const SizedBox() : const LoadingIndicator(),

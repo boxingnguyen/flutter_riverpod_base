@@ -40,7 +40,7 @@ class UnAuthorizedException extends ApiException {
 extension ValidateError on CustomeApiException {
   static const validateKeys = ['login_id', 'login_pw'];
 
-  String validateErrorMsg() {
+  String getErrorFromJson() {
     final result = Map<String, dynamic>.from(data);
 
     for (var key in validateKeys) {

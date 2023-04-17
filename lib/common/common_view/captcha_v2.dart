@@ -102,16 +102,17 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
                     JavascriptChannel(
                       name: 'RecaptchaFlutterChannel',
                       onMessageReceived: (JavascriptMessage receiver) {
-                        String _token = receiver.message;
-                        if (_token.contains("verify")) {
-                          _token = _token.substring(7);
+                        String token = receiver.message;
+
+                        if (token.contains("verify")) {
+                          token = token.substring(7);
                         }
-                        verifyToken(_token);
+                        verifyToken(token);
                       },
                     ),
                   },
-                  onWebViewCreated: (_controller) {
-                    webViewController = _controller;
+                  onWebViewCreated: (webViewCtrl) {
+                    webViewController = webViewCtrl;
                   },
                 ),
               ),
@@ -124,7 +125,7 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         Expanded(
-                          child:InkWell(
+                          child: InkWell(
                             child: Text(widget.textCancelButtom),
                             onTap: () {
                               controller.hide();

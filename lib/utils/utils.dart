@@ -1,8 +1,9 @@
 import 'dart:io';
-import 'package:mime/src/mime_type.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mime/src/mime_type.dart';
 import 'package:provider_base/api/api_client.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';

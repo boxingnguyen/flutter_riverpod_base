@@ -57,8 +57,6 @@ class App extends HookConsumerWidget {
       supportedLocales: L10n.delegate.supportedLocales,
       title: 'Provider Base',
       debugShowCheckedModeBanner: false,
-      // TODO(mintt): check default locale có lấy từ system ko? -> lấy từ system
-      // khi đã chọn locale -> lưu vào preferences.
       locale: localeState.locale,
       initialRoute: Routes.modulesScreen,
       routes: Routes.routes,

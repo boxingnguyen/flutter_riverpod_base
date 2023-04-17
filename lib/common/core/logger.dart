@@ -1,4 +1,7 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:developer';
+
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:logger/logger.dart';
 
