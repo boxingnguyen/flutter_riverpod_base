@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:shimmer/shimmer.dart';
@@ -16,6 +18,8 @@ class ShimmerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
+      baseColor: AppStyles.grey3,
+      highlightColor: AppStyles.white,
       child: Container(
         height: height,
         width: width,
@@ -24,8 +28,6 @@ class ShimmerWidget extends StatelessWidget {
           shape: shapeBorder,
         ),
       ),
-      baseColor: AppStyles.grey3,
-      highlightColor: AppStyles.white,
     );
   }
 }

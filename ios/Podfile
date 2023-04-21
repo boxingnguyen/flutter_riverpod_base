@@ -1,7 +1,7 @@
 # Uncomment this line to define a global platform for your project
 # Building app with xcode 14 & ios 16 requires version support up to 14
 platform :ios, '14.0'
-$FirebaseSDKVersion='8.10.0'
+$FirebaseSDKVersion='10.1.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -32,10 +32,10 @@ flutter_ios_podfile_setup
 target 'Runner' do
   use_frameworks!
   use_modular_headers!
-  pod 'FBSDKCoreKit', '12.3.2'
+  pod 'FBSDKCoreKit', '15.1.0'
 
   # Precompiled Firestore iOS SDKs extracted from the Firebase iOS SDK repository release downloads for faster build times.
-  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '8.10.0'
+  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '10.1.0'
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 

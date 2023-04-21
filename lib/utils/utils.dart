@@ -2,13 +2,42 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mime/src/mime_type.dart';
+import 'package:provider_base/api/api_client.dart';
 import 'package:provider_base/common/core/app_style.dart';
 import 'package:provider_base/common/core/constants.dart';
 import 'package:provider_base/common/core/data/local_storage.dart';
 import 'package:provider_base/common/core/routes.dart';
+import 'package:provider_base/main/app.dart';
+
+final loadingProvider = StateProvider<bool>(((ref) => false));
 
 mixin Utils {
   static final navigatorState = Constants.navigatorKey.currentState;
+  ApiClient apiClient(Ref ref) => ref.read(envProvider.notifier);
+
+  showLoading(Ref ref, bool enableLoading) {
+    if (!enableLoading) return;
+
+    ref.read(loadingProvider.notifier).state = true;
+  }
+
+  hideLoading(Ref ref, bool enableLoading) {
+    if (!enableLoading) return;
+
+    ref.read(loadingProvider.notifier).state = false;
+  }
+
+  bool isImage(String path) {
+    final mimeType = lookupMimeType(path) ?? '';
+    return mimeType.startsWith('image/');
+  }
+
+  String mimeType(String path) {
+    final mimeType = lookupMimeType(path) ?? '';
+    return mimeType.split('/').last;
+  }
 
   void popWithoutContext([dynamic value]) {
     navigatorState?.pop(value);

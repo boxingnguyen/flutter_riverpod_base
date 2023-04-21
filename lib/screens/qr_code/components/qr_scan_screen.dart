@@ -15,7 +15,8 @@ class QrCodeScanScreen extends HookConsumerWidget with Utils {
     // Variable for notifier of QR Code
     final qrCodeNotifier = ref.read(qrCodeProvider.notifier);
     // Variable for mobile scanner controller
-    final cameraController = MobileScannerController();
+    final cameraController =
+        MobileScannerController(detectionSpeed: DetectionSpeed.noDuplicates);
 
     return Scaffold(
       appBar: getAppBar(title: Constants.scanQRCode),
@@ -24,14 +25,18 @@ class QrCodeScanScreen extends HookConsumerWidget with Utils {
         children: [
           // Build scanner view
           MobileScanner(
-            allowDuplicates: false,
             controller: cameraController,
-            onDetect: (barcode, args) async {
-              qrCodeNotifier.getQrCode(barcode.rawValue);
+            onDetect: (barcode) async {
+              final List<Barcode> barcodes = barcode.barcodes;
+              String message = '';
+              for (final barcode in barcodes) {
+                message += barcode.displayValue ?? '';
+              }
+              qrCodeNotifier.getQrCode(barcode.barcodes.toString());
               await showOkAlertDialog(
                 context: context,
                 title: Constants.qrCode,
-                message: barcode.rawValue,
+                message: message,
               );
             },
           ),
@@ -46,7 +51,7 @@ class QrCodeScanScreen extends HookConsumerWidget with Utils {
                   icon: ValueListenableBuilder(
                     valueListenable: cameraController.torchState,
                     builder: (context, state, child) {
-                      switch (state as TorchState) {
+                      switch (state) {
                         case TorchState.off:
                           return const Icon(
                             Icons.flash_off,
@@ -68,7 +73,7 @@ class QrCodeScanScreen extends HookConsumerWidget with Utils {
                   icon: ValueListenableBuilder(
                     valueListenable: cameraController.cameraFacingState,
                     builder: (context, state, child) {
-                      switch (state as CameraFacing) {
+                      switch (state) {
                         case CameraFacing.front:
                           return const Icon(Icons.camera_front);
                         case CameraFacing.back:

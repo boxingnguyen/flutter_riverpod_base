@@ -20,9 +20,9 @@ class UpdatePasswordScreen extends HookConsumerWidget with Utils {
     final _formKey = GlobalKey<FormState>();
 
     return Scaffold(
-      backgroundColor: ColorApp.green0,
+      backgroundColor: Colors.green,
       appBar: AppBar(
-        backgroundColor: ColorApp.green0,
+        backgroundColor: Colors.green,
         elevation: 0,
       ),
       body: Body(formKey: _formKey),
