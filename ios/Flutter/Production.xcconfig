@@ -1,0 +1,6 @@
+#include "Generated.xcconfig"
+
+FLUTTER_FLAVOR=production
+PRODUCT_BUNDLE_IDENTIFIER=com.example.providerBase.prod
+DISPLAY_NAME=Provider Base
+FLUTTER_TARGET=lib/main/main_production.dart

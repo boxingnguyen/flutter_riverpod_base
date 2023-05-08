@@ -23,20 +23,32 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.test_project"
-        minSdkVersion 16
-        targetSdkVersion 30
+        // if minSdk is set to 20 or lower, then you must use the multidex support library
+        // see more https://firebase.flutter.dev/docs/manual-installation/android#enabling-multidex
+        applicationId "com.example.providerBase"
+        minSdkVersion 33
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -48,6 +60,28 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    // config flavor
+    flavorDimensions "default"
+    productFlavors {
+        development {
+            dimension "default"
+            resValue "string", "app_name", "DEV Provider Base"
+            applicationIdSuffix ".dev"
+        }
+
+        staging {
+            dimension "default"
+            resValue "string", "app_name", "STG Provider Base"
+           applicationIdSuffix ".stg"
+        }
+
+        production {
+            dimension "default"
+            resValue "string", "app_name", "Provider Base"
+            applicationIdSuffix ""
+        }
+    }
 }
 
 flutter {
@@ -56,4 +90,15 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation platform('com.google.firebase:firebase-bom:29.0.4')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.facebook.android:facebook-login:5.15.1'
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
 }
+
+// need if you configuration manually with google-services.json
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
