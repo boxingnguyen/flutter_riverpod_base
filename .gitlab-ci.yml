@@ -18,10 +18,11 @@ before_script:
 run_danger:
   stage: run_danger
   variables:
-    DANGER_GITLAB_HOST: devops.runsystem.info
-    DANGER_GITLAB_API_BASE_URL: https://devops.runsystem.info/api/v4
-    DANGER_GITLAB_API_TOKEN: "zrWqugP6oQ_MRMaChV9V"
-    CI_JOB_TOKEN: "zrWqugP6oQ_MRMaChV9V"
+  # TODO(anyone): update for gitlab CI
+    DANGER_GITLAB_HOST: host
+    DANGER_GITLAB_API_BASE_URL: base_url
+    DANGER_GITLAB_API_TOKEN: "api_token"
+    CI_JOB_TOKEN: "api_token"
   script:
     - flutter analyze > flutter_analyze_report.txt || true
     - bundle exec danger
