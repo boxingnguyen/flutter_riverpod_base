@@ -1,0 +1,34 @@
+variables:
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+
+stages:
+  - run_danger
+
+before_script:
+  - flutter doctor -v
+  - flutter clean
+
+  # generate code & multi-lang var intl & image constant
+  - sh run.sh
+
+  # test
+  # - flutter test
+  
+  # https://github.com/mateuszszklarek/danger-flutter_lint
+run_danger:
+  stage: run_danger
+  variables:
+  # TODO(anyone): update for gitlab CI
+    DANGER_GITLAB_HOST: host
+    DANGER_GITLAB_API_BASE_URL: base_url
+    DANGER_GITLAB_API_TOKEN: "api_token"
+    CI_JOB_TOKEN: "api_token"
+  script:
+    - flutter analyze > flutter_analyze_report.txt || true
+    - bundle exec danger
+  artifacts:
+    paths:
+      - flutter_analyze_report.txt
+  only:
+    - merge_requests
