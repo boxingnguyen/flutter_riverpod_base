@@ -50,7 +50,7 @@ class QrCodeScanScreen extends HookConsumerWidget with Utils {
                 _buildButtonScannerQrCode(
                   icon: ValueListenableBuilder(
                     valueListenable: cameraController.torchState,
-                    builder: (context, state, child) {
+                    builder: (BuildContext context, TorchState state, child) {
                       switch (state) {
                         case TorchState.off:
                           return const Icon(
@@ -72,7 +72,7 @@ class QrCodeScanScreen extends HookConsumerWidget with Utils {
                 _buildButtonScannerQrCode(
                   icon: ValueListenableBuilder(
                     valueListenable: cameraController.cameraFacingState,
-                    builder: (context, state, child) {
+                    builder: (BuildContext context, CameraFacing state, child) {
                       switch (state) {
                         case CameraFacing.front:
                           return const Icon(Icons.camera_front);
