@@ -15,6 +15,7 @@ before_script:
   # test
   # - flutter test
   
+  # https://github.com/mateuszszklarek/danger-flutter_lint
 run_danger:
   stage: run_danger
   variables:
