@@ -1,4 +1,4 @@
-# Base project for flutter
+# Base project for flutter with Flutter 3.x and Riverpod
 
 # Run to generated code with buiild_runner and freezed
 - You setup build environment for the first time.

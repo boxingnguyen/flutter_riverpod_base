@@ -73,7 +73,7 @@ android {
         staging {
             dimension "default"
             resValue "string", "app_name", "STG Provider Base"
-           applicationIdSuffix ".stg"
+            applicationIdSuffix ".stg"
         }
 
         production {

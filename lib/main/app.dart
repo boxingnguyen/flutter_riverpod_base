@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,9 +18,13 @@ import 'package:provider_base/utils/notification_util.dart';
 late StateNotifierProvider<ApiClient, EnvState> envProvider;
 final analyticsUtilProvider = Provider((ref) => AnalyticsUtil());
 
-Future<void> setupAndRunApp({required EnvState env}) async {
-  envProvider =
-      StateNotifierProvider<ApiClient, EnvState>((ref) => ApiClient(env, ref));
+Future<void> setupAndRunApp({required Env env}) async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: env.value.firebaseOptions);
+
+  envProvider = StateNotifierProvider<ApiClient, EnvState>(
+      (ref) => ApiClient(env.value, ref));
 
   // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
